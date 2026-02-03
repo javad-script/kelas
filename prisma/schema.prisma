@@ -1,0 +1,159 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role{
+  STUDENT
+  TEACHER
+  PARENT
+  ADMINISTRATIVE_STAFF
+  MANAGEMENT_STAFF
+}
+
+model School {
+  id         Int         @id @default(autoincrement())
+  name       String
+
+  users      User[]
+  classRooms ClassRoom[]
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("schools")
+}
+
+model User {
+  id            Int      @id @default(autoincrement())
+
+  firstName     String
+  lastName      String
+  username      String   @unique
+  phone         String   @unique
+  email         String   @unique
+  nationalCode  String   @unique
+
+  password      String
+  role          Role
+
+  // Attendance relation
+  taughtAttendances Attendance[]
+  attendanceRecords AttendanceStudent[]
+
+  // School relation
+  schoolId      Int
+  school        School   @relation(fields: [schoolId], references: [id])
+
+  // Parent ↔ Child (self relation)
+  parentId      Int?
+  parent        User?    @relation("ParentRelation", fields: [parentId], references: [id])
+  children      User[]   @relation("ParentRelation")
+
+  // Class relations
+  studentClasses ClassRoom[] @relation("StudentClasses")
+  teacherClasses ClassRoom[] @relation("TeacherClasses")
+
+  // Optional personal info
+  birthDate      DateTime?
+  address        String?
+  housePhone     String?
+  emergencyPhone String?
+
+  // Father info
+  fatherPhone       String?
+  fatherEmail       String?
+  fatherJob         String?
+  fatherJobAddress  String?
+  fatherJobPhone    String?
+
+  // Mother info
+  motherPhone       String?
+  motherEmail       String?
+  motherJob         String?
+  motherJobAddress  String?
+  motherJobPhone    String?
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([schoolId])
+  @@index([role])
+  @@map("users")
+}
+
+model ClassRoom {
+  id        Int      @id @default(autoincrement())
+  name      String
+  grade     Int
+
+  attendance  Attendance[]
+
+  schoolId  Int
+  school    School  @relation(fields: [schoolId], references: [id])
+
+  students  User[]  @relation("StudentClasses")
+  teachers  User[]  @relation("TeacherClasses")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([schoolId])
+  @@map("class_rooms")
+}
+
+enum AttendanceStatus {
+  PRESENT
+  ABSENT
+  LATE
+  EXCUSED
+}
+
+
+model Attendance {
+  id        Int      @id @default(autoincrement())
+
+  date      DateTime
+
+  classId   Int
+  classRoom ClassRoom @relation(fields: [classId], references: [id])
+
+  teacherId Int
+  teacher   User     @relation(fields: [teacherId], references: [id])
+
+  students  AttendanceStudent[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([classId])
+  @@map("attendance")
+}
+
+model AttendanceStudent {
+  id           Int @id @default(autoincrement())
+
+  attendanceId Int
+  attendance   Attendance @relation(fields: [attendanceId], references: [id])
+
+  studentId    Int
+  student      User       @relation(fields: [studentId], references: [id])
+
+  status       AttendanceStatus
+  lateMinutes  Int?
+  note         String?
+
+  @@unique([attendanceId, studentId])
+  @@index([studentId])
+  @@map("attendance_student")
+}
