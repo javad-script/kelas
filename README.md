@@ -1,8 +1,16 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Technologies
+
+Typescript , Next.js , Postgresql , Prisma , Axios , Husky , Tailwind , Shad cn , React
 
 ## Getting Started
 
-First, run the development server:
+First, install dependencies
+
+```bash
+npm install
+```
+
+run the development server:
 
 ```bash
 npm run dev
@@ -16,21 +24,42 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## How to Commit
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+commit message format :
 
-## Learn More
+```bash
+<type>(scope) : description
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Types
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. feat: adding a new feature
+2. fix: fixing a bug
+3. refactor: code changes without changing behavior
+4. style: formatting, spaces, semicolons, no logic change
+5. chore: maintenance, configs, dependencies
+6. docs: documentation changes
+7. test: adding or updating tests
+8. perf: performance improvements
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Scope
 
-## Deploy on Vercel
+- Optional
+- Defines the part of the project affected (module, component, or feature)
+- Helps give context
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Description
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Short and clear
+- Written in present tense
+- Explain what the change does, not how
+- No period at the end
+
+### Rules
+
+1. One commit = one logical change
+2. Keep description concise
+3. Scope is optional but recommended for clarity
+4. Avoid vague messages like update or fix stuff
+5. Use lowercase for description
