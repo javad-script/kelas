@@ -32,7 +32,6 @@ export default defineConfig([
       quotes: ['warn', 'single', { avoidEscape: true }],
       'comma-dangle': ['error', 'always-multiline'],
       indent: ['error', 2],
-      trailingComma: ['error'],
 
       // React hooks
       'react-hooks/rules-of-hooks': 'error',
