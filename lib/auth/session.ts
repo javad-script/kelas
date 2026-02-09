@@ -1,5 +1,6 @@
 import { cookies } from 'next/headers';
 
+import { prisma } from '@/lib/prisma';
 import { SignJWT, jwtVerify as VerifyJWT } from 'jose';
 import 'server-only';
 
@@ -44,4 +45,17 @@ export async function getSession() {
   const token = (await cookies()).get('user_session')?.value;
   if (!token) return;
   return await decrypt(token);
+}
+
+export async function getCurrentUser() {
+  const payload = await getSession();
+  if (!payload?.userId) return;
+
+  const res = await prisma.user.findUnique({ where: { id: payload.userId } });
+
+  if (!res) return;
+
+  const { password: _, ...user } = res;
+
+  return user;
 }

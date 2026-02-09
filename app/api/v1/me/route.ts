@@ -1,17 +1,11 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
-import { getSession } from '@/lib/auth/session';
-import { prisma } from '@/lib/prisma';
+import { getCurrentUser } from '@/lib/auth/session';
 
-export async function GET(request: NextRequest) {
-  const payload = await getSession();
-  if (!payload?.userId) return NextResponse.redirect(new URL('/login', request.url));
+export async function GET() {
+  const user = await getCurrentUser();
 
-  const res = await prisma.user.findUnique({ where: { id: payload.userId } });
-
-  if (!res) return;
-
-  const { password: _, ...user } = res;
+  if (!user) return NextResponse.json({ error: 'user is null' }, { status: 401 });
 
   return NextResponse.json(user);
 }
