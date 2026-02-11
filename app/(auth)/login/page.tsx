@@ -2,6 +2,8 @@
 
 import { useActionState, useEffect } from 'react';
 
+import { redirect } from 'next/navigation';
+
 import { login } from '@/actions/auth';
 import { cn } from '@/lib/utils';
 import { useFormStatus } from 'react-dom';
@@ -15,23 +17,27 @@ export default function Page() {
   useEffect(() => {
     if (state?.errors?._form) {
       state.errors._form.forEach((e) =>
-        toast.error(e, { position: 'top-center', closeButton: true }),
+        toast.error('ورود با خطا مواجه شد', {
+          description: e,
+        }),
       );
+    }
+    if (state?.success) {
+      toast.success('ورود با موفقیت انجام شد');
+      setInterval(() => redirect('/app'), 1000);
     }
   }, [state]);
   return (
-    <>
-      <form action={loginAction}>
-        <input type='text' name='username' placeholder='username' />
-        {state?.errors?.username && <p>{state.errors.username}</p>}
-        <br />
-        <input type='password' name='password' placeholder='password' />
-        {state?.errors?.password && <p>{state.errors.password}</p>}
+    <form action={loginAction}>
+      <input type='text' name='username' placeholder='username' />
+      {state?.errors?.username && <p>{state.errors.username}</p>}
+      <br />
+      <input type='password' name='password' placeholder='password' />
+      {state?.errors?.password && <p>{state.errors.password}</p>}
 
-        <br />
-        <SubmitButton />
-      </form>
-    </>
+      <br />
+      <SubmitButton />
+    </form>
   );
 }
 

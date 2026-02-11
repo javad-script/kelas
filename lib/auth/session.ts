@@ -47,6 +47,8 @@ export async function getSession() {
   return await decrypt(token);
 }
 
+export const dynamic = 'force-dynamic';
+
 export async function getCurrentUser() {
   const payload = await getSession();
   if (!payload?.userId) return;
