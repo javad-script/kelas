@@ -19,7 +19,7 @@ export default async function proxy(req: NextRequest) {
   }
 
   if (pathname.includes('/login') && session?.userId) {
-    return NextResponse.redirect(new NextURL('/', req.url));
+    return NextResponse.redirect(new NextURL('/app', req.url));
   }
 
   return NextResponse.next();
@@ -36,6 +36,6 @@ export const config = {
      */
     '/((?!_next/static|_next/image|favicon.ico|.*\\..*).*)',
     // Or more specific if you want less overhead:
-    '/login/:path*',
+    '/login',
   ],
 };
