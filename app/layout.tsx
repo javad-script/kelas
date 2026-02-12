@@ -1,6 +1,9 @@
 import type { Metadata, Viewport } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 
+import { ThemeProvider } from '@/contexts/themeContext';
+
+import { DirectionProvider } from '@/components/ui/direction';
 import { Toaster } from '@/components/ui/sonner';
 
 import './globals.css';
@@ -33,10 +36,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='fa' dir='rtl'>
+    <html lang='fa' dir='rtl' suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <Toaster position='top-center' />
-        {children}
+        <ThemeProvider attribute='class' defaultTheme='light' enableSystem>
+          <DirectionProvider dir='rtl' direction='rtl'>
+            {children}
+            <Toaster position='top-center' />
+          </DirectionProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
