@@ -22,6 +22,7 @@ type PersianDate = {
 
 export function formatPersianDate(date: Date, { day = 'numeric', month, year }: PersianDate) {
   return new Intl.DateTimeFormat('fa-IR-u-nu-latn', {
+    weekday: 'long',
     day,
     month,
     ...(year && { year }),

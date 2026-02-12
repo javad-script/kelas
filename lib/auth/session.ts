@@ -1,3 +1,5 @@
+import { cache } from 'react';
+
 import { cookies } from 'next/headers';
 
 import { prisma } from '@/lib/prisma';
@@ -47,17 +49,11 @@ export async function getSession() {
   return await decrypt(token);
 }
 
-export const dynamic = 'force-dynamic';
-
-export async function getCurrentUser() {
+export const getCurrentUser = cache(async () => {
   const payload = await getSession();
   if (!payload?.userId) return;
-
-  const res = await prisma.user.findUnique({ where: { id: payload.userId } });
-
-  if (!res) return;
-
-  const { password: _, ...user } = res;
-
-  return user;
-}
+  const user = await prisma.user.findUnique({ where: { id: payload.userId } });
+  if (!user) return;
+  const { password: _, ...u } = user;
+  return u;
+});

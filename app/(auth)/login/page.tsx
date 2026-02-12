@@ -24,7 +24,7 @@ export default function Page() {
     }
     if (state?.success) {
       toast.success('ورود با موفقیت انجام شد');
-      setInterval(() => redirect('/app'), 1000);
+      setTimeout(() => redirect('/app'), 1000);
     }
   }, [state]);
   return (
