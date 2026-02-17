@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client"
   output   = "../lib/generated/prisma"
@@ -13,12 +7,19 @@ datasource db {
   provider = "postgresql"
 }
 
-enum Role{
+enum Role {
   STUDENT
   TEACHER
   PARENT
   ADMINISTRATIVE_STAFF
   MANAGEMENT_STAFF
+}
+
+enum AttendanceStatus {
+  PRESENT
+  ABSENT
+  LATE
+  EXCUSED
 }
 
 model School {
@@ -36,19 +37,19 @@ model School {
 
 model User {
   id            Int      @id @default(autoincrement())
-
   firstName     String
   lastName      String
   username      String   @unique
   phone         String   @unique
   email         String   @unique
   nationalCode  String   @unique
-
   password      String
   role          Role
 
-  // Attendance relation
-  taughtAttendances Attendance[]
+  // کلاس‌هایی که معلم درس میده
+  teachingAssignments ClassTeacher[] @relation("TeacherAssignment")
+
+  // حضور غیاب دانش‌آموز
   attendanceRecords AttendanceStudent[]
 
   // School relation
@@ -60,9 +61,8 @@ model User {
   parent        User?    @relation("ParentRelation", fields: [parentId], references: [id])
   children      User[]   @relation("ParentRelation")
 
-  // Class relations
+  // کلاس‌هایی که دانش‌آموز در آن‌ها ثبت‌نام شده
   studentClasses ClassRoom[] @relation("StudentClasses")
-  teacherClasses ClassRoom[] @relation("TeacherClasses")
 
   // Optional personal info
   birthDate      DateTime?
@@ -103,7 +103,7 @@ model ClassRoom {
   school    School  @relation(fields: [schoolId], references: [id])
 
   students  User[]  @relation("StudentClasses")
-  teachers  User[]  @relation("TeacherClasses")
+  teacherAssignments ClassTeacher[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -112,24 +112,33 @@ model ClassRoom {
   @@map("class_rooms")
 }
 
-enum AttendanceStatus {
-  PRESENT
-  ABSENT
-  LATE
-  EXCUSED
-}
+model ClassTeacher {
+  id        Int @id @default(autoincrement())
 
+  teacherId Int
+  classId   Int
+
+  // Relation به معلم
+  teacher   User      @relation("TeacherAssignment", fields: [teacherId], references: [id])
+  // Relation به کلاس
+  classRoom ClassRoom @relation(fields: [classId], references: [id])
+
+  // حضور غیاب‌های این معلم و کلاس
+  attendances Attendance[] @relation("TeacherAttendance")
+
+  @@unique([teacherId, classId])
+  @@map("class_teachers")
+}
 
 model Attendance {
   id        Int      @id @default(autoincrement())
-
   date      DateTime
 
   classId   Int
   classRoom ClassRoom @relation(fields: [classId], references: [id])
 
-  teacherId Int
-  teacher   User     @relation(fields: [teacherId], references: [id])
+  classTeacherId Int?
+  classTeacher   ClassTeacher? @relation("TeacherAttendance", fields: [classTeacherId], references: [id])
 
   students  AttendanceStudent[]
 
