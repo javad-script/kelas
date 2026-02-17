@@ -904,6 +904,7 @@ export type SchoolScalarFieldEnum = (typeof SchoolScalarFieldEnum)[keyof typeof 
 
 export const UserScalarFieldEnum = {
   id: 'id',
+  profileImage: 'profileImage',
   firstName: 'firstName',
   lastName: 'lastName',
   username: 'username',

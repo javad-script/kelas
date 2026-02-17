@@ -40,6 +40,7 @@ export type UserSumAggregateOutputType = {
 
 export type UserMinAggregateOutputType = {
   id: number | null
+  profileImage: string | null
   firstName: string | null
   lastName: string | null
   username: string | null
@@ -70,6 +71,7 @@ export type UserMinAggregateOutputType = {
 
 export type UserMaxAggregateOutputType = {
   id: number | null
+  profileImage: string | null
   firstName: string | null
   lastName: string | null
   username: string | null
@@ -100,6 +102,7 @@ export type UserMaxAggregateOutputType = {
 
 export type UserCountAggregateOutputType = {
   id: number
+  profileImage: number
   firstName: number
   lastName: number
   username: number
@@ -144,6 +147,7 @@ export type UserSumAggregateInputType = {
 
 export type UserMinAggregateInputType = {
   id?: true
+  profileImage?: true
   firstName?: true
   lastName?: true
   username?: true
@@ -174,6 +178,7 @@ export type UserMinAggregateInputType = {
 
 export type UserMaxAggregateInputType = {
   id?: true
+  profileImage?: true
   firstName?: true
   lastName?: true
   username?: true
@@ -204,6 +209,7 @@ export type UserMaxAggregateInputType = {
 
 export type UserCountAggregateInputType = {
   id?: true
+  profileImage?: true
   firstName?: true
   lastName?: true
   username?: true
@@ -321,6 +327,7 @@ export type UserGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 
 export type UserGroupByOutputType = {
   id: number
+  profileImage: string | null
   firstName: string
   lastName: string
   username: string
@@ -374,6 +381,7 @@ export type UserWhereInput = {
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   id?: Prisma.IntFilter<"User"> | number
+  profileImage?: Prisma.StringNullableFilter<"User"> | string | null
   firstName?: Prisma.StringFilter<"User"> | string
   lastName?: Prisma.StringFilter<"User"> | string
   username?: Prisma.StringFilter<"User"> | string
@@ -410,6 +418,7 @@ export type UserWhereInput = {
 
 export type UserOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  profileImage?: Prisma.SortOrderInput | Prisma.SortOrder
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
   username?: Prisma.SortOrder
@@ -453,6 +462,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
+  profileImage?: Prisma.StringNullableFilter<"User"> | string | null
   firstName?: Prisma.StringFilter<"User"> | string
   lastName?: Prisma.StringFilter<"User"> | string
   password?: Prisma.StringFilter<"User"> | string
@@ -485,6 +495,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
 
 export type UserOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  profileImage?: Prisma.SortOrderInput | Prisma.SortOrder
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
   username?: Prisma.SortOrder
@@ -523,6 +534,7 @@ export type UserScalarWhereWithAggregatesInput = {
   OR?: Prisma.UserScalarWhereWithAggregatesInput[]
   NOT?: Prisma.UserScalarWhereWithAggregatesInput | Prisma.UserScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"User"> | number
+  profileImage?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   firstName?: Prisma.StringWithAggregatesFilter<"User"> | string
   lastName?: Prisma.StringWithAggregatesFilter<"User"> | string
   username?: Prisma.StringWithAggregatesFilter<"User"> | string
@@ -552,6 +564,7 @@ export type UserScalarWhereWithAggregatesInput = {
 }
 
 export type UserCreateInput = {
+  profileImage?: string | null
   firstName: string
   lastName: string
   username: string
@@ -586,6 +599,7 @@ export type UserCreateInput = {
 
 export type UserUncheckedCreateInput = {
   id?: number
+  profileImage?: string | null
   firstName: string
   lastName: string
   username: string
@@ -619,6 +633,7 @@ export type UserUncheckedCreateInput = {
 }
 
 export type UserUpdateInput = {
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.StringFieldUpdateOperationsInput | string
@@ -653,6 +668,7 @@ export type UserUpdateInput = {
 
 export type UserUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.StringFieldUpdateOperationsInput | string
@@ -687,6 +703,7 @@ export type UserUncheckedUpdateInput = {
 
 export type UserCreateManyInput = {
   id?: number
+  profileImage?: string | null
   firstName: string
   lastName: string
   username: string
@@ -716,6 +733,7 @@ export type UserCreateManyInput = {
 }
 
 export type UserUpdateManyMutationInput = {
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.StringFieldUpdateOperationsInput | string
@@ -744,6 +762,7 @@ export type UserUpdateManyMutationInput = {
 
 export type UserUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.StringFieldUpdateOperationsInput | string
@@ -789,6 +808,7 @@ export type UserNullableScalarRelationFilter = {
 
 export type UserCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  profileImage?: Prisma.SortOrder
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
   username?: Prisma.SortOrder
@@ -825,6 +845,7 @@ export type UserAvgOrderByAggregateInput = {
 
 export type UserMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  profileImage?: Prisma.SortOrder
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
   username?: Prisma.SortOrder
@@ -855,6 +876,7 @@ export type UserMaxOrderByAggregateInput = {
 
 export type UserMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  profileImage?: Prisma.SortOrder
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
   username?: Prisma.SortOrder
@@ -956,16 +978,16 @@ export type UserUncheckedCreateNestedManyWithoutParentInput = {
   connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
 }
 
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
+}
+
 export type EnumRoleFieldUpdateOperationsInput = {
   set?: $Enums.Role
 }
 
 export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null
-}
-
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
 }
 
 export type UserUpdateOneWithoutChildrenNestedInput = {
@@ -1081,6 +1103,7 @@ export type UserUpdateOneRequiredWithoutAttendanceRecordsNestedInput = {
 }
 
 export type UserCreateWithoutSchoolInput = {
+  profileImage?: string | null
   firstName: string
   lastName: string
   username: string
@@ -1114,6 +1137,7 @@ export type UserCreateWithoutSchoolInput = {
 
 export type UserUncheckedCreateWithoutSchoolInput = {
   id?: number
+  profileImage?: string | null
   firstName: string
   lastName: string
   username: string
@@ -1176,6 +1200,7 @@ export type UserScalarWhereInput = {
   OR?: Prisma.UserScalarWhereInput[]
   NOT?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
   id?: Prisma.IntFilter<"User"> | number
+  profileImage?: Prisma.StringNullableFilter<"User"> | string | null
   firstName?: Prisma.StringFilter<"User"> | string
   lastName?: Prisma.StringFilter<"User"> | string
   username?: Prisma.StringFilter<"User"> | string
@@ -1205,6 +1230,7 @@ export type UserScalarWhereInput = {
 }
 
 export type UserCreateWithoutChildrenInput = {
+  profileImage?: string | null
   firstName: string
   lastName: string
   username: string
@@ -1238,6 +1264,7 @@ export type UserCreateWithoutChildrenInput = {
 
 export type UserUncheckedCreateWithoutChildrenInput = {
   id?: number
+  profileImage?: string | null
   firstName: string
   lastName: string
   username: string
@@ -1275,6 +1302,7 @@ export type UserCreateOrConnectWithoutChildrenInput = {
 }
 
 export type UserCreateWithoutParentInput = {
+  profileImage?: string | null
   firstName: string
   lastName: string
   username: string
@@ -1308,6 +1336,7 @@ export type UserCreateWithoutParentInput = {
 
 export type UserUncheckedCreateWithoutParentInput = {
   id?: number
+  profileImage?: string | null
   firstName: string
   lastName: string
   username: string
@@ -1361,6 +1390,7 @@ export type UserUpdateToOneWithWhereWithoutChildrenInput = {
 }
 
 export type UserUpdateWithoutChildrenInput = {
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1394,6 +1424,7 @@ export type UserUpdateWithoutChildrenInput = {
 
 export type UserUncheckedUpdateWithoutChildrenInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1442,6 +1473,7 @@ export type UserUpdateManyWithWhereWithoutParentInput = {
 }
 
 export type UserCreateWithoutStudentClassesInput = {
+  profileImage?: string | null
   firstName: string
   lastName: string
   username: string
@@ -1475,6 +1507,7 @@ export type UserCreateWithoutStudentClassesInput = {
 
 export type UserUncheckedCreateWithoutStudentClassesInput = {
   id?: number
+  profileImage?: string | null
   firstName: string
   lastName: string
   username: string
@@ -1528,6 +1561,7 @@ export type UserUpdateManyWithWhereWithoutStudentClassesInput = {
 }
 
 export type UserCreateWithoutTeachingAssignmentsInput = {
+  profileImage?: string | null
   firstName: string
   lastName: string
   username: string
@@ -1561,6 +1595,7 @@ export type UserCreateWithoutTeachingAssignmentsInput = {
 
 export type UserUncheckedCreateWithoutTeachingAssignmentsInput = {
   id?: number
+  profileImage?: string | null
   firstName: string
   lastName: string
   username: string
@@ -1609,6 +1644,7 @@ export type UserUpdateToOneWithWhereWithoutTeachingAssignmentsInput = {
 }
 
 export type UserUpdateWithoutTeachingAssignmentsInput = {
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1642,6 +1678,7 @@ export type UserUpdateWithoutTeachingAssignmentsInput = {
 
 export type UserUncheckedUpdateWithoutTeachingAssignmentsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1674,6 +1711,7 @@ export type UserUncheckedUpdateWithoutTeachingAssignmentsInput = {
 }
 
 export type UserCreateWithoutAttendanceRecordsInput = {
+  profileImage?: string | null
   firstName: string
   lastName: string
   username: string
@@ -1707,6 +1745,7 @@ export type UserCreateWithoutAttendanceRecordsInput = {
 
 export type UserUncheckedCreateWithoutAttendanceRecordsInput = {
   id?: number
+  profileImage?: string | null
   firstName: string
   lastName: string
   username: string
@@ -1755,6 +1794,7 @@ export type UserUpdateToOneWithWhereWithoutAttendanceRecordsInput = {
 }
 
 export type UserUpdateWithoutAttendanceRecordsInput = {
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1788,6 +1828,7 @@ export type UserUpdateWithoutAttendanceRecordsInput = {
 
 export type UserUncheckedUpdateWithoutAttendanceRecordsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1821,6 +1862,7 @@ export type UserUncheckedUpdateWithoutAttendanceRecordsInput = {
 
 export type UserCreateManySchoolInput = {
   id?: number
+  profileImage?: string | null
   firstName: string
   lastName: string
   username: string
@@ -1849,6 +1891,7 @@ export type UserCreateManySchoolInput = {
 }
 
 export type UserUpdateWithoutSchoolInput = {
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1882,6 +1925,7 @@ export type UserUpdateWithoutSchoolInput = {
 
 export type UserUncheckedUpdateWithoutSchoolInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1915,6 +1959,7 @@ export type UserUncheckedUpdateWithoutSchoolInput = {
 
 export type UserUncheckedUpdateManyWithoutSchoolInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1944,6 +1989,7 @@ export type UserUncheckedUpdateManyWithoutSchoolInput = {
 
 export type UserCreateManyParentInput = {
   id?: number
+  profileImage?: string | null
   firstName: string
   lastName: string
   username: string
@@ -1972,6 +2018,7 @@ export type UserCreateManyParentInput = {
 }
 
 export type UserUpdateWithoutParentInput = {
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2005,6 +2052,7 @@ export type UserUpdateWithoutParentInput = {
 
 export type UserUncheckedUpdateWithoutParentInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2038,6 +2086,7 @@ export type UserUncheckedUpdateWithoutParentInput = {
 
 export type UserUncheckedUpdateManyWithoutParentInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2066,6 +2115,7 @@ export type UserUncheckedUpdateManyWithoutParentInput = {
 }
 
 export type UserUpdateWithoutStudentClassesInput = {
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2099,6 +2149,7 @@ export type UserUpdateWithoutStudentClassesInput = {
 
 export type UserUncheckedUpdateWithoutStudentClassesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2132,6 +2183,7 @@ export type UserUncheckedUpdateWithoutStudentClassesInput = {
 
 export type UserUncheckedUpdateManyWithoutStudentClassesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2220,6 +2272,7 @@ export type UserCountOutputTypeCountStudentClassesArgs<ExtArgs extends runtime.T
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  profileImage?: boolean
   firstName?: boolean
   lastName?: boolean
   username?: boolean
@@ -2257,6 +2310,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
 
 export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  profileImage?: boolean
   firstName?: boolean
   lastName?: boolean
   username?: boolean
@@ -2289,6 +2343,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  profileImage?: boolean
   firstName?: boolean
   lastName?: boolean
   username?: boolean
@@ -2321,6 +2376,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
 
 export type UserSelectScalar = {
   id?: boolean
+  profileImage?: boolean
   firstName?: boolean
   lastName?: boolean
   username?: boolean
@@ -2349,7 +2405,7 @@ export type UserSelectScalar = {
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "firstName" | "lastName" | "username" | "phone" | "email" | "nationalCode" | "password" | "role" | "schoolId" | "parentId" | "birthDate" | "address" | "housePhone" | "emergencyPhone" | "fatherPhone" | "fatherEmail" | "fatherJob" | "fatherJobAddress" | "fatherJobPhone" | "motherPhone" | "motherEmail" | "motherJob" | "motherJobAddress" | "motherJobPhone" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "profileImage" | "firstName" | "lastName" | "username" | "phone" | "email" | "nationalCode" | "password" | "role" | "schoolId" | "parentId" | "birthDate" | "address" | "housePhone" | "emergencyPhone" | "fatherPhone" | "fatherEmail" | "fatherJob" | "fatherJobAddress" | "fatherJobPhone" | "motherPhone" | "motherEmail" | "motherJob" | "motherJobAddress" | "motherJobPhone" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   teachingAssignments?: boolean | Prisma.User$teachingAssignmentsArgs<ExtArgs>
   attendanceRecords?: boolean | Prisma.User$attendanceRecordsArgs<ExtArgs>
@@ -2380,6 +2436,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
+    profileImage: string | null
     firstName: string
     lastName: string
     username: string
@@ -2836,6 +2893,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
  */
 export interface UserFieldRefs {
   readonly id: Prisma.FieldRef<"User", 'Int'>
+  readonly profileImage: Prisma.FieldRef<"User", 'String'>
   readonly firstName: Prisma.FieldRef<"User", 'String'>
   readonly lastName: Prisma.FieldRef<"User", 'String'>
   readonly username: Prisma.FieldRef<"User", 'String'>
