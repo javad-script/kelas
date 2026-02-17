@@ -13,10 +13,11 @@ export default defineConfig([
     rules: {
       // TypeScript
       '@typescript-eslint/no-unused-vars': [
-        'warn',
+        'error',
         { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
       ],
       '@typescript-eslint/explicit-module-boundary-types': 'off',
+      '@typescript-eslint/explicit-any': 'off',
 
       // React
       'react/react-in-jsx-scope': 'off',
