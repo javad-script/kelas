@@ -68,7 +68,7 @@ export default async function ProfilePage() {
         <div className='flex flex-col items-center c-gradient justify-center w-full p-6 rounded-2xl bg-card border border-white/5 shadow-[0_4px_6px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,0.05)]'>
           <div className='relative ring ring-offset-card ring-offset-3 bg-transparent rounded-full ring-rose-500/50'>
             <Avatar className='size-20'>
-              <AvatarImage className='object-cover' src='/profile.jpeg' />
+              <AvatarImage className='object-cover' src={'/images/' + currentUser?.profileImage} />
               <AvatarFallback />
             </Avatar>
             <div className='absolute bottom-0 right-0 size-8 flex items-center justify-center bg-rose-500 shadow-sm rounded-full overflow-auto!'>

@@ -1,40 +1,139 @@
 import { getCurrentUser } from '@/lib/auth/session';
 import { formatPersianDate } from '@/lib/helpers';
-import { Bell, CalendarDays, ClipboardX, GraduationCap, NotebookPen } from 'lucide-react';
+import {
+  BarChart3,
+  Bell,
+  BookOpenCheck,
+  Bookmark,
+  CalendarCheck,
+  CalendarClock,
+  FileText,
+  FileWarning,
+  MessageSquare,
+  NotebookText,
+  ShieldAlert,
+} from 'lucide-react';
 
 import { FeatureCard, FeatureCardProps } from '@/components/features/FeatureCard';
 import { Notification, NotificationProps } from '@/components/features/Notification';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 
-const FEATURE_CARDS: FeatureCardProps[] = [
+const STUDENT_FEATURE_CARDS: FeatureCardProps[] = [
   {
     label: 'تکالیف',
-    icon: NotebookPen,
+    icon: NotebookText,
     color: 'bg-sky-500',
     gradient: 'from-sky-900/15',
-    href: '/homeworks',
+    href: '/app/homeworks',
   },
   {
     label: 'موارد انضباطی',
-    icon: ClipboardX,
+    icon: ShieldAlert,
     color: 'bg-orange-500',
     gradient: 'from-orange-900/15',
-    href: '/xs',
+    href: '/app/discipline',
   },
   {
     label: 'برنامه کلاسی',
-    icon: CalendarDays,
+    icon: CalendarClock,
     color: 'bg-pink-500',
     gradient: 'from-pink-900/15',
-    href: '/classcal',
+    href: '/app/schedule',
   },
   {
     label: 'نمرات',
-    icon: GraduationCap,
+    icon: BarChart3,
     color: 'bg-teal-500',
     gradient: 'from-teal-900/15',
-    href: '/scores',
+    href: '/app/scores',
+  },
+  {
+    label: 'گزارش',
+    icon: FileText,
+    color: 'bg-red-500',
+    gradient: 'from-red-900/15',
+    href: '/app/reports',
+  },
+  {
+    label: 'پیام ها',
+    icon: MessageSquare,
+    color: 'bg-indigo-500',
+    gradient: 'from-indigo-900/15',
+    href: '/app/messages',
+  },
+  {
+    label: 'برنامه امتحانی',
+    icon: CalendarCheck,
+    color: 'bg-fuchsia-500',
+    gradient: 'from-fuchsia-900/15',
+    href: '/app/exams',
+  },
+  {
+    label: 'محتوای آموزشی',
+    icon: BookOpenCheck,
+    color: 'bg-lime-500',
+    gradient: 'from-lime-900/15',
+    href: '/app/learning-content',
+  },
+];
+
+const TEACHER_FEATURE_CARDS: FeatureCardProps[] = [
+  {
+    label: 'تکالیف',
+    icon: NotebookText,
+    color: 'bg-sky-500',
+    gradient: 'from-sky-900/15',
+    href: '/app/teaching/homeworks',
+  },
+  {
+    label: 'موارد انضباطی',
+    icon: ShieldAlert,
+    color: 'bg-orange-500',
+    gradient: 'from-orange-900/15',
+    href: '/app/teaching/discipline',
+  },
+  {
+    label: 'برنامه کلاسی',
+    icon: CalendarClock,
+    color: 'bg-pink-500',
+    gradient: 'from-pink-900/15',
+    href: '/app/teaching/schedule',
+  },
+  {
+    label: 'اعتراضات نمرات',
+    icon: FileWarning,
+    color: 'bg-teal-500',
+    gradient: 'from-teal-900/15',
+    href: '/app/teaching/score-objections',
+  },
+  {
+    label: 'دفتر کلاسی',
+    icon: Bookmark,
+    color: 'bg-red-500',
+    gradient: 'from-red-900/15',
+    href: '/app/teaching/class-journal',
+  },
+  {
+    label: 'پیام ها',
+    icon: MessageSquare,
+    color: 'bg-indigo-500',
+    gradient: 'from-indigo-900/15',
+    href: '/app/messages',
+  },
+  {
+    label: 'برنامه امتحانی',
+    icon: CalendarCheck,
+    color: 'bg-fuchsia-500',
+    gradient: 'from-fuchsia-900/15',
+    href: '/app/teaching/exams',
+  },
+  {
+    label: 'محتوای آموزشی',
+    icon: BookOpenCheck,
+    color: 'bg-lime-500',
+    gradient: 'from-lime-900/15',
+    href: '/app/teaching/learning-content',
   },
 ];
 
@@ -66,7 +165,7 @@ export default async function Page() {
           <div className='flex items-center gap-3'>
             <Avatar className='size-12'>
               {/* TODO: put user.profileImage blow */}
-              <AvatarImage className='object-cover' src={'/profile.jpeg'} />
+              <AvatarImage className='object-cover' src={'/images/' + user?.profileImage} />
               <AvatarFallback className='text-xl font-bold flex items-center justify-center align-baseline'>
                 {user?.firstName[0]}
               </AvatarFallback>
@@ -95,9 +194,10 @@ export default async function Page() {
       <section className=''>
         <p className='mb-4'>دسترسی سریع</p>
         <div className='grid grid-cols-3 gap-4 w-full '>
-          {FEATURE_CARDS.map((c) => (
-            <FeatureCard key={c.href} {...c} />
-          ))}
+          {user?.role === 'TEACHER' &&
+            TEACHER_FEATURE_CARDS.map((c) => <FeatureCard key={c.href} {...c} />)}
+          {user?.role === 'STUDENT' &&
+            STUDENT_FEATURE_CARDS.map((c) => <FeatureCard key={c.href} {...c} />)}
         </div>
       </section>
 
