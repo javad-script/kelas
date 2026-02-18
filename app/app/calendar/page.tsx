@@ -38,7 +38,7 @@ const NOTIFICATIONS: NotificationProps[] = [
 export default function Page() {
   const [date, setDate] = useState<Date | undefined>(new Date());
   return (
-    <div className='px-4 py-6 space-y-8'>
+    <div className='space-y-8'>
       <section className='space-y-4'>
         <h1 className='text-2xl'>تقویم</h1>
         <p className='text-muted-foreground '>

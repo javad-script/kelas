@@ -50,7 +50,7 @@ const MENU_SECTIONS: MenuSection[] = [
       {
         icon: User2,
         label: 'اطلاعات شخصی',
-        href: 'account-info',
+        href: 'profile/account',
         type: 'link',
       },
     ],
@@ -61,7 +61,7 @@ export default async function ProfilePage() {
   const currentUser = await getCurrentUser();
 
   return (
-    <div className='px-4 py-6 space-y-8'>
+    <div className='space-y-8'>
       <section>
         <h1 className='text-xl font-bold mb-4'>پروفایل</h1>
 

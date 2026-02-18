@@ -40,7 +40,7 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ThemeProvider attribute='class' defaultTheme='light' enableSystem>
           <DirectionProvider dir='rtl' direction='rtl'>
-            {children}
+            <main className='px-4 py-6'>{children}</main>
             <Toaster position='top-center' />
           </DirectionProvider>
         </ThemeProvider>
