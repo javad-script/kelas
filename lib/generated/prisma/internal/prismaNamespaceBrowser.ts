@@ -78,6 +78,17 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 export const SchoolScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  phoneNumber: 'phoneNumber',
+  email: 'email',
+  about: 'about',
+  website: 'website',
+  address: 'address',
+  type: 'type',
+  gradeLevel: 'gradeLevel',
+  establishedYear: 'establishedYear',
+  logo: 'logo',
+  bannerImage: 'bannerImage',
+  totalClasses: 'totalClasses',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

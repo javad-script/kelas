@@ -28,3 +28,20 @@ export const AttendanceStatus = {
 } as const
 
 export type AttendanceStatus = (typeof AttendanceStatus)[keyof typeof AttendanceStatus]
+
+
+export const SchoolType = {
+  PUBLIC: 'PUBLIC',
+  PRIVATE: 'PRIVATE'
+} as const
+
+export type SchoolType = (typeof SchoolType)[keyof typeof SchoolType]
+
+
+export const Grade = {
+  ELEMENTARY: 'ELEMENTARY',
+  MIDDLE: 'MIDDLE',
+  HIGH: 'HIGH'
+} as const
+
+export type Grade = (typeof Grade)[keyof typeof Grade]

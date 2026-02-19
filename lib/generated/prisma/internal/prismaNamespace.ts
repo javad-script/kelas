@@ -895,6 +895,17 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 export const SchoolScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  phoneNumber: 'phoneNumber',
+  email: 'email',
+  about: 'about',
+  website: 'website',
+  address: 'address',
+  type: 'type',
+  gradeLevel: 'gradeLevel',
+  establishedYear: 'establishedYear',
+  logo: 'logo',
+  bannerImage: 'bannerImage',
+  totalClasses: 'totalClasses',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -1036,6 +1047,34 @@ export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 
  * Reference to a field of type 'String[]'
  */
 export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
+    
+
+
+/**
+ * Reference to a field of type 'SchoolType'
+ */
+export type EnumSchoolTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SchoolType'>
+    
+
+
+/**
+ * Reference to a field of type 'SchoolType[]'
+ */
+export type ListEnumSchoolTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SchoolType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Grade'
+ */
+export type EnumGradeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Grade'>
+    
+
+
+/**
+ * Reference to a field of type 'Grade[]'
+ */
+export type ListEnumGradeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Grade[]'>
     
 
 

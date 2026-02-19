@@ -28,15 +28,30 @@ export type AggregateSchool = {
 
 export type SchoolAvgAggregateOutputType = {
   id: number | null
+  establishedYear: number | null
+  totalClasses: number | null
 }
 
 export type SchoolSumAggregateOutputType = {
   id: number | null
+  establishedYear: number | null
+  totalClasses: number | null
 }
 
 export type SchoolMinAggregateOutputType = {
   id: number | null
   name: string | null
+  phoneNumber: string | null
+  email: string | null
+  about: string | null
+  website: string | null
+  address: string | null
+  type: $Enums.SchoolType | null
+  gradeLevel: $Enums.Grade | null
+  establishedYear: number | null
+  logo: string | null
+  bannerImage: string | null
+  totalClasses: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -44,6 +59,17 @@ export type SchoolMinAggregateOutputType = {
 export type SchoolMaxAggregateOutputType = {
   id: number | null
   name: string | null
+  phoneNumber: string | null
+  email: string | null
+  about: string | null
+  website: string | null
+  address: string | null
+  type: $Enums.SchoolType | null
+  gradeLevel: $Enums.Grade | null
+  establishedYear: number | null
+  logo: string | null
+  bannerImage: string | null
+  totalClasses: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -51,6 +77,17 @@ export type SchoolMaxAggregateOutputType = {
 export type SchoolCountAggregateOutputType = {
   id: number
   name: number
+  phoneNumber: number
+  email: number
+  about: number
+  website: number
+  address: number
+  type: number
+  gradeLevel: number
+  establishedYear: number
+  logo: number
+  bannerImage: number
+  totalClasses: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -59,15 +96,30 @@ export type SchoolCountAggregateOutputType = {
 
 export type SchoolAvgAggregateInputType = {
   id?: true
+  establishedYear?: true
+  totalClasses?: true
 }
 
 export type SchoolSumAggregateInputType = {
   id?: true
+  establishedYear?: true
+  totalClasses?: true
 }
 
 export type SchoolMinAggregateInputType = {
   id?: true
   name?: true
+  phoneNumber?: true
+  email?: true
+  about?: true
+  website?: true
+  address?: true
+  type?: true
+  gradeLevel?: true
+  establishedYear?: true
+  logo?: true
+  bannerImage?: true
+  totalClasses?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -75,6 +127,17 @@ export type SchoolMinAggregateInputType = {
 export type SchoolMaxAggregateInputType = {
   id?: true
   name?: true
+  phoneNumber?: true
+  email?: true
+  about?: true
+  website?: true
+  address?: true
+  type?: true
+  gradeLevel?: true
+  establishedYear?: true
+  logo?: true
+  bannerImage?: true
+  totalClasses?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -82,6 +145,17 @@ export type SchoolMaxAggregateInputType = {
 export type SchoolCountAggregateInputType = {
   id?: true
   name?: true
+  phoneNumber?: true
+  email?: true
+  about?: true
+  website?: true
+  address?: true
+  type?: true
+  gradeLevel?: true
+  establishedYear?: true
+  logo?: true
+  bannerImage?: true
+  totalClasses?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -176,6 +250,17 @@ export type SchoolGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 export type SchoolGroupByOutputType = {
   id: number
   name: string
+  phoneNumber: string
+  email: string | null
+  about: string | null
+  website: string | null
+  address: string | null
+  type: $Enums.SchoolType | null
+  gradeLevel: $Enums.Grade | null
+  establishedYear: number | null
+  logo: string | null
+  bannerImage: string | null
+  totalClasses: number | null
   createdAt: Date
   updatedAt: Date
   _count: SchoolCountAggregateOutputType | null
@@ -206,6 +291,17 @@ export type SchoolWhereInput = {
   NOT?: Prisma.SchoolWhereInput | Prisma.SchoolWhereInput[]
   id?: Prisma.IntFilter<"School"> | number
   name?: Prisma.StringFilter<"School"> | string
+  phoneNumber?: Prisma.StringFilter<"School"> | string
+  email?: Prisma.StringNullableFilter<"School"> | string | null
+  about?: Prisma.StringNullableFilter<"School"> | string | null
+  website?: Prisma.StringNullableFilter<"School"> | string | null
+  address?: Prisma.StringNullableFilter<"School"> | string | null
+  type?: Prisma.EnumSchoolTypeNullableFilter<"School"> | $Enums.SchoolType | null
+  gradeLevel?: Prisma.EnumGradeNullableFilter<"School"> | $Enums.Grade | null
+  establishedYear?: Prisma.IntNullableFilter<"School"> | number | null
+  logo?: Prisma.StringNullableFilter<"School"> | string | null
+  bannerImage?: Prisma.StringNullableFilter<"School"> | string | null
+  totalClasses?: Prisma.IntNullableFilter<"School"> | number | null
   createdAt?: Prisma.DateTimeFilter<"School"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"School"> | Date | string
   users?: Prisma.UserListRelationFilter
@@ -215,6 +311,17 @@ export type SchoolWhereInput = {
 export type SchoolOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  phoneNumber?: Prisma.SortOrder
+  email?: Prisma.SortOrderInput | Prisma.SortOrder
+  about?: Prisma.SortOrderInput | Prisma.SortOrder
+  website?: Prisma.SortOrderInput | Prisma.SortOrder
+  address?: Prisma.SortOrderInput | Prisma.SortOrder
+  type?: Prisma.SortOrderInput | Prisma.SortOrder
+  gradeLevel?: Prisma.SortOrderInput | Prisma.SortOrder
+  establishedYear?: Prisma.SortOrderInput | Prisma.SortOrder
+  logo?: Prisma.SortOrderInput | Prisma.SortOrder
+  bannerImage?: Prisma.SortOrderInput | Prisma.SortOrder
+  totalClasses?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   users?: Prisma.UserOrderByRelationAggregateInput
@@ -223,19 +330,41 @@ export type SchoolOrderByWithRelationInput = {
 
 export type SchoolWhereUniqueInput = Prisma.AtLeast<{
   id?: number
+  phoneNumber?: string
+  email?: string
+  website?: string
   AND?: Prisma.SchoolWhereInput | Prisma.SchoolWhereInput[]
   OR?: Prisma.SchoolWhereInput[]
   NOT?: Prisma.SchoolWhereInput | Prisma.SchoolWhereInput[]
   name?: Prisma.StringFilter<"School"> | string
+  about?: Prisma.StringNullableFilter<"School"> | string | null
+  address?: Prisma.StringNullableFilter<"School"> | string | null
+  type?: Prisma.EnumSchoolTypeNullableFilter<"School"> | $Enums.SchoolType | null
+  gradeLevel?: Prisma.EnumGradeNullableFilter<"School"> | $Enums.Grade | null
+  establishedYear?: Prisma.IntNullableFilter<"School"> | number | null
+  logo?: Prisma.StringNullableFilter<"School"> | string | null
+  bannerImage?: Prisma.StringNullableFilter<"School"> | string | null
+  totalClasses?: Prisma.IntNullableFilter<"School"> | number | null
   createdAt?: Prisma.DateTimeFilter<"School"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"School"> | Date | string
   users?: Prisma.UserListRelationFilter
   classRooms?: Prisma.ClassRoomListRelationFilter
-}, "id">
+}, "id" | "phoneNumber" | "email" | "website">
 
 export type SchoolOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  phoneNumber?: Prisma.SortOrder
+  email?: Prisma.SortOrderInput | Prisma.SortOrder
+  about?: Prisma.SortOrderInput | Prisma.SortOrder
+  website?: Prisma.SortOrderInput | Prisma.SortOrder
+  address?: Prisma.SortOrderInput | Prisma.SortOrder
+  type?: Prisma.SortOrderInput | Prisma.SortOrder
+  gradeLevel?: Prisma.SortOrderInput | Prisma.SortOrder
+  establishedYear?: Prisma.SortOrderInput | Prisma.SortOrder
+  logo?: Prisma.SortOrderInput | Prisma.SortOrder
+  bannerImage?: Prisma.SortOrderInput | Prisma.SortOrder
+  totalClasses?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.SchoolCountOrderByAggregateInput
@@ -251,12 +380,34 @@ export type SchoolScalarWhereWithAggregatesInput = {
   NOT?: Prisma.SchoolScalarWhereWithAggregatesInput | Prisma.SchoolScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"School"> | number
   name?: Prisma.StringWithAggregatesFilter<"School"> | string
+  phoneNumber?: Prisma.StringWithAggregatesFilter<"School"> | string
+  email?: Prisma.StringNullableWithAggregatesFilter<"School"> | string | null
+  about?: Prisma.StringNullableWithAggregatesFilter<"School"> | string | null
+  website?: Prisma.StringNullableWithAggregatesFilter<"School"> | string | null
+  address?: Prisma.StringNullableWithAggregatesFilter<"School"> | string | null
+  type?: Prisma.EnumSchoolTypeNullableWithAggregatesFilter<"School"> | $Enums.SchoolType | null
+  gradeLevel?: Prisma.EnumGradeNullableWithAggregatesFilter<"School"> | $Enums.Grade | null
+  establishedYear?: Prisma.IntNullableWithAggregatesFilter<"School"> | number | null
+  logo?: Prisma.StringNullableWithAggregatesFilter<"School"> | string | null
+  bannerImage?: Prisma.StringNullableWithAggregatesFilter<"School"> | string | null
+  totalClasses?: Prisma.IntNullableWithAggregatesFilter<"School"> | number | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"School"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"School"> | Date | string
 }
 
 export type SchoolCreateInput = {
   name: string
+  phoneNumber: string
+  email?: string | null
+  about?: string | null
+  website?: string | null
+  address?: string | null
+  type?: $Enums.SchoolType | null
+  gradeLevel?: $Enums.Grade | null
+  establishedYear?: number | null
+  logo?: string | null
+  bannerImage?: string | null
+  totalClasses?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutSchoolInput
@@ -266,6 +417,17 @@ export type SchoolCreateInput = {
 export type SchoolUncheckedCreateInput = {
   id?: number
   name: string
+  phoneNumber: string
+  email?: string | null
+  about?: string | null
+  website?: string | null
+  address?: string | null
+  type?: $Enums.SchoolType | null
+  gradeLevel?: $Enums.Grade | null
+  establishedYear?: number | null
+  logo?: string | null
+  bannerImage?: string | null
+  totalClasses?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutSchoolInput
@@ -274,6 +436,17 @@ export type SchoolUncheckedCreateInput = {
 
 export type SchoolUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  about?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.NullableEnumSchoolTypeFieldUpdateOperationsInput | $Enums.SchoolType | null
+  gradeLevel?: Prisma.NullableEnumGradeFieldUpdateOperationsInput | $Enums.Grade | null
+  establishedYear?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totalClasses?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutSchoolNestedInput
@@ -283,6 +456,17 @@ export type SchoolUpdateInput = {
 export type SchoolUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  about?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.NullableEnumSchoolTypeFieldUpdateOperationsInput | $Enums.SchoolType | null
+  gradeLevel?: Prisma.NullableEnumGradeFieldUpdateOperationsInput | $Enums.Grade | null
+  establishedYear?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totalClasses?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutSchoolNestedInput
@@ -292,12 +476,34 @@ export type SchoolUncheckedUpdateInput = {
 export type SchoolCreateManyInput = {
   id?: number
   name: string
+  phoneNumber: string
+  email?: string | null
+  about?: string | null
+  website?: string | null
+  address?: string | null
+  type?: $Enums.SchoolType | null
+  gradeLevel?: $Enums.Grade | null
+  establishedYear?: number | null
+  logo?: string | null
+  bannerImage?: string | null
+  totalClasses?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type SchoolUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  about?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.NullableEnumSchoolTypeFieldUpdateOperationsInput | $Enums.SchoolType | null
+  gradeLevel?: Prisma.NullableEnumGradeFieldUpdateOperationsInput | $Enums.Grade | null
+  establishedYear?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totalClasses?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -305,6 +511,17 @@ export type SchoolUpdateManyMutationInput = {
 export type SchoolUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  about?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.NullableEnumSchoolTypeFieldUpdateOperationsInput | $Enums.SchoolType | null
+  gradeLevel?: Prisma.NullableEnumGradeFieldUpdateOperationsInput | $Enums.Grade | null
+  establishedYear?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totalClasses?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -312,17 +529,41 @@ export type SchoolUncheckedUpdateManyInput = {
 export type SchoolCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  phoneNumber?: Prisma.SortOrder
+  email?: Prisma.SortOrder
+  about?: Prisma.SortOrder
+  website?: Prisma.SortOrder
+  address?: Prisma.SortOrder
+  type?: Prisma.SortOrder
+  gradeLevel?: Prisma.SortOrder
+  establishedYear?: Prisma.SortOrder
+  logo?: Prisma.SortOrder
+  bannerImage?: Prisma.SortOrder
+  totalClasses?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type SchoolAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  establishedYear?: Prisma.SortOrder
+  totalClasses?: Prisma.SortOrder
 }
 
 export type SchoolMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  phoneNumber?: Prisma.SortOrder
+  email?: Prisma.SortOrder
+  about?: Prisma.SortOrder
+  website?: Prisma.SortOrder
+  address?: Prisma.SortOrder
+  type?: Prisma.SortOrder
+  gradeLevel?: Prisma.SortOrder
+  establishedYear?: Prisma.SortOrder
+  logo?: Prisma.SortOrder
+  bannerImage?: Prisma.SortOrder
+  totalClasses?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -330,12 +571,30 @@ export type SchoolMaxOrderByAggregateInput = {
 export type SchoolMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  phoneNumber?: Prisma.SortOrder
+  email?: Prisma.SortOrder
+  about?: Prisma.SortOrder
+  website?: Prisma.SortOrder
+  address?: Prisma.SortOrder
+  type?: Prisma.SortOrder
+  gradeLevel?: Prisma.SortOrder
+  establishedYear?: Prisma.SortOrder
+  logo?: Prisma.SortOrder
+  bannerImage?: Prisma.SortOrder
+  totalClasses?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type SchoolSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  establishedYear?: Prisma.SortOrder
+  totalClasses?: Prisma.SortOrder
+}
+
+export type SchoolNullableScalarRelationFilter = {
+  is?: Prisma.SchoolWhereInput | null
+  isNot?: Prisma.SchoolWhereInput | null
 }
 
 export type SchoolScalarRelationFilter = {
@@ -345,6 +604,26 @@ export type SchoolScalarRelationFilter = {
 
 export type StringFieldUpdateOperationsInput = {
   set?: string
+}
+
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
+}
+
+export type NullableEnumSchoolTypeFieldUpdateOperationsInput = {
+  set?: $Enums.SchoolType | null
+}
+
+export type NullableEnumGradeFieldUpdateOperationsInput = {
+  set?: $Enums.Grade | null
+}
+
+export type NullableIntFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
 }
 
 export type DateTimeFieldUpdateOperationsInput = {
@@ -365,10 +644,12 @@ export type SchoolCreateNestedOneWithoutUsersInput = {
   connect?: Prisma.SchoolWhereUniqueInput
 }
 
-export type SchoolUpdateOneRequiredWithoutUsersNestedInput = {
+export type SchoolUpdateOneWithoutUsersNestedInput = {
   create?: Prisma.XOR<Prisma.SchoolCreateWithoutUsersInput, Prisma.SchoolUncheckedCreateWithoutUsersInput>
   connectOrCreate?: Prisma.SchoolCreateOrConnectWithoutUsersInput
   upsert?: Prisma.SchoolUpsertWithoutUsersInput
+  disconnect?: Prisma.SchoolWhereInput | boolean
+  delete?: Prisma.SchoolWhereInput | boolean
   connect?: Prisma.SchoolWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.SchoolUpdateToOneWithWhereWithoutUsersInput, Prisma.SchoolUpdateWithoutUsersInput>, Prisma.SchoolUncheckedUpdateWithoutUsersInput>
 }
@@ -389,6 +670,17 @@ export type SchoolUpdateOneRequiredWithoutClassRoomsNestedInput = {
 
 export type SchoolCreateWithoutUsersInput = {
   name: string
+  phoneNumber: string
+  email?: string | null
+  about?: string | null
+  website?: string | null
+  address?: string | null
+  type?: $Enums.SchoolType | null
+  gradeLevel?: $Enums.Grade | null
+  establishedYear?: number | null
+  logo?: string | null
+  bannerImage?: string | null
+  totalClasses?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   classRooms?: Prisma.ClassRoomCreateNestedManyWithoutSchoolInput
@@ -397,6 +689,17 @@ export type SchoolCreateWithoutUsersInput = {
 export type SchoolUncheckedCreateWithoutUsersInput = {
   id?: number
   name: string
+  phoneNumber: string
+  email?: string | null
+  about?: string | null
+  website?: string | null
+  address?: string | null
+  type?: $Enums.SchoolType | null
+  gradeLevel?: $Enums.Grade | null
+  establishedYear?: number | null
+  logo?: string | null
+  bannerImage?: string | null
+  totalClasses?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   classRooms?: Prisma.ClassRoomUncheckedCreateNestedManyWithoutSchoolInput
@@ -420,6 +723,17 @@ export type SchoolUpdateToOneWithWhereWithoutUsersInput = {
 
 export type SchoolUpdateWithoutUsersInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  about?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.NullableEnumSchoolTypeFieldUpdateOperationsInput | $Enums.SchoolType | null
+  gradeLevel?: Prisma.NullableEnumGradeFieldUpdateOperationsInput | $Enums.Grade | null
+  establishedYear?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totalClasses?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   classRooms?: Prisma.ClassRoomUpdateManyWithoutSchoolNestedInput
@@ -428,6 +742,17 @@ export type SchoolUpdateWithoutUsersInput = {
 export type SchoolUncheckedUpdateWithoutUsersInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  about?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.NullableEnumSchoolTypeFieldUpdateOperationsInput | $Enums.SchoolType | null
+  gradeLevel?: Prisma.NullableEnumGradeFieldUpdateOperationsInput | $Enums.Grade | null
+  establishedYear?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totalClasses?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   classRooms?: Prisma.ClassRoomUncheckedUpdateManyWithoutSchoolNestedInput
@@ -435,6 +760,17 @@ export type SchoolUncheckedUpdateWithoutUsersInput = {
 
 export type SchoolCreateWithoutClassRoomsInput = {
   name: string
+  phoneNumber: string
+  email?: string | null
+  about?: string | null
+  website?: string | null
+  address?: string | null
+  type?: $Enums.SchoolType | null
+  gradeLevel?: $Enums.Grade | null
+  establishedYear?: number | null
+  logo?: string | null
+  bannerImage?: string | null
+  totalClasses?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutSchoolInput
@@ -443,6 +779,17 @@ export type SchoolCreateWithoutClassRoomsInput = {
 export type SchoolUncheckedCreateWithoutClassRoomsInput = {
   id?: number
   name: string
+  phoneNumber: string
+  email?: string | null
+  about?: string | null
+  website?: string | null
+  address?: string | null
+  type?: $Enums.SchoolType | null
+  gradeLevel?: $Enums.Grade | null
+  establishedYear?: number | null
+  logo?: string | null
+  bannerImage?: string | null
+  totalClasses?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutSchoolInput
@@ -466,6 +813,17 @@ export type SchoolUpdateToOneWithWhereWithoutClassRoomsInput = {
 
 export type SchoolUpdateWithoutClassRoomsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  about?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.NullableEnumSchoolTypeFieldUpdateOperationsInput | $Enums.SchoolType | null
+  gradeLevel?: Prisma.NullableEnumGradeFieldUpdateOperationsInput | $Enums.Grade | null
+  establishedYear?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totalClasses?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutSchoolNestedInput
@@ -474,6 +832,17 @@ export type SchoolUpdateWithoutClassRoomsInput = {
 export type SchoolUncheckedUpdateWithoutClassRoomsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  about?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.NullableEnumSchoolTypeFieldUpdateOperationsInput | $Enums.SchoolType | null
+  gradeLevel?: Prisma.NullableEnumGradeFieldUpdateOperationsInput | $Enums.Grade | null
+  establishedYear?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totalClasses?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutSchoolNestedInput
@@ -522,6 +891,17 @@ export type SchoolCountOutputTypeCountClassRoomsArgs<ExtArgs extends runtime.Typ
 export type SchoolSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  phoneNumber?: boolean
+  email?: boolean
+  about?: boolean
+  website?: boolean
+  address?: boolean
+  type?: boolean
+  gradeLevel?: boolean
+  establishedYear?: boolean
+  logo?: boolean
+  bannerImage?: boolean
+  totalClasses?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   users?: boolean | Prisma.School$usersArgs<ExtArgs>
@@ -532,6 +912,17 @@ export type SchoolSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
 export type SchoolSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  phoneNumber?: boolean
+  email?: boolean
+  about?: boolean
+  website?: boolean
+  address?: boolean
+  type?: boolean
+  gradeLevel?: boolean
+  establishedYear?: boolean
+  logo?: boolean
+  bannerImage?: boolean
+  totalClasses?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["school"]>
@@ -539,6 +930,17 @@ export type SchoolSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
 export type SchoolSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  phoneNumber?: boolean
+  email?: boolean
+  about?: boolean
+  website?: boolean
+  address?: boolean
+  type?: boolean
+  gradeLevel?: boolean
+  establishedYear?: boolean
+  logo?: boolean
+  bannerImage?: boolean
+  totalClasses?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["school"]>
@@ -546,11 +948,22 @@ export type SchoolSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
 export type SchoolSelectScalar = {
   id?: boolean
   name?: boolean
+  phoneNumber?: boolean
+  email?: boolean
+  about?: boolean
+  website?: boolean
+  address?: boolean
+  type?: boolean
+  gradeLevel?: boolean
+  establishedYear?: boolean
+  logo?: boolean
+  bannerImage?: boolean
+  totalClasses?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type SchoolOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "createdAt" | "updatedAt", ExtArgs["result"]["school"]>
+export type SchoolOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "phoneNumber" | "email" | "about" | "website" | "address" | "type" | "gradeLevel" | "establishedYear" | "logo" | "bannerImage" | "totalClasses" | "createdAt" | "updatedAt", ExtArgs["result"]["school"]>
 export type SchoolInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   users?: boolean | Prisma.School$usersArgs<ExtArgs>
   classRooms?: boolean | Prisma.School$classRoomsArgs<ExtArgs>
@@ -568,6 +981,17 @@ export type $SchoolPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     name: string
+    phoneNumber: string
+    email: string | null
+    about: string | null
+    website: string | null
+    address: string | null
+    type: $Enums.SchoolType | null
+    gradeLevel: $Enums.Grade | null
+    establishedYear: number | null
+    logo: string | null
+    bannerImage: string | null
+    totalClasses: number | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["school"]>
@@ -997,6 +1421,17 @@ export interface Prisma__SchoolClient<T, Null = never, ExtArgs extends runtime.T
 export interface SchoolFieldRefs {
   readonly id: Prisma.FieldRef<"School", 'Int'>
   readonly name: Prisma.FieldRef<"School", 'String'>
+  readonly phoneNumber: Prisma.FieldRef<"School", 'String'>
+  readonly email: Prisma.FieldRef<"School", 'String'>
+  readonly about: Prisma.FieldRef<"School", 'String'>
+  readonly website: Prisma.FieldRef<"School", 'String'>
+  readonly address: Prisma.FieldRef<"School", 'String'>
+  readonly type: Prisma.FieldRef<"School", 'SchoolType'>
+  readonly gradeLevel: Prisma.FieldRef<"School", 'Grade'>
+  readonly establishedYear: Prisma.FieldRef<"School", 'Int'>
+  readonly logo: Prisma.FieldRef<"School", 'String'>
+  readonly bannerImage: Prisma.FieldRef<"School", 'String'>
+  readonly totalClasses: Prisma.FieldRef<"School", 'Int'>
   readonly createdAt: Prisma.FieldRef<"School", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"School", 'DateTime'>
 }

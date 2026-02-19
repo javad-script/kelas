@@ -22,9 +22,30 @@ enum AttendanceStatus {
   EXCUSED
 }
 
+enum SchoolType {
+  PUBLIC
+  PRIVATE
+}
+enum Grade {
+  ELEMENTARY
+  MIDDLE
+  HIGH
+}
+
 model School {
   id         Int         @id @default(autoincrement())
   name       String
+  phoneNumber String  @unique
+  email       String?  @unique
+  about       String? 
+  website     String?  @unique
+  address     String?
+  type        SchoolType?
+  gradeLevel  Grade?
+  establishedYear Int?
+  logo        String?
+  bannerImage String?
+  totalClasses Int?
 
   users      User[]
   classRooms ClassRoom[]
@@ -54,8 +75,8 @@ model User {
   attendanceRecords AttendanceStudent[]
 
   // School relation
-  schoolId      Int
-  school        School   @relation(fields: [schoolId], references: [id])
+  schoolId      Int?
+  school        School?   @relation(fields: [schoolId], references: [id])
 
   // Parent ↔ Child (self relation)
   parentId      Int?
