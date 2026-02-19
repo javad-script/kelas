@@ -3,11 +3,11 @@ import { ComponentType } from 'react';
 import Link from 'next/link';
 
 import { getCurrentUser } from '@/lib/auth/session';
-import { Bell, Camera, ChevronLeft, LucideBuilding2, Moon, User2 } from 'lucide-react';
+import { Bell, ChevronLeft, LucideBuilding2, Moon, User2 } from 'lucide-react';
 
 import LogoutActionButton from '@/components/common/LogoutButton';
 import ThemeToggleWrapper from '@/components/common/ThemeSwitchWrapper';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import UserAvatar from '@/components/common/UserAvatar';
 
 type MenuItem = {
   icon: ComponentType<{ className?: string }>;
@@ -58,7 +58,7 @@ const MENU_SECTIONS: MenuSection[] = [
 ];
 
 export default async function ProfilePage() {
-  const currentUser = await getCurrentUser();
+  const user = await getCurrentUser();
 
   return (
     <div className='space-y-8'>
@@ -66,23 +66,15 @@ export default async function ProfilePage() {
         <h1 className='text-xl font-bold mb-4'>پروفایل</h1>
 
         <div className='flex flex-col items-center c-gradient justify-center w-full p-6 rounded-2xl bg-card border border-white/5 shadow-[0_4px_6px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,0.05)]'>
-          <div className='relative ring ring-offset-card ring-offset-3 bg-transparent rounded-full ring-rose-500/50'>
-            <Avatar className='size-20'>
-              <AvatarImage className='object-cover' src={'/images/' + currentUser?.profileImage} />
-              <AvatarFallback />
-            </Avatar>
-            <div className='absolute bottom-0 right-0 size-8 flex items-center justify-center bg-rose-500 shadow-sm rounded-full overflow-auto!'>
-              <Camera className='text-white size-5' />
-            </div>
-          </div>
+          <UserAvatar src={user?.profileImage || undefined} fallback={user?.firstName[0]} />
 
           <p className='font-bold text-lg mt-2 mb-1.5'>
-            {currentUser?.firstName} {currentUser?.lastName}
+            {user?.firstName} {user?.lastName}
           </p>
 
-          <span className='text-muted-foreground text-sm'>{currentUser?.email}</span>
+          <span className='text-muted-foreground text-sm'>{user?.email}</span>
 
-          <span className='text-muted-foreground text-sm'>{currentUser?.nationalCode}</span>
+          <span className='text-muted-foreground text-sm'>{user?.nationalCode}</span>
         </div>
       </section>
 

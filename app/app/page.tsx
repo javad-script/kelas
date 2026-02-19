@@ -14,9 +14,9 @@ import {
   ShieldAlert,
 } from 'lucide-react';
 
+import UserAvatar from '@/components/common/UserAvatar';
 import { FeatureCard, FeatureCardProps } from '@/components/features/FeatureCard';
 import { Notification, NotificationProps } from '@/components/features/Notification';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 
 const STUDENT_FEATURE_CARDS: FeatureCardProps[] = [
@@ -163,13 +163,11 @@ export default async function Page() {
       <div className='w-full mt-safe-top p-6 rounded-2xl bg-card c-gradient dark:backdrop-blur-lg border border-white/5 shadow-[0_4px_6px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,0.05)]'>
         <div className='flex items-center justify-between'>
           <div className='flex items-center gap-3'>
-            <Avatar className='size-12'>
-              {/* TODO: put user.profileImage blow */}
-              <AvatarImage className='object-cover' src={'/images/' + user?.profileImage} />
-              <AvatarFallback className='text-xl font-bold flex items-center justify-center align-baseline'>
-                {user?.firstName[0]}
-              </AvatarFallback>
-            </Avatar>
+            <UserAvatar
+              src={user?.profileImage || undefined}
+              fallback={user?.firstName[0]}
+              className='size-14'
+            />
             <div>
               <p className='text-foreground text-base sm:text-lg font-medium leading-tight'>
                 {getGreeting()} ، {user?.firstName.split(' ')[0]} 👋
