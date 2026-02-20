@@ -9,10 +9,10 @@ import { cn } from '@/lib/utils';
 import { Calendar, Home, MessageSquare, User } from 'lucide-react';
 
 const NAV_LINKS = [
-  { Label: 'خانه', href: '/app/', icon: Home },
-  { Label: 'گفتوگو', href: '/app/chat', icon: MessageSquare },
-  { Label: 'تقویم', href: '/app/calendar', icon: Calendar },
-  { Label: 'پروفایل', href: '/app/profile', icon: User },
+  { Label: 'خانه', href: '/', icon: Home },
+  { Label: 'گفتوگو', href: '/chat', icon: MessageSquare },
+  { Label: 'تقویم', href: '/calendar', icon: Calendar },
+  { Label: 'پروفایل', href: '/profile', icon: User },
 ];
 
 function BottomNavigation() {
@@ -20,8 +20,8 @@ function BottomNavigation() {
 
   const isLinkActive = (href: string) =>
     pathname === href ||
-    (href !== '/app/' && pathname.startsWith(href + '/')) ||
-    (href === '/app/' && pathname === '/app');
+    (href !== '/' && pathname.startsWith(href + '/')) ||
+    (href === '/' && pathname === '/');
   return (
     <nav className='w-full px-4 py-2 flex justify-between gap-2 items-center border-border border-t bg-background fixed bottom-0 left-0 z-50'>
       {NAV_LINKS.map((l) => (

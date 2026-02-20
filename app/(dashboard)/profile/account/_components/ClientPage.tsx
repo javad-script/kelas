@@ -3,8 +3,7 @@ import { FormEvent, ReactNode, useEffect, useRef, useState } from 'react';
 
 import Link from 'next/link';
 
-import editUserData from '@/actions/editUserData';
-import { uploadProfileImage } from '@/actions/uploadProfileImage';
+import { editUserData, uploadProfileImage } from '@/feature/user/actions';
 import { cn } from '@/lib/utils';
 import { User } from '@/types/user';
 import { ArrowLeft, Camera, Check } from 'lucide-react';
@@ -60,7 +59,7 @@ export default function ClientPage({ user }: { user: User }) {
       if (!result.ok) return toast.error(result.message);
       toast.success(result.message);
     } catch (error) {
-      console.error(error);
+      throw new Error(String(error));
     }
   };
 

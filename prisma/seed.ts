@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { prisma } from '@/lib/prisma';
 
 async function main() {
@@ -33,7 +34,7 @@ async function main() {
       website: 'https://www.pishraft-school.ir',
     },
   });
-  console.log('two school added');
+  console.log('2 school created successfully');
   const student1 = await prisma.user.upsert({
     where: { email: 'ali.student@example.com' },
     update: {},
@@ -60,7 +61,7 @@ async function main() {
       motherJobAddress: 'تهران، خیابان ولیعصر',
       motherJobPhone: '09123456784',
       motherPhone: '09123456785',
-      profileImage: '/uploads/ali.jpg',
+      profileImage: '/uploads/profile/ali.jpg',
     },
   });
   const student2 = await prisma.user.upsert({
@@ -89,10 +90,10 @@ async function main() {
       motherJobAddress: 'تهران، خیابان ولیعصر',
       motherJobPhone: '09123456794',
       motherPhone: '09123456795',
-      profileImage: '/uploads/mina.jpg',
+      profileImage: '/uploads/profile/mina.jpg',
     },
   });
-  console.log('two student added');
+  console.log('2 student user created successfully');
 
   const teacher1 = await prisma.user.upsert({
     where: { email: 'reza.teacher@example.com' },
@@ -120,7 +121,7 @@ async function main() {
       motherJobAddress: 'تهران، خیابان ولیعصر',
       motherJobPhone: '09123456804',
       motherPhone: '09123456805',
-      profileImage: '/uploads/reza.jpg',
+      profileImage: '/uploads/profile/reza.jpg',
     },
   });
   const teacher2 = await prisma.user.upsert({
@@ -149,11 +150,10 @@ async function main() {
       motherJobAddress: 'تهران، خیابان ولیعصر',
       motherJobPhone: '09123456814',
       motherPhone: '09123456815',
-      profileImage: '/uploads/sara.jpg',
+      profileImage: '/uploads/profile/sara.jpg',
     },
   });
-  console.log('two teacher added');
-  // 1️⃣ هر کلاس به یک مدرسه وصل می‌شود
+  console.log('2 teacher user created successfully');
   const class1 = await prisma.classRoom.create({
     data: {
       grade: 12,
@@ -170,14 +170,17 @@ async function main() {
     },
   });
 
-  // 2️⃣ اتصال معلم‌ها به کلاس‌ها (Many-to-Many)
+  console.log('2 Class created successfully');
+
   await prisma.classTeacher.createMany({
     data: [
       { teacherId: teacher1.id, classId: class1.id },
       { teacherId: teacher2.id, classId: class2.id },
-      { teacherId: teacher1.id, classId: class2.id }, // مثال کلاس با دو معلم
+      { teacherId: teacher1.id, classId: class2.id },
     ],
   });
+
+  console.log('teachers and classes relations created successfully');
 
   await prisma.classRoom.update({
     where: { id: class1.id },
@@ -185,6 +188,8 @@ async function main() {
       students: { connect: [{ id: student1.id }, { id: student2.id }] },
     },
   });
+
+  console.log('students and classes relations created successfully');
 }
 main()
   .then(async () => {

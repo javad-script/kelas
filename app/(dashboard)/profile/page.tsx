@@ -44,7 +44,7 @@ const MENU_SECTIONS: MenuSection[] = [
       {
         icon: LucideBuilding2,
         label: 'اطلاعات مدرسه',
-        href: 'school-info',
+        href: 'profile/school',
         type: 'link',
       },
       {

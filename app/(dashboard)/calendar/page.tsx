@@ -6,7 +6,7 @@ import { Vazirmatn } from 'next/font/google';
 
 import { formatPersianDate } from '@/lib/helpers';
 
-import { Notification, NotificationProps } from '@/components/features/Notification';
+import { Notification, NotificationProps } from '@/components/common/Notification';
 import { Calendar } from '@/components/ui/calendar';
 
 const vazirmatn = Vazirmatn({ subsets: ['arabic'] });

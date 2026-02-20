@@ -1,3 +1,4 @@
+import { FeatureCard, FeatureCardProps } from '@/app/(dashboard)/_components/FeatureCard';
 import { getCurrentUser } from '@/lib/auth/session';
 import { formatPersianDate } from '@/lib/helpers';
 import {
@@ -14,9 +15,8 @@ import {
   ShieldAlert,
 } from 'lucide-react';
 
+import { Notification, NotificationProps } from '@/components/common/Notification';
 import UserAvatar from '@/components/common/UserAvatar';
-import { FeatureCard, FeatureCardProps } from '@/components/features/FeatureCard';
-import { Notification, NotificationProps } from '@/components/features/Notification';
 import { Button } from '@/components/ui/button';
 
 const STUDENT_FEATURE_CARDS: FeatureCardProps[] = [
@@ -25,56 +25,56 @@ const STUDENT_FEATURE_CARDS: FeatureCardProps[] = [
     icon: NotebookText,
     color: 'bg-sky-500',
     gradient: 'from-sky-900/15',
-    href: '/app/homeworks',
+    href: '/homeworks',
   },
   {
     label: 'موارد انضباطی',
     icon: ShieldAlert,
     color: 'bg-orange-500',
     gradient: 'from-orange-900/15',
-    href: '/app/discipline',
+    href: '/discipline',
   },
   {
     label: 'برنامه کلاسی',
     icon: CalendarClock,
     color: 'bg-pink-500',
     gradient: 'from-pink-900/15',
-    href: '/app/schedule',
+    href: '/schedule',
   },
   {
     label: 'نمرات',
     icon: BarChart3,
     color: 'bg-teal-500',
     gradient: 'from-teal-900/15',
-    href: '/app/scores',
+    href: '/scores',
   },
   {
     label: 'گزارش',
     icon: FileText,
     color: 'bg-red-500',
     gradient: 'from-red-900/15',
-    href: '/app/reports',
+    href: '/reports',
   },
   {
     label: 'پیام ها',
     icon: MessageSquare,
     color: 'bg-indigo-500',
     gradient: 'from-indigo-900/15',
-    href: '/app/messages',
+    href: '/messages',
   },
   {
     label: 'برنامه امتحانی',
     icon: CalendarCheck,
     color: 'bg-fuchsia-500',
     gradient: 'from-fuchsia-900/15',
-    href: '/app/exams',
+    href: '/exams',
   },
   {
     label: 'محتوای آموزشی',
     icon: BookOpenCheck,
     color: 'bg-lime-500',
     gradient: 'from-lime-900/15',
-    href: '/app/learning-content',
+    href: '/learning-content',
   },
 ];
 
@@ -84,56 +84,56 @@ const TEACHER_FEATURE_CARDS: FeatureCardProps[] = [
     icon: NotebookText,
     color: 'bg-sky-500',
     gradient: 'from-sky-900/15',
-    href: '/app/teaching/homeworks',
+    href: '/teaching/homeworks',
   },
   {
     label: 'موارد انضباطی',
     icon: ShieldAlert,
     color: 'bg-orange-500',
     gradient: 'from-orange-900/15',
-    href: '/app/teaching/discipline',
+    href: '/teaching/discipline',
   },
   {
     label: 'برنامه کلاسی',
     icon: CalendarClock,
     color: 'bg-pink-500',
     gradient: 'from-pink-900/15',
-    href: '/app/teaching/schedule',
+    href: '/teaching/schedule',
   },
   {
     label: 'اعتراضات نمرات',
     icon: FileWarning,
     color: 'bg-teal-500',
     gradient: 'from-teal-900/15',
-    href: '/app/teaching/score-objections',
+    href: '/teaching/score-objections',
   },
   {
     label: 'دفتر کلاسی',
     icon: Bookmark,
     color: 'bg-red-500',
     gradient: 'from-red-900/15',
-    href: '/app/teaching/class-journal',
+    href: '/teaching/class-journal',
   },
   {
     label: 'پیام ها',
     icon: MessageSquare,
     color: 'bg-indigo-500',
     gradient: 'from-indigo-900/15',
-    href: '/app/messages',
+    href: '/messages',
   },
   {
     label: 'برنامه امتحانی',
     icon: CalendarCheck,
     color: 'bg-fuchsia-500',
     gradient: 'from-fuchsia-900/15',
-    href: '/app/teaching/exams',
+    href: '/teaching/exams',
   },
   {
     label: 'محتوای آموزشی',
     icon: BookOpenCheck,
     color: 'bg-lime-500',
     gradient: 'from-lime-900/15',
-    href: '/app/teaching/learning-content',
+    href: '/teaching/learning-content',
   },
 ];
 

@@ -1,4 +1,4 @@
-import ClientPage from '@/app/app/profile/account/ClientPage';
+import ClientPage from '@/app/(dashboard)/profile/account/_components/ClientPage';
 import { getCurrentUser } from '@/lib/auth/session';
 
 export default async function Layout() {

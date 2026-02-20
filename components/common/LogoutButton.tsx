@@ -2,7 +2,7 @@
 
 import { useTransition } from 'react';
 
-import { logout } from '@/actions/auth';
+import { logout } from '@/feature/auth/actions';
 
 import { Button } from '@/components/ui/button';
 
