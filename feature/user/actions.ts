@@ -53,7 +53,13 @@ export async function uploadProfileImage(formData: FormData) {
     select: { profileImage: true },
   });
 
-  if (userProfile?.profileImage) await fs.rm(`./public${userProfile.profileImage}`);
+  if (userProfile?.profileImage) {
+    try {
+      await fs.rm(`./public${userProfile.profileImage}`);
+    } catch {
+      console.log('nothing deleted');
+    }
+  }
 
   const file = formData.get('profileImage') as File;
 
@@ -65,11 +71,11 @@ export async function uploadProfileImage(formData: FormData) {
   const buffer = Buffer.from(bytes);
 
   const fileName = `${Date.now()}-${file.name}`;
-  const filePath = path.join(process.cwd(), 'public/uploads', fileName);
+  const filePath = path.join(process.cwd(), 'public/uploads/profile', fileName);
 
   await fs.writeFile(filePath, buffer);
 
-  const imageUrl = `/uploads/${fileName}`;
+  const imageUrl = `/uploads/profile/${fileName}`;
 
   await prisma.user.update({
     where: { id: user.id },
