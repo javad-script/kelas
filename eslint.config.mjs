@@ -7,6 +7,7 @@ export default defineConfig([
   ...nextVitals,
   ...nextTs,
   {
+    files: ['**/*.ts', '**/*.tsx'], // برای تمام ts/tsx ها
     plugins: {
       import: importPlugin,
     },
@@ -37,8 +38,10 @@ export default defineConfig([
       // React hooks
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
+
+      // import plugin
+      'import/order': 'off', // حالا اینجا بذار
     },
   },
-  // Override default ignores of eslint-config-next.
   globalIgnores(['.next/**', 'out/**', 'build/**', 'next-env.d.ts']),
 ]);
