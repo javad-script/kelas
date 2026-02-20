@@ -5,6 +5,7 @@ import { useActionState, useEffect } from 'react';
 import { redirect } from 'next/navigation';
 
 import { login } from '@/feature/auth/actions';
+import { delay } from '@/lib/helpers';
 import { cn } from '@/lib/utils';
 import { useFormStatus } from 'react-dom';
 import { toast } from 'sonner';
@@ -22,10 +23,15 @@ export default function Page() {
         }),
       );
     }
-    if (state?.success) {
-      toast.success('ورود با موفقیت انجام شد');
-      setTimeout(() => redirect('/app'), 1000);
-    }
+    // TODO: clean up here
+    const loginOk = async () => {
+      if (state?.success) {
+        toast.success('ورود با موفقیت انجام شد');
+        await delay(1000);
+        redirect('/');
+      }
+    };
+    loginOk();
   }, [state]);
   return (
     <form action={loginAction}>
