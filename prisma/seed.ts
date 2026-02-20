@@ -7,11 +7,11 @@ async function main() {
       phoneNumber: '09123456789',
       address: 'خیابان آزادی، تهران',
       about: 'مدرسه‌ای پیشرو در آموزش دانش‌آموزان با امکانات کامل و کادر مجرب.',
-      bannerImage: 'public/banner.jpg',
+      bannerImage: '/uploads/banner.jpg',
       email: 'info@isaar-school.ir',
       establishedYear: 1380,
       gradeLevel: 'ELEMENTARY',
-      logo: 'public/logo.png',
+      logo: '/uploads/logo.png',
       totalClasses: 12,
       type: 'PUBLIC',
       website: 'https://www.isaar-school.ir',
@@ -23,11 +23,11 @@ async function main() {
       phoneNumber: '09987654321',
       address: 'خیابان انقلاب، تهران',
       about: 'مدرسه‌ای با تمرکز بر علوم و فناوری و فعالیت‌های فوق برنامه متنوع.',
-      bannerImage: 'public/banner2.jpg',
+      bannerImage: '/uploads/banner2.jpg',
       email: 'contact@pishraft-school.ir',
       establishedYear: 1390,
       gradeLevel: 'MIDDLE',
-      logo: 'public/logo2.png',
+      logo: '/uploads/logo2.png',
       totalClasses: 15,
       type: 'PRIVATE',
       website: 'https://www.pishraft-school.ir',
@@ -60,7 +60,7 @@ async function main() {
       motherJobAddress: 'تهران، خیابان ولیعصر',
       motherJobPhone: '09123456784',
       motherPhone: '09123456785',
-      profileImage: 'public/ali.jpg',
+      profileImage: '/uploads/ali.jpg',
     },
   });
   const student2 = await prisma.user.upsert({
@@ -89,7 +89,7 @@ async function main() {
       motherJobAddress: 'تهران، خیابان ولیعصر',
       motherJobPhone: '09123456794',
       motherPhone: '09123456795',
-      profileImage: 'public/mina.jpg',
+      profileImage: '/uploads/mina.jpg',
     },
   });
   console.log('two student added');
@@ -120,7 +120,7 @@ async function main() {
       motherJobAddress: 'تهران، خیابان ولیعصر',
       motherJobPhone: '09123456804',
       motherPhone: '09123456805',
-      profileImage: 'public/reza.jpg',
+      profileImage: '/uploads/reza.jpg',
     },
   });
   const teacher2 = await prisma.user.upsert({
@@ -149,7 +149,7 @@ async function main() {
       motherJobAddress: 'تهران، خیابان ولیعصر',
       motherJobPhone: '09123456814',
       motherPhone: '09123456815',
-      profileImage: 'public/sara.jpg',
+      profileImage: '/uploads/sara.jpg',
     },
   });
   console.log('two teacher added');
