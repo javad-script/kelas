@@ -53,6 +53,8 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   School: 'School',
   User: 'User',
+  SchoolUser: 'SchoolUser',
+  StudentClass: 'StudentClass',
   ClassRoom: 'ClassRoom',
   ClassTeacher: 'ClassTeacher',
   Attendance: 'Attendance',
@@ -87,7 +89,6 @@ export const SchoolScalarFieldEnum = {
   gradeLevel: 'gradeLevel',
   establishedYear: 'establishedYear',
   logo: 'logo',
-  bannerImage: 'bannerImage',
   totalClasses: 'totalClasses',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -107,7 +108,6 @@ export const UserScalarFieldEnum = {
   nationalCode: 'nationalCode',
   password: 'password',
   role: 'role',
-  schoolId: 'schoolId',
   parentId: 'parentId',
   birthDate: 'birthDate',
   address: 'address',
@@ -128,6 +128,25 @@ export const UserScalarFieldEnum = {
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const SchoolUserScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  schoolId: 'schoolId',
+  role: 'role'
+} as const
+
+export type SchoolUserScalarFieldEnum = (typeof SchoolUserScalarFieldEnum)[keyof typeof SchoolUserScalarFieldEnum]
+
+
+export const StudentClassScalarFieldEnum = {
+  id: 'id',
+  studentId: 'studentId',
+  classId: 'classId'
+} as const
+
+export type StudentClassScalarFieldEnum = (typeof StudentClassScalarFieldEnum)[keyof typeof StudentClassScalarFieldEnum]
 
 
 export const ClassRoomScalarFieldEnum = {

@@ -28,6 +28,16 @@ export type School = Prisma.SchoolModel
  */
 export type User = Prisma.UserModel
 /**
+ * Model SchoolUser
+ * 
+ */
+export type SchoolUser = Prisma.SchoolUserModel
+/**
+ * Model StudentClass
+ * 
+ */
+export type StudentClass = Prisma.StudentClassModel
+/**
  * Model ClassRoom
  * 
  */

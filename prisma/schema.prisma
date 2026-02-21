@@ -33,7 +33,7 @@ enum Grade {
 }
 
 model School {
-  id         Int         @id @default(autoincrement())
+  id         String         @id @default(cuid())
   name       String
   phoneNumber String  @unique
   email       String?  @unique
@@ -44,10 +44,9 @@ model School {
   gradeLevel  Grade?
   establishedYear Int?
   logo        String?
-  bannerImage String?
   totalClasses Int?
 
-  users      User[]
+  members      SchoolUser[]
   classRooms ClassRoom[]
 
   createdAt  DateTime @default(now())
@@ -57,7 +56,7 @@ model School {
 }
 
 model User {
-  id            Int      @id @default(autoincrement())
+  id            String      @id @default(cuid())
   profileImage  String?  
   firstName     String
   lastName      String
@@ -74,17 +73,15 @@ model User {
   // حضور غیاب دانش‌آموز
   attendanceRecords AttendanceStudent[]
 
-  // School relation
-  schoolId      Int?
-  school        School?   @relation(fields: [schoolId], references: [id])
+  schoolMemberships SchoolUser[]
 
   // Parent ↔ Child (self relation)
-  parentId      Int?
+  parentId      String?
   parent        User?    @relation("ParentRelation", fields: [parentId], references: [id])
   children      User[]   @relation("ParentRelation")
 
   // کلاس‌هایی که دانش‌آموز در آن‌ها ثبت‌نام شده
-  studentClasses ClassRoom[] @relation("StudentClasses")
+  studentClasses StudentClass[] 
 
   // Optional personal info
   birthDate      DateTime?
@@ -109,22 +106,46 @@ model User {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
-  @@index([schoolId])
   @@index([role])
   @@map("users")
 }
+model SchoolUser {
+  id       Int    @id @default(autoincrement())
+
+  userId   String
+  schoolId String
+
+  user     User   @relation(fields: [userId], references: [id])
+  school   School @relation(fields: [schoolId], references: [id])
+
+  role     Role
+
+  @@unique([userId, schoolId])
+  @@map("school_users")
+}
+
+model StudentClass{
+  id      Int     @id @default(autoincrement())
+  studentId String 
+  classId   String
+
+  student   User  @relation(fields: [studentId] , references: [id])
+  class   ClassRoom  @relation(fields: [classId] , references: [id])
+  @@unique([studentId,classId])
+  @@map("student_classes")
+}
 
 model ClassRoom {
-  id        Int      @id @default(autoincrement())
+  id        String      @id @default(cuid())
   name      String
   grade     Int
 
   attendance  Attendance[]
 
-  schoolId  Int
+  schoolId  String
   school    School  @relation(fields: [schoolId], references: [id])
 
-  students  User[]  @relation("StudentClasses")
+  studentClass  StudentClass[]
   teacherAssignments ClassTeacher[]
 
   createdAt DateTime @default(now())
@@ -137,8 +158,8 @@ model ClassRoom {
 model ClassTeacher {
   id        Int @id @default(autoincrement())
 
-  teacherId Int
-  classId   Int
+  teacherId String
+  classId   String
 
   // Relation به معلم
   teacher   User      @relation("TeacherAssignment", fields: [teacherId], references: [id])
@@ -153,10 +174,10 @@ model ClassTeacher {
 }
 
 model Attendance {
-  id        Int      @id @default(autoincrement())
+  id        String      @id @default(cuid())
   date      DateTime
 
-  classId   Int
+  classId   String
   classRoom ClassRoom @relation(fields: [classId], references: [id])
 
   classTeacherId Int?
@@ -172,12 +193,12 @@ model Attendance {
 }
 
 model AttendanceStudent {
-  id           Int @id @default(autoincrement())
+  id           String @id @default(cuid())
 
-  attendanceId Int
+  attendanceId String
   attendance   Attendance @relation(fields: [attendanceId], references: [id])
 
-  studentId    Int
+  studentId    String
   student      User       @relation(fields: [studentId], references: [id])
 
   status       AttendanceStatus

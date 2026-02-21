@@ -10,6 +10,8 @@
  */
 export type * from './models/School'
 export type * from './models/User'
+export type * from './models/SchoolUser'
+export type * from './models/StudentClass'
 export type * from './models/ClassRoom'
 export type * from './models/ClassTeacher'
 export type * from './models/Attendance'

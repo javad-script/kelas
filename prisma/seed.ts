@@ -8,7 +8,6 @@ async function main() {
       phoneNumber: '09123456789',
       address: 'خیابان آزادی، تهران',
       about: 'مدرسه‌ای پیشرو در آموزش دانش‌آموزان با امکانات کامل و کادر مجرب.',
-      bannerImage: '/uploads/banner.jpg',
       email: 'info@isaar-school.ir',
       establishedYear: 1380,
       gradeLevel: 'ELEMENTARY',
@@ -24,7 +23,6 @@ async function main() {
       phoneNumber: '09987654321',
       address: 'خیابان انقلاب، تهران',
       about: 'مدرسه‌ای با تمرکز بر علوم و فناوری و فعالیت‌های فوق برنامه متنوع.',
-      bannerImage: '/uploads/banner2.jpg',
       email: 'contact@pishraft-school.ir',
       establishedYear: 1390,
       gradeLevel: 'MIDDLE',
@@ -182,14 +180,47 @@ async function main() {
 
   console.log('teachers and classes relations created successfully');
 
-  await prisma.classRoom.update({
-    where: { id: class1.id },
-    data: {
-      students: { connect: [{ id: student1.id }, { id: student2.id }] },
-    },
+  await prisma.studentClass.createMany({
+    data: [
+      { classId: class1.id, studentId: student1.id },
+      { classId: class2.id, studentId: student2.id },
+    ],
   });
 
   console.log('students and classes relations created successfully');
+
+  await prisma.schoolUser.createMany({
+    data: [
+      {
+        role: 'STUDENT',
+        schoolId: school1.id,
+        userId: student1.id,
+      },
+      {
+        role: 'STUDENT',
+        schoolId: school2.id,
+        userId: student2.id,
+      },
+    ],
+  });
+
+  console.log('students and schools relations created successfully');
+  await prisma.schoolUser.createMany({
+    data: [
+      {
+        role: 'TEACHER',
+        schoolId: school1.id,
+        userId: teacher1.id,
+      },
+      {
+        role: 'TEACHER',
+        schoolId: school2.id,
+        userId: teacher2.id,
+      },
+    ],
+  });
+
+  console.log('teacher and schools relations created successfully');
 }
 main()
   .then(async () => {
