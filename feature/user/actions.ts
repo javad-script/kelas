@@ -86,3 +86,12 @@ export async function uploadProfileImage(formData: FormData) {
   revalidatePath('/');
   return { ok: true, message: 'عکس پروفایل با موففقییت تغییر یافت' };
 }
+
+export async function getUserSchools() {
+  const user = await getCurrentUser();
+  const userSchools = await prisma.schoolUser.findMany({
+    where: { userId: user?.id },
+    include: { school: true },
+  });
+  return userSchools;
+}

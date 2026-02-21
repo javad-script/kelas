@@ -1,5 +1,4 @@
-import { getCurrentUser } from '@/lib/auth/session';
-import { prisma } from '@/lib/prisma';
+import { getUserSchools } from '@/feature/user/actions';
 
 import UserAvatar from '@/components/common/UserAvatar';
 import { Button } from '@/components/ui/button';
@@ -19,10 +18,8 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 
 export default async function Page() {
-  const user = await getCurrentUser();
-  if (!user?.schoolId) return;
-  const school = await prisma.school.findUnique({ where: { id: user?.schoolId } });
-  if (!school) return;
+  const schools = await getUserSchools();
+  const school = schools[0].school;
   return (
     <div className='space-y-8'>
       <section>
