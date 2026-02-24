@@ -1,5 +1,3 @@
-import { cache } from 'react';
-
 import { cookies } from 'next/headers';
 
 import { prisma } from '@/lib/prisma';
@@ -49,11 +47,11 @@ export async function getSession() {
   return await decrypt(token);
 }
 
-export const getCurrentUser = cache(async () => {
+export const getCurrentUser = async () => {
   const payload = await getSession();
   if (!payload?.userId) return;
   const user = await prisma.user.findUnique({ where: { id: payload.userId } });
-  if (!user) return;
+  if (!user) return await deleteSession();
   const { password: _, ...u } = user;
   return u;
-});
+};
