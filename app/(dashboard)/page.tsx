@@ -112,7 +112,7 @@ const TEACHER_FEATURE_CARDS: FeatureCardProps[] = [
     icon: Bookmark,
     color: 'bg-red-500',
     gradient: 'from-red-900/15',
-    href: '/teaching/class-journal',
+    href: '/teacher/attendance/new',
   },
   {
     label: 'پیام ها',

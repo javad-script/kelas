@@ -32,7 +32,7 @@ interface LoginState {
   };
 }
 
-async function createSession(userId: number) {
+async function createSession(userId: string) {
   const expiresAt = new Date(Date.now() + 10 * 24 * 60 * 60 * 1000);
   const token = await encrypt({ userId, expiresAt });
 

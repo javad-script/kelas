@@ -14,7 +14,7 @@ const ALGORITHM = 'HS256';
 const EXPIRATION = '10d';
 
 export type SessionPayload = {
-  userId: number;
+  userId: string;
   expiresAt: Date;
 };
 
