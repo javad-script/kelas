@@ -1,47 +1,38 @@
-import nextVitals from 'eslint-config-next/core-web-vitals';
-import nextTs from 'eslint-config-next/typescript';
+import nextPlugin from '@next/eslint-plugin-next';
 import importPlugin from 'eslint-plugin-import';
-import { defineConfig, globalIgnores } from 'eslint/config';
+import reactHooks from 'eslint-plugin-react-hooks';
+import tsEslint from 'typescript-eslint';
 
-export default defineConfig([
-  ...nextVitals,
-  ...nextTs,
+// ← این خط رو اضافه کن
+
+export default tsEslint.config(
+  ...tsEslint.configs.recommended,
   {
-    files: ['**/*.ts', '**/*.tsx'], // برای تمام ts/tsx ها
     plugins: {
+      '@next/next': nextPlugin,
       import: importPlugin,
+      'react-hooks': reactHooks, // ← اینجا استفاده کن
     },
     rules: {
-      // TypeScript
+      ...nextPlugin.configs.recommended.rules,
+      ...nextPlugin.configs['core-web-vitals'].rules,
+
       '@typescript-eslint/no-unused-vars': [
         'error',
         { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
       ],
-      '@typescript-eslint/explicit-module-boundary-types': 'off',
-      '@typescript-eslint/explicit-any': 'off',
+      '@typescript-eslint/no-explicit-any': 'off',
 
-      // React
-      'react/react-in-jsx-scope': 'off',
-      'react/prop-types': 'off',
-
-      // Best practices
-      'no-console': 'warn',
-      'no-debugger': 'warn',
-      eqeqeq: ['error', 'always'],
-
-      // Formatting / Style
-      semi: ['error', 'always'],
-      quotes: ['warn', 'single', { avoidEscape: true }],
-      'comma-dangle': ['error', 'always-multiline'],
-      indent: ['error', 2],
-
-      // React hooks
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
 
-      // import plugin
-      'import/order': 'off', // حالا اینجا بذار
+      'no-console': 'warn',
+      eqeqeq: ['error', 'always'],
+
+      'import/order': 'off',
     },
   },
-  globalIgnores(['.next/**', 'out/**', 'build/**', 'next-env.d.ts']),
-]);
+  {
+    ignores: ['.next/**', 'dist/**', 'build/**', 'out/**', 'node_modules/**'],
+  },
+);
