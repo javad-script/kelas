@@ -73,7 +73,6 @@ async function main() {
       motherJobAddress: 'تهران، خیابان ولیعصر',
       motherJobPhone: '09123456794',
       motherPhone: '09123456795',
-      profileImage: '/uploads/profile/mina.jpg',
     },
   });
   const student3 = await prisma.user.upsert({
@@ -102,7 +101,6 @@ async function main() {
       motherJobAddress: 'تهران',
       motherJobPhone: '09120000015',
       motherPhone: '09120000016',
-      profileImage: '/uploads/profile/male-default.jpg',
     },
   });
 
@@ -132,7 +130,6 @@ async function main() {
       motherJobAddress: 'تهران',
       motherJobPhone: '09120000025',
       motherPhone: '09120000026',
-      profileImage: '/uploads/profile/male-default.jpg',
     },
   });
 
@@ -162,7 +159,6 @@ async function main() {
       motherJobAddress: 'تهران',
       motherJobPhone: '09120000035',
       motherPhone: '09120000036',
-      profileImage: '/uploads/profile/male-default.jpg',
     },
   });
   console.log('5 student user created successfully');

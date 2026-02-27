@@ -174,38 +174,38 @@ model ClassTeacher {
 }
 
 model Attendance {
-  id        String      @id @default(cuid())
-  date      DateTime
+  id             String            @id @default(cuid())
+  date           DateTime          @db.Date          // فقط تاریخ (بدون ساعت)
 
-  classId   String
-  classRoom ClassRoom @relation(fields: [classId], references: [id])
+  classId        String
+  classRoom      ClassRoom         @relation(fields: [classId], references: [id], onDelete: Cascade)
 
   classTeacherId Int?
-  classTeacher   ClassTeacher? @relation("TeacherAttendance", fields: [classTeacherId], references: [id])
+  classTeacher   ClassTeacher?     @relation("TeacherAttendance", fields: [classTeacherId], references: [id])
 
-  students  AttendanceStudent[]
+  students       AttendanceStudent[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
 
-  @@index([classId])
+  @@index([classId, date])
   @@map("attendance")
 }
 
 model AttendanceStudent {
-  id           String @id @default(cuid())
+  id             String           @id @default(cuid())
 
-  attendanceId String
-  attendance   Attendance @relation(fields: [attendanceId], references: [id])
+  attendanceId   String
+  attendance     Attendance       @relation(fields: [attendanceId], references: [id], onDelete: Cascade)
 
-  studentId    String
-  student      User       @relation(fields: [studentId], references: [id])
+  studentId      String
+  student        User             @relation(fields: [studentId], references: [id], onDelete: Cascade)
 
-  status       AttendanceStatus
-  lateMinutes  Int?
-  note         String?
+  status         AttendanceStatus
+  lateMinutes    Int?             
+  note           String?          @db.Text
 
-  @@unique([attendanceId, studentId])
+  @@unique([attendanceId, studentId])  // جلوگیری از تکراری دانشجو در یک حضورغیاب
   @@index([studentId])
   @@map("attendance_student")
 }
