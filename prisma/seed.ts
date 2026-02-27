@@ -2,7 +2,7 @@
 import { prisma } from '@/lib/prisma';
 
 async function main() {
-  const school1 = await prisma.school.create({
+  const school = await prisma.school.create({
     data: {
       name: 'ایثار',
       phoneNumber: '09123456789',
@@ -17,22 +17,7 @@ async function main() {
       website: 'https://www.isaar-school.ir',
     },
   });
-  const school2 = await prisma.school.create({
-    data: {
-      name: 'پیشرفت',
-      phoneNumber: '09987654321',
-      address: 'خیابان انقلاب، تهران',
-      about: 'مدرسه‌ای با تمرکز بر علوم و فناوری و فعالیت‌های فوق برنامه متنوع.',
-      email: 'contact@pishraft-school.ir',
-      establishedYear: 1390,
-      gradeLevel: 'MIDDLE',
-      logo: '/uploads/logo2.png',
-      totalClasses: 15,
-      type: 'PRIVATE',
-      website: 'https://www.pishraft-school.ir',
-    },
-  });
-  console.log('2 school created successfully');
+  console.log('school created successfully');
   const student1 = await prisma.user.upsert({
     where: { email: 'ali.student@example.com' },
     update: {},
@@ -91,9 +76,98 @@ async function main() {
       profileImage: '/uploads/profile/mina.jpg',
     },
   });
-  console.log('2 student user created successfully');
+  const student3 = await prisma.user.upsert({
+    where: { email: 'ali2.student@example.com' },
+    update: {},
+    create: {
+      email: 'ali2.student@example.com',
+      firstName: 'علی',
+      lastName: 'مرادی',
+      nationalCode: '1100000001',
+      password: '$2b$12$5nc.37jic5A457xqqB97O.tsPNsfIX0yPNNZJx8smD6ev950UIQkO',
+      phone: '09120000011',
+      role: 'STUDENT',
+      username: 'ali.moradi',
+      address: 'تهران',
+      birthDate: new Date('2008-02-01'),
+      emergencyPhone: '09120000012',
+      fatherEmail: 'father1@example.com',
+      fatherJob: 'کارمند',
+      fatherJobAddress: 'تهران',
+      fatherJobPhone: '09120000013',
+      fatherPhone: '09120000014',
+      housePhone: '02110000011',
+      motherEmail: 'mother1@example.com',
+      motherJob: 'خانه دار',
+      motherJobAddress: 'تهران',
+      motherJobPhone: '09120000015',
+      motherPhone: '09120000016',
+      profileImage: '/uploads/profile/male-default.jpg',
+    },
+  });
 
-  const teacher1 = await prisma.user.upsert({
+  const student4 = await prisma.user.upsert({
+    where: { email: 'amir.student@example.com' },
+    update: {},
+    create: {
+      email: 'amir.student@example.com',
+      firstName: 'امیر',
+      lastName: 'حسینی',
+      nationalCode: '1100000002',
+      password: '$2b$12$5nc.37jic5A457xqqB97O.tsPNsfIX0yPNNZJx8smD6ev950UIQkO',
+      phone: '09120000021',
+      role: 'STUDENT',
+      username: 'amir.hosseini',
+      address: 'تهران',
+      birthDate: new Date('2008-03-01'),
+      emergencyPhone: '09120000022',
+      fatherEmail: 'father2@example.com',
+      fatherJob: 'کارمند',
+      fatherJobAddress: 'تهران',
+      fatherJobPhone: '09120000023',
+      fatherPhone: '09120000024',
+      housePhone: '02110000021',
+      motherEmail: 'mother2@example.com',
+      motherJob: 'خانه دار',
+      motherJobAddress: 'تهران',
+      motherJobPhone: '09120000025',
+      motherPhone: '09120000026',
+      profileImage: '/uploads/profile/male-default.jpg',
+    },
+  });
+
+  const student5 = await prisma.user.upsert({
+    where: { email: 'mohammad.student@example.com' },
+    update: {},
+    create: {
+      email: 'mohammad.student@example.com',
+      firstName: 'محمد',
+      lastName: 'کریمی',
+      nationalCode: '1100000003',
+      password: '$2b$12$5nc.37jic5A457xqqB97O.tsPNsfIX0yPNNZJx8smD6ev950UIQkO',
+      phone: '09120000031',
+      role: 'STUDENT',
+      username: 'mohammad.karimi',
+      address: 'تهران',
+      birthDate: new Date('2008-04-01'),
+      emergencyPhone: '09120000032',
+      fatherEmail: 'father3@example.com',
+      fatherJob: 'کارمند',
+      fatherJobAddress: 'تهران',
+      fatherJobPhone: '09120000033',
+      fatherPhone: '09120000034',
+      housePhone: '02110000031',
+      motherEmail: 'mother3@example.com',
+      motherJob: 'خانه دار',
+      motherJobAddress: 'تهران',
+      motherJobPhone: '09120000035',
+      motherPhone: '09120000036',
+      profileImage: '/uploads/profile/male-default.jpg',
+    },
+  });
+  console.log('5 student user created successfully');
+
+  const teacher = await prisma.user.upsert({
     where: { email: 'reza.teacher@example.com' },
     update: {},
     create: {
@@ -122,41 +196,12 @@ async function main() {
       profileImage: '/uploads/profile/reza.jpg',
     },
   });
-  const teacher2 = await prisma.user.upsert({
-    where: { email: 'sara.teacher@example.com' },
-    update: {},
-    create: {
-      email: 'sara.teacher@example.com',
-      firstName: 'سارا',
-      lastName: 'کریمی',
-      nationalCode: '0034567890',
-      password: '$2b$12$5nc.37jic5A457xqqB97O.tsPNsfIX0yPNNZJx8smD6ev950UIQkO',
-      phone: '09123456810',
-      role: 'TEACHER',
-      username: 'sara.karimi',
-      address: 'تهران، خیابان انقلاب',
-      birthDate: new Date('1990-08-22'),
-      emergencyPhone: '09123456811',
-      fatherEmail: 'father.sara@example.com',
-      fatherJob: 'Doctor',
-      fatherJobAddress: 'تهران، خیابان شهید بهشتی',
-      fatherJobPhone: '09123456812',
-      fatherPhone: '09123456813',
-      housePhone: '02187654322',
-      motherEmail: 'mother.sara@example.com',
-      motherJob: 'Nurse',
-      motherJobAddress: 'تهران، خیابان ولیعصر',
-      motherJobPhone: '09123456814',
-      motherPhone: '09123456815',
-      profileImage: '/uploads/profile/sara.jpg',
-    },
-  });
-  console.log('2 teacher user created successfully');
+  console.log('teacher user created successfully');
   const class1 = await prisma.classRoom.create({
     data: {
       grade: 12,
       name: 'Class 1',
-      schoolId: school1.id,
+      schoolId: school.id,
     },
   });
 
@@ -164,7 +209,7 @@ async function main() {
     data: {
       grade: 10,
       name: 'Class 2',
-      schoolId: school2.id,
+      schoolId: school.id,
     },
   });
 
@@ -172,9 +217,8 @@ async function main() {
 
   await prisma.classTeacher.createMany({
     data: [
-      { teacherId: teacher1.id, classId: class1.id },
-      { teacherId: teacher2.id, classId: class2.id },
-      { teacherId: teacher1.id, classId: class2.id },
+      { teacherId: teacher.id, classId: class1.id },
+      { teacherId: teacher.id, classId: class2.id },
     ],
   });
 
@@ -183,8 +227,12 @@ async function main() {
   await prisma.studentClass.createMany({
     data: [
       { classId: class1.id, studentId: student1.id },
-      { classId: class2.id, studentId: student2.id },
+      { classId: class1.id, studentId: student2.id },
+      { classId: class1.id, studentId: student3.id },
+      { classId: class1.id, studentId: student4.id },
+      { classId: class1.id, studentId: student5.id },
     ],
+    skipDuplicates: true,
   });
 
   console.log('students and classes relations created successfully');
@@ -193,32 +241,38 @@ async function main() {
     data: [
       {
         role: 'STUDENT',
-        schoolId: school1.id,
+        schoolId: school.id,
         userId: student1.id,
       },
       {
         role: 'STUDENT',
-        schoolId: school2.id,
+        schoolId: school.id,
         userId: student2.id,
+      },
+      {
+        role: 'STUDENT',
+        schoolId: school.id,
+        userId: student3.id,
+      },
+      {
+        role: 'STUDENT',
+        schoolId: school.id,
+        userId: student4.id,
+      },
+      {
+        role: 'STUDENT',
+        schoolId: school.id,
+        userId: student5.id,
+      },
+      {
+        role: 'TEACHER',
+        schoolId: school.id,
+        userId: teacher.id,
       },
     ],
   });
 
   console.log('students and schools relations created successfully');
-  await prisma.schoolUser.createMany({
-    data: [
-      {
-        role: 'TEACHER',
-        schoolId: school1.id,
-        userId: teacher1.id,
-      },
-      {
-        role: 'TEACHER',
-        schoolId: school2.id,
-        userId: teacher2.id,
-      },
-    ],
-  });
 
   console.log('teacher and schools relations created successfully');
 }
