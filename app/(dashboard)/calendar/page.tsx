@@ -50,7 +50,8 @@ export default function Page() {
             defaultMonth={date}
             selected={date}
             onSelect={setDate}
-            className='rounded-lg border'
+            className='rounded-lg border w-full bg-card shadow-md'
+            showOutsideDays={false}
           />
         </div>
       </section>
