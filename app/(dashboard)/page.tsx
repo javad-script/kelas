@@ -159,10 +159,10 @@ const NOTIFICATIONS: NotificationProps[] = [
 export default async function Page() {
   const user = await getCurrentUser();
   return (
-    <div className='space-y-8'>
-      <div className='w-full mt-safe-top p-6 rounded-2xl bg-card c-gradient dark:backdrop-blur-lg border border-white/5 shadow-[0_4px_6px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,0.05)]'>
+    <>
+      <section className='w-full mt-safe-top p-6 rounded-2xl bg-card c-gradient dark:backdrop-blur-lg border border-white/5 shadow-[0_4px_6px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,0.05)]'>
         <div className='flex items-center justify-between'>
-          <div className='flex items-center gap-3'>
+          <div className='flex items-center gap-4'>
             <UserAvatar
               src={user?.profileImage || undefined}
               fallback={user?.firstName[0]}
@@ -187,9 +187,9 @@ export default async function Page() {
             </span>
           </Button>
         </div>
-      </div>
-      <section className=''>
-        <p className='mb-4'>دسترسی سریع</p>
+      </section>
+      <section className='space-y-4'>
+        <p>دسترسی سریع</p>
         <div className='grid grid-cols-3 gap-4 w-full '>
           {user?.role === 'TEACHER' &&
             TEACHER_FEATURE_CARDS.map((c) => <FeatureCard key={c.href} {...c} />)}
@@ -197,15 +197,15 @@ export default async function Page() {
             STUDENT_FEATURE_CARDS.map((c) => <FeatureCard key={c.href} {...c} />)}
         </div>
       </section>
-      <section className=''>
-        <p className='mb-4'>اطلاعیه های مهم</p>
+      <section className='space-y-4'>
+        <p>اطلاعیه های مهم</p>
         <div className='flex flex-col w-full gap-4'>
           {NOTIFICATIONS.map((n) => (
             <Notification key={n.reference} {...n} />
           ))}
         </div>
       </section>
-    </div>
+    </>
   );
 }
 
@@ -218,7 +218,6 @@ function getGreeting() {
     return 'ظهر بخیر';
   } else if (hour >= 16 && hour < 20) {
     return 'عصر بخیر';
-  } else {
-    return 'شب بخیر';
   }
+  return 'شب بخیر';
 }
