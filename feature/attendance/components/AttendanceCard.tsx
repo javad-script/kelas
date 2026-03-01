@@ -1,9 +1,6 @@
 import { useState } from 'react';
 
-import Image from 'next/image';
-
 import { StudentStatus } from '@/feature/attendance/types';
-import { useVerticalSwipe } from '@/hooks/useSwipe';
 import { AttendanceStatus } from '@/lib/generated/prisma/enums';
 import { cn } from '@/lib/utils';
 import { User } from '@/types/user';
@@ -16,11 +13,8 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogDescription,
   DialogFooter,
-  DialogHeader,
   DialogOverlay,
-  DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
 import {
@@ -44,46 +38,19 @@ export default function AttendanceCard({
   lateMinutes,
   handleChange,
 }: AttendanceCardProps) {
-  const [isDialogOpen, setDialogOpen] = useState(false);
   const [isLateOpen, setLateOpen] = useState(false);
   const statusSwitch = () => (status === 'PRESENT' ? 'ABSENT' : 'PRESENT');
-
-  useVerticalSwipe(['bottom', 'top'], () => setDialogOpen(false), { enabled: isDialogOpen });
 
   return (
     <div className='flex items-center justify-between p-4 bg-card rounded-2xl shadow-md w-full max-w-md mx-auto gap-4 flex-col'>
       {/* Profile */}
       <div className='flex items-center gap-4 w-full'>
-        <Dialog open={isDialogOpen} onOpenChange={setDialogOpen}>
-          <DialogOverlay className='bg-foreground/10 backdrop-blur-2xl'></DialogOverlay>
-          <DialogTrigger
-            // asChild
-            disabled={typeof student?.profileImage === 'string' ? false : true}
-          >
-            <UserAvatar
-              className='size-14 border border-border'
-              src={student?.profileImage || undefined}
-              fallback={student?.firstName[0]}
-            />
-          </DialogTrigger>
-          <DialogContent
-            showCloseButton={false}
-            className='bg-transparent max-w-svw shadow-none p-0 w-full border-transparent'
-          >
-            <DialogHeader>
-              <DialogTitle className='hidden'></DialogTitle>
-              <DialogDescription className='hidden'></DialogDescription>
-            </DialogHeader>
-            <div className='w-full aspect-square overflow-hidden bg-transparent'>
-              <Image
-                src={student?.profileImage || ''}
-                alt={student?.firstName || 'failed'}
-                fill
-                className=''
-              />
-            </div>
-          </DialogContent>
-        </Dialog>
+        <UserAvatar
+          src={student.profileImage ?? undefined}
+          fallback={student.firstName[0]}
+          dialog
+          className='size-20'
+        />
 
         {/* Name */}
         <div className='flex flex-col'>

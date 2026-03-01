@@ -23,7 +23,7 @@ function BottomNavigation() {
     (href !== '/' && pathname.startsWith(href + '/')) ||
     (href === '/' && pathname === '/');
   return (
-    <nav className='w-full h-20 px-4 py-2 flex justify-between gap-2 items-center border-border border-t bg-background fixed bottom-0 left-0 z-50'>
+    <nav className='w-full h-20 px-4 py-2 flex justify-between gap-2 items-center border-border border-t bg-background fixed bottom-0 left-0 z-20'>
       {NAV_LINKS.map((l) => (
         <Link
           prefetch

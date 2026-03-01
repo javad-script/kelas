@@ -33,7 +33,7 @@ export default function TopNavigator({ backLinkHref, children }: TopNavigatorPro
   return (
     <div
       className={cn(
-        'w-full fixed px-4 py-3 z-50 top-0 left-0 flex items-center transition-colors duration-300',
+        'w-full fixed px-4 py-3 z-20 top-0 left-0 flex items-center transition-colors duration-300',
         scrollPos > 0 && 'bg-[#FFFFFF] border-b border-border dark:border-none dark:bg-[#242426]',
         children ? 'justify-between' : 'justify-end',
       )}

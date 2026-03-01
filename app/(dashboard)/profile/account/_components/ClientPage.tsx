@@ -54,8 +54,8 @@ export default function ClientPage({ user }: { user: User }) {
           <div className='relative bg-transparent rounded-full'>
             <form ref={profileForm} onSubmit={profileSubmitHandler} method='POST' className='mt-10'>
               <label htmlFor='profileInput'>
-                <div className='relative ring ring-offset-card ring-offset-3 bg-transparent rounded-full ring-rose-500/50'>
-                  <UserAvatar src={user.profileImage || undefined} fallback={user.firstName[0]} />
+                <div className='relative ring-1 ring-offset-4 bg-transparent rounded-full ring-offset-background ring-rose-500/50'>
+                  <UserAvatar src={user.profileImage ?? ''} fallback={user.firstName[0]} />
                   <div className='absolute bottom-0 right-0 size-8 flex items-center justify-center bg-rose-500 shadow-sm rounded-full overflow-auto!'>
                     <Camera className='text-white size-5' />
                   </div>
