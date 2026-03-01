@@ -8,6 +8,7 @@ import { AttendanceStatus } from '@/lib/generated/prisma/enums';
 import { cn } from '@/lib/utils';
 import { User } from '@/types/user';
 import { Clock, EllipsisVertical } from 'lucide-react';
+import { toast } from 'sonner';
 
 import UserAvatar from '@/components/common/UserAvatar';
 import { Button } from '@/components/ui/button';
@@ -44,6 +45,7 @@ export default function AttendanceCard({
   handleChange,
 }: AttendanceCardProps) {
   const [isDialogOpen, setDialogOpen] = useState(false);
+  const [isLateOpen, setLateOpen] = useState(false);
   const statusSwitch = () => (status === 'PRESENT' ? 'ABSENT' : 'PRESENT');
 
   useVerticalSwipe(['bottom', 'top'], () => setDialogOpen(false), { enabled: isDialogOpen });
@@ -128,7 +130,7 @@ export default function AttendanceCard({
         </Button>
 
         {/* Late Time Button */}
-        <Dialog>
+        <Dialog open={isLateOpen} onOpenChange={setLateOpen}>
           <DialogOverlay className='bg-foreground/10 backdrop-blur-2xl'></DialogOverlay>
           <DialogTrigger asChild>
             <Button type='button' className='size-10' variant='outline' size='sm'>
@@ -142,6 +144,8 @@ export default function AttendanceCard({
                 const formData = new FormData(e.currentTarget);
                 const lateTime = formData.get('lateTime');
                 handleChange(student.id, 'LATE', Number(lateTime) || 0);
+                setLateOpen(false);
+                toast.success('تاخیر ثبت شد', { duration: 1500, richColors: true });
               }}
             >
               <Input

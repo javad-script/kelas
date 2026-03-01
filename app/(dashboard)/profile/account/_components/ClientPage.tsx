@@ -1,14 +1,13 @@
 'use client';
-import { FormEvent, ReactNode, useEffect, useRef, useState } from 'react';
-
-import Link from 'next/link';
+import { FormEvent, ReactNode, useRef } from 'react';
 
 import { editUserData, uploadProfileImage } from '@/feature/user/actions';
-import { cn } from '@/lib/utils';
 import { User } from '@/types/user';
-import { ArrowLeft, Camera, Check } from 'lucide-react';
+import { Camera, Check } from 'lucide-react';
+import { useFormStatus } from 'react-dom';
 import { toast } from 'sonner';
 
+import TopNavigator from '@/components/common/TopNavigator';
 import UserAvatar from '@/components/common/UserAvatar';
 import {
   Accordion,
@@ -23,14 +22,11 @@ import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
 
 export default function ClientPage({ user }: { user: User }) {
-  const [scrollPos, setScrollPos] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
   const profileForm = useRef<HTMLFormElement>(null);
   const userSubmitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
-      setIsLoading(true);
       const formData = new FormData(e.currentTarget);
       const result = await editUserData(formData);
       if (!result.ok) return toast.error(result.message);
@@ -38,19 +34,7 @@ export default function ClientPage({ user }: { user: User }) {
     } catch {
       toast.error('fail');
     }
-    setIsLoading(false);
   };
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollPos(window.scrollY);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
 
   const profileSubmitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -66,7 +50,7 @@ export default function ClientPage({ user }: { user: User }) {
   return (
     <div className='space-y-8'>
       <section>
-        <div className='flex flex-col items-center justify-center w-full pt-6 pb-2'>
+        <div className='flex flex-col items-center justify-center w-full pb-2'>
           <div className='relative bg-transparent rounded-full'>
             <form ref={profileForm} onSubmit={profileSubmitHandler} method='POST' className='mt-10'>
               <label htmlFor='profileInput'>
@@ -96,22 +80,9 @@ export default function ClientPage({ user }: { user: User }) {
         </div>
       </section>
       <form onSubmit={userSubmitHandler} className='space-y-8' method='post'>
-        <div
-          className={cn(
-            'w-full fixed px-6 py-3 z-50 top-0 left-0 flex items-center justify-between transition-colors duration-300',
-            scrollPos > 0 &&
-              'bg-[#FFFFFF] border-b border-border dark:border-none dark:bg-[#242426]',
-          )}
-        >
-          <Button className='' variant={'ghost'} type='submit' disabled={isLoading}>
-            {!isLoading ? <Check className='size-5' /> : <Spinner />}
-          </Button>
-          <Button type='button' variant={'ghost'}>
-            <Link href={'../profile'} className='w-full h-full flex items-center justify-center'>
-              <ArrowLeft className='size-5' />
-            </Link>
-          </Button>
-        </div>
+        <TopNavigator>
+          <SubmitButton />
+        </TopNavigator>
         <section className='space-y-8'>
           <CustomAccordion title={'اطلاعات فردی'} open>
             <Label htmlFor='firstName'>نام</Label>
@@ -263,5 +234,14 @@ function CustomAccordion({
         </Accordion>
       </CardContent>
     </Card>
+  );
+}
+
+function SubmitButton() {
+  const { pending } = useFormStatus();
+  return (
+    <Button disabled={pending} className='bg-transparent' variant={'ghost'}>
+      {pending ? <Spinner className='size-5' /> : <Check className='size-5' />}
+    </Button>
   );
 }

@@ -1,5 +1,7 @@
+// import ChangeSchoolButton from '@/app/(dashboard)/profile/school/_components/ChangeSchoolButton';
 import { getUserSchools } from '@/feature/user/actions';
 
+import TopNavigator from '@/components/common/TopNavigator';
 import UserAvatar from '@/components/common/UserAvatar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -21,9 +23,10 @@ export default async function Page() {
   const schools = await getUserSchools();
   const school = schools[0].school;
   return (
-    <div className='space-y-8'>
-      <section>
-        <div className='flex flex-col items-center justify-center w-full pt-6 pb-2'>
+    <div className='space-y-8 pt-8'>
+      <TopNavigator>{/* <ChangeSchoolButton /> */}</TopNavigator>
+      <section className=''>
+        <div className='flex flex-col items-center justify-center w-full pb-2'>
           <div className='relative bg-transparent rounded-full'>
             <label htmlFor='profileInput'>
               <div className='relative bg-transparent rounded-full'>

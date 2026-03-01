@@ -65,7 +65,7 @@ export default async function ProfilePage() {
       <section>
         <h1 className='text-xl font-bold mb-4'>پروفایل</h1>
 
-        <div className='flex flex-col items-center c-gradient justify-center w-full p-6 rounded-2xl bg-card border border-white/5 shadow-[0_4px_6px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,0.05)]'>
+        <div className='flex flex-col items-center c-gradient justify-center w-full px-6 rounded-2xl bg-card border border-white/5 shadow-[0_4px_6px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,0.05)]'>
           <UserAvatar src={user?.profileImage || undefined} fallback={user?.firstName[0]} />
 
           <p className='font-bold text-lg mt-2 mb-1.5'>

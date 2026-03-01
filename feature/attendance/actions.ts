@@ -2,6 +2,7 @@
 
 import { revalidatePath } from 'next/cache';
 
+import { StudentStatus } from '@/feature/attendance/types';
 import { getCurrentUser } from '@/lib/auth/session';
 import { delay } from '@/lib/helpers';
 import { prisma } from '@/lib/prisma';
@@ -17,41 +18,35 @@ export async function saveAttendanceAction(
 ): Promise<ActionResponse> {
   try {
     const json = formData.get('attendances_json') as string | null;
+    const lessonClassId = formData.get('lessonClassId');
+    const user = await getCurrentUser();
+
     if (!json) return { success: false, message: 'داده‌ای ارسال نشده' };
 
-    await delay(1000);
-    const attendances = JSON.parse(json) as {
-      studentId: string;
-      status: 'PRESENT' | 'ABSENT' | 'LATE' | 'EXCUSED';
-      lateMinutes?: number;
-    }[];
+    if (typeof lessonClassId !== 'string' || !lessonClassId) {
+      return { success: false, message: 'شناسه درس معتبر نیست' };
+    }
+
+    const attendances = JSON.parse(json) as StudentStatus[];
 
     if (attendances.length === 0) return { success: false, message: 'هیچ دانش‌آموزی نیست' };
 
-    const classId = formData.get('classId');
-
-    if (typeof classId !== 'string' || !classId) {
-      return { success: false, message: 'شناسه کلاس معتبر نیست' };
-    }
-
-    const user = await getCurrentUser();
     if (!user || user.role !== 'TEACHER') return { success: false, message: 'شما معلم نیستید' };
     const teacherId = user.id;
-
-    // is this user is teacher of this class
-    const classTeacher = await prisma.classTeacher.findUnique({
-      where: { teacherId_classId: { teacherId, classId } },
-      select: { id: true },
+    const lessonClass = await prisma.lessonClass.findUnique({
+      where: { id: Number(lessonClassId) },
+      include: { class: true, teacher: true },
     });
-
-    if (!classTeacher) return { success: false, message: 'شما معلم این کلاس نیستید' };
+    // is this user is teacher of this lesson
+    if (teacherId !== lessonClass?.teacherId)
+      return { success: false, message: 'شما معلم این درس نیستید' };
 
     // create attendance
     const attendance = await prisma.attendance.create({
       data: {
         date: new Date(),
-        classId,
-        classTeacherId: classTeacher.id,
+        classId: lessonClass.classId,
+        lessonClassId: Number(lessonClassId),
       },
     });
 
@@ -64,6 +59,9 @@ export async function saveAttendanceAction(
         lateMinutes: item.lateMinutes ?? null,
       })),
     });
+
+    // TODO : remove line blow
+    delay(1000);
 
     revalidatePath('/teacher/attendance');
 

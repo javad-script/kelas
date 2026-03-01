@@ -9,7 +9,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
 
   if (!user) redirect('/login');
   return (
-    <main className='pb-20'>
+    <main className='pb-20 pt-6'>
       {children}
       <BottomNavigation />
     </main>

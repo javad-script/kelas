@@ -5,18 +5,22 @@ import { getCurrentUser } from '@/lib/auth/session';
 import { prisma } from '@/lib/prisma';
 
 type Props = {
-  searchParams: Promise<{ classId?: string; date?: string }>;
+  searchParams: Promise<{ date?: string; lessonClassId: string }>;
 };
 
 export default async function Page({ searchParams }: Props) {
-  const { classId } = await searchParams;
+  const { lessonClassId } = await searchParams;
   const teacher = await getCurrentUser();
 
-  if (!teacher?.id || !classId) redirect('./');
+  if (!teacher?.id || !lessonClassId) redirect('./');
+
+  const lesson = await prisma.lessonClass.findUnique({ where: { id: Number(lessonClassId) } });
+
+  if (!lesson || teacher.id !== lesson.teacherId) redirect('./');
 
   const students = (
     await prisma.studentClass.findMany({
-      where: { classId: classId },
+      where: { classId: lesson.classId },
       include: {
         student: { omit: { password: false } },
       },
@@ -28,5 +32,5 @@ export default async function Page({ searchParams }: Props) {
   //   alert('Attendance saved!');
   // };
 
-  return <AttendanceClient students={students} classId={classId} />;
+  return <AttendanceClient students={students} lessonClassId={lessonClassId} />;
 }
