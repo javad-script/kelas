@@ -67,8 +67,6 @@ model User {
   password      String
   role          Role
 
-  // کلاس‌هایی که معلم درس میده
-  teachingAssignments ClassTeacher[] @relation("TeacherAssignment")
 
   // حضور غیاب دانش‌آموز
   attendanceRecords AttendanceStudent[]
@@ -82,6 +80,7 @@ model User {
 
   // کلاس‌هایی که دانش‌آموز در آن‌ها ثبت‌نام شده
   studentClasses StudentClass[] 
+  teacherLessons LessonClass[]
 
   // Optional personal info
   birthDate      DateTime?
@@ -146,31 +145,13 @@ model ClassRoom {
   school    School  @relation(fields: [schoolId], references: [id])
 
   studentClass  StudentClass[]
-  teacherAssignments ClassTeacher[]
+  lessonClass LessonClass[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([schoolId])
   @@map("class_rooms")
-}
-
-model ClassTeacher {
-  id        Int @id @default(autoincrement())
-
-  teacherId String
-  classId   String
-
-  // Relation به معلم
-  teacher   User      @relation("TeacherAssignment", fields: [teacherId], references: [id])
-  // Relation به کلاس
-  classRoom ClassRoom @relation(fields: [classId], references: [id])
-
-  // حضور غیاب‌های این معلم و کلاس
-  attendances Attendance[] @relation("TeacherAttendance")
-
-  @@unique([teacherId, classId])
-  @@map("class_teachers")
 }
 
 model Attendance {
@@ -180,8 +161,8 @@ model Attendance {
   classId        String
   classRoom      ClassRoom         @relation(fields: [classId], references: [id], onDelete: Cascade)
 
-  classTeacherId Int?
-  classTeacher   ClassTeacher?     @relation("TeacherAttendance", fields: [classTeacherId], references: [id])
+  lessonClassId       Int
+  lessonClass    LessonClass       @relation(fields: [lessonClassId],references: [id])
 
   students       AttendanceStudent[]
 
@@ -208,4 +189,41 @@ model AttendanceStudent {
   @@unique([attendanceId, studentId])  // جلوگیری از تکراری دانشجو در یک حضورغیاب
   @@index([studentId])
   @@map("attendance_student")
+}
+
+
+model Lesson{
+  id    Int   @id @default(autoincrement())
+  name  String @unique
+  image String
+
+  classes LessonClass[]
+
+  updatedAt DateTime  @updatedAt
+  createdAt DateTime  @default(now())
+  
+  @@index([name])
+  @@map("lesson")
+}
+
+model LessonClass{
+  id    Int   @id @default(autoincrement())
+
+  lessonId  Int
+  lesson  Lesson @relation(fields: [lessonId],references: [id])
+
+  teacherId String
+  teacher User  @relation(fields: [teacherId],references: [id])
+
+  classId String
+  class ClassRoom @relation(fields: [classId] , references: [id])
+
+  attendance  Attendance[]
+
+  updatedAt DateTime  @updatedAt
+  createdAt DateTime  @default(now())
+
+  @@unique([classId,lessonId])
+  @@index([lessonId,teacherId,classId])
+  @@map("lesson_class")
 }

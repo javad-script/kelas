@@ -196,29 +196,12 @@ async function main() {
   const class1 = await prisma.classRoom.create({
     data: {
       grade: 12,
-      name: 'Class 1',
+      name: 'دوازدهم شبکه و نرم افزار',
       schoolId: school.id,
     },
   });
 
-  const class2 = await prisma.classRoom.create({
-    data: {
-      grade: 10,
-      name: 'Class 2',
-      schoolId: school.id,
-    },
-  });
-
-  console.log('2 Class created successfully');
-
-  await prisma.classTeacher.createMany({
-    data: [
-      { teacherId: teacher.id, classId: class1.id },
-      { teacherId: teacher.id, classId: class2.id },
-    ],
-  });
-
-  console.log('teachers and classes relations created successfully');
+  console.log('Class created successfully');
 
   await prisma.studentClass.createMany({
     data: [
@@ -271,6 +254,16 @@ async function main() {
   console.log('students and schools relations created successfully');
 
   console.log('teacher and schools relations created successfully');
+
+  const lesson = await prisma.lesson.create({ data: { image: '', name: 'فارسی ۳' } });
+
+  console.log('lesson created successfully');
+
+  await prisma.lessonClass.create({
+    data: { classId: class1.id, teacherId: teacher.id, lessonId: lesson.id },
+  });
+
+  console.log('lesson and class relations created successfully');
 }
 main()
   .then(async () => {

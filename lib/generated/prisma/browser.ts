@@ -43,11 +43,6 @@ export type StudentClass = Prisma.StudentClassModel
  */
 export type ClassRoom = Prisma.ClassRoomModel
 /**
- * Model ClassTeacher
- * 
- */
-export type ClassTeacher = Prisma.ClassTeacherModel
-/**
  * Model Attendance
  * 
  */
@@ -57,3 +52,13 @@ export type Attendance = Prisma.AttendanceModel
  * 
  */
 export type AttendanceStudent = Prisma.AttendanceStudentModel
+/**
+ * Model Lesson
+ * 
+ */
+export type Lesson = Prisma.LessonModel
+/**
+ * Model LessonClass
+ * 
+ */
+export type LessonClass = Prisma.LessonClassModel
