@@ -61,11 +61,11 @@ export default async function ProfilePage() {
   const user = await getCurrentUser();
 
   return (
-    <div className='space-y-8'>
-      <section>
-        <h1 className='text-xl font-bold mb-4'>پروفایل</h1>
+    <>
+      <section className='space-y-4'>
+        <h1 className='text-2xl'>پروفایل</h1>
 
-        <div className='flex flex-col items-center c-gradient justify-center w-full p-6 rounded-2xl bg-card border border-white/5 shadow-[0_4px_6px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,0.05)]'>
+        <div className='flex py-6 flex-col items-center c-gradient justify-center w-full px-6 rounded-2xl bg-card border border-white/5 shadow-[0_4px_6px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,0.05)]'>
           <UserAvatar src={user?.profileImage || undefined} fallback={user?.firstName[0]} />
 
           <p className='font-bold text-lg mt-2 mb-1.5'>
@@ -83,13 +83,13 @@ export default async function ProfilePage() {
       ))}
 
       <LogoutActionButton />
-    </div>
+    </>
   );
 }
 
 function SettingsGroup({ label, items }: MenuSection) {
   return (
-    <section className='space-y-3 '>
+    <section className='space-y-4'>
       <h2 className='font-medium'>{label}</h2>
 
       <div className='border w-full rounded-2xl shadow-[0_4px_6px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,0.05)] bg-card border-border flex flex-col p-6 gap-6'>

@@ -19,7 +19,7 @@ export default function LogoutButton() {
   return (
     <Button
       onClick={clickHandler}
-      className='w-full p-4 text-center py-6 border-destructive border bg-destructive/15'
+      className='w-full rounded-2xl px-4 text-center py-6 border-destructive border bg-destructive/15'
       variant='ghost'
       disabled={isPending}
     >
