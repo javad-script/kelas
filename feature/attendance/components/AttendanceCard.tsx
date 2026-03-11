@@ -5,7 +5,6 @@ import { AttendanceStatus } from '@/lib/generated/prisma/enums';
 import { cn } from '@/lib/utils';
 import { User } from '@/types/user';
 import { Clock, EllipsisVertical } from 'lucide-react';
-import { toast } from 'sonner';
 
 import UserAvatar from '@/components/common/UserAvatar';
 import { Button } from '@/components/ui/button';
@@ -112,7 +111,6 @@ export default function AttendanceCard({
                 const lateTime = formData.get('lateTime');
                 handleChange(student.id, 'LATE', Number(lateTime) || 0);
                 setLateOpen(false);
-                toast.success('تاخیر ثبت شد', { duration: 1500, richColors: true });
               }}
             >
               <Input

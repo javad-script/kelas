@@ -41,7 +41,7 @@ export default function RootLayout({
         <ThemeProvider attribute='class' defaultTheme='light' enableSystem>
           <DirectionProvider dir='rtl' direction='rtl'>
             <main className='px-4 pt-8 pb-20 space-y-8'>{children}</main>
-            <Toaster position='top-center' />
+            <Toaster duration={1500} position='top-center' />
           </DirectionProvider>
         </ThemeProvider>
       </body>
