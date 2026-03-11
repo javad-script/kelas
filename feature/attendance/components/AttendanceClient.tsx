@@ -19,18 +19,19 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 interface Props {
-  students: User[];
+  statuses: { student: User; status: AttendanceStatus; lateMinutes: number | null }[];
   lessonClassId: string;
+  period: number;
+  date: Date;
 }
 
-export default function AttendanceClient({ students, lessonClassId }: Props) {
-  const [statuses, setStatuses] = useState(
-    students.map((s) => ({
-      studentId: s.id,
-      status: 'PRESENT' as AttendanceStatus,
-      lateMinutes: undefined as number | undefined,
-    })),
-  );
+export default function AttendanceClient({
+  statuses: serverStatuses,
+  lessonClassId,
+  period,
+  date,
+}: Props) {
+  const [statuses, setStatuses] = useState(serverStatuses);
   const form = useRef<HTMLFormElement>(null);
   const [state, formAction] = useActionState(saveAttendanceAction, {
     success: false,
@@ -40,12 +41,12 @@ export default function AttendanceClient({ students, lessonClassId }: Props) {
   const handleChange = (
     studentId: string,
     status: StudentStatus['status'],
-    lateMinutes?: number,
+    lateMinutes: number | null = null,
   ) => {
     setStatuses((prev) =>
       prev.map((s) =>
-        s.studentId === studentId
-          ? { ...s, status, lateMinutes: status === 'LATE' ? lateMinutes : undefined }
+        s.student.id === studentId
+          ? { ...s, status, lateMinutes: status === 'LATE' ? lateMinutes : null }
           : s,
       ),
     );
@@ -61,10 +62,12 @@ export default function AttendanceClient({ students, lessonClassId }: Props) {
 
   return (
     <form action={formAction} ref={form} className='space-y-4 pt-12'>
+      <input type='hidden' name='date' value={date.toLocaleString()} />
+      <input type='hidden' name='period' value={period} />
       <input type='hidden' name='lessonClassId' value={lessonClassId} />
       <input type='hidden' name='attendances_json' value={JSON.stringify(statuses)} />
       {statuses.map((s) => {
-        const current = students.find((st) => st.id === s.studentId) as User;
+        const current = s.student as User;
         return (
           <AttendanceCard
             key={current?.id}

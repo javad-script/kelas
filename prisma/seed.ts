@@ -256,11 +256,64 @@ async function main() {
   console.log('teacher and schools relations created successfully');
 
   const lesson = await prisma.lesson.create({ data: { image: '', name: 'فارسی ۳' } });
+  const lesson2 = await prisma.lesson.create({ data: { image: '', name: 'عربی  ۳' } });
 
   console.log('lesson created successfully');
 
   await prisma.lessonClass.create({
-    data: { classId: class1.id, teacherId: teacher.id, lessonId: lesson.id },
+    data: {
+      classId: class1.id,
+      teacherId: teacher.id,
+      lessonId: lesson.id,
+      schoolPeriod: 1,
+      startTime: new Date('2026-03-06T10:00:00'),
+      endTime: new Date('2026-03-06T11:30:00'),
+      weekDay: 'WEDNESDAY',
+    },
+  });
+  await prisma.lessonClass.create({
+    data: {
+      classId: class1.id,
+      teacherId: teacher.id,
+      lessonId: lesson.id,
+      schoolPeriod: 2,
+      startTime: new Date('2026-03-06T12:00:00'),
+      endTime: new Date('2026-03-06T13:30:00'),
+      weekDay: 'WEDNESDAY',
+    },
+  });
+  await prisma.lessonClass.create({
+    data: {
+      classId: class1.id,
+      teacherId: teacher.id,
+      lessonId: lesson2.id,
+      schoolPeriod: 3,
+      startTime: new Date('2026-03-06T11:30:00'),
+      endTime: new Date('2026-03-06T13:00:00'),
+      weekDay: 'WEDNESDAY',
+    },
+  });
+  await prisma.lessonClass.create({
+    data: {
+      classId: class1.id,
+      teacherId: teacher.id,
+      lessonId: lesson.id,
+      schoolPeriod: 1,
+      startTime: new Date('2026-03-06T10:00:00'),
+      endTime: new Date('2026-03-06T11:30:00'),
+      weekDay: 'THURSDAY',
+    },
+  });
+  await prisma.lessonClass.create({
+    data: {
+      classId: class1.id,
+      teacherId: teacher.id,
+      lessonId: lesson2.id,
+      schoolPeriod: 2,
+      startTime: new Date('2026-03-06T11:30:00'),
+      endTime: new Date('2026-03-06T13:00:00'),
+      weekDay: 'THURSDAY',
+    },
   });
 
   console.log('lesson and class relations created successfully');

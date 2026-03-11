@@ -2,14 +2,18 @@ import { redirect } from 'next/navigation';
 
 import AttendanceClient from '@/feature/attendance/components/AttendanceClient';
 import { getCurrentUser } from '@/lib/auth/session';
+import { AttendanceStatus } from '@/lib/generated/prisma/enums';
 import { prisma } from '@/lib/prisma';
+import { User } from '@/types/user';
 
 type Props = {
-  searchParams: Promise<{ date?: string; lessonClassId: string }>;
+  searchParams: Promise<{ date: string; lessonClassId: string; schoolPeriod: string }>;
 };
 
 export default async function Page({ searchParams }: Props) {
-  const { lessonClassId } = await searchParams;
+  const { lessonClassId, date: stringDate, schoolPeriod } = await searchParams;
+  const dateWithTime = new Date(stringDate);
+  const period = Number(schoolPeriod);
   const teacher = await getCurrentUser();
 
   if (!teacher?.id || !lessonClassId) redirect('./');
@@ -17,20 +21,51 @@ export default async function Page({ searchParams }: Props) {
   const lesson = await prisma.lessonClass.findUnique({ where: { id: Number(lessonClassId) } });
 
   if (!lesson || teacher.id !== lesson.teacherId) redirect('./');
+  const [year, month, day] = [
+    dateWithTime.getUTCFullYear(),
+    dateWithTime.getUTCMonth(),
+    dateWithTime.getUTCDate(),
+  ];
+  const date = new Date(Date.UTC(year, month, day, 0, 0, 0, 0));
 
-  const students = (
-    await prisma.studentClass.findMany({
-      where: { classId: lesson.classId },
-      include: {
-        student: { omit: { password: false } },
-      },
-    })
-  ).map((s) => s.student);
+  const attendance = await prisma.attendance.findFirst({
+    where: {
+      lessonClassId: lesson.id,
+      classId: lesson.classId,
+      date: date,
+      schoolPeriod: period,
+    },
+    include: { students: { include: { student: { omit: { password: true } } } } },
+  });
 
-  //  const saveAttendance = async (statuses: StudentStatus[]) => {
-  //   await saveAttendanceAction({ classId, teacherId: teacher.id, studentStatuses: statuses });
-  //   alert('Attendance saved!');
-  // };
+  let attendanceStudentsStatuses: AttendanceStatuses[] | undefined = attendance?.students;
 
-  return <AttendanceClient students={students} lessonClassId={lessonClassId} />;
+  if (!attendanceStudentsStatuses) {
+    const students = (
+      await prisma.studentClass.findMany({
+        where: { classId: lesson.classId },
+        include: {
+          student: { omit: { password: false } },
+        },
+      })
+    ).map((s) => s.student);
+
+    attendanceStudentsStatuses = students.map((s) => {
+      return {
+        student: s,
+        lateMinutes: null,
+        status: 'PRESENT',
+      };
+    });
+  }
+
+  return (
+    <AttendanceClient
+      statuses={attendanceStudentsStatuses}
+      period={period}
+      lessonClassId={lessonClassId}
+      date={date}
+    />
+  );
 }
+type AttendanceStatuses = { student: User; status: AttendanceStatus; lateMinutes: number | null };

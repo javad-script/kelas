@@ -155,6 +155,7 @@ const NOTIFICATIONS: NotificationProps[] = [
     color: 'teal',
   },
 ];
+const todayDate = formatPersianDate(new Date());
 
 export default async function Page() {
   const user = await getCurrentUser();
@@ -173,7 +174,7 @@ export default async function Page() {
                 {getGreeting()} ، {user?.firstName.split(' ')[0]} 👋
               </p>
               <p className='text-foreground/60 text-sm'>
-                {formatPersianDate(new Date(), { month: 'long', year: false })}
+                {todayDate.week} {todayDate.day} {todayDate.month}
               </p>
             </div>
           </div>

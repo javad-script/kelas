@@ -1,3 +1,5 @@
+import { User } from '@/types/user';
+
 // دانش‌آموز
 export type Student = {
   id: string;
@@ -10,7 +12,7 @@ export type AttendanceStatus = 'PRESENT' | 'ABSENT' | 'LATE' | 'EXCUSED';
 
 // وضعیت دانش‌آموز برای Attendance
 export type StudentStatus = {
-  studentId: string;
+  student: User;
   status: AttendanceStatus;
   lateMinutes?: number;
   note?: string;

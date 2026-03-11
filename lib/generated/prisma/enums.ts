@@ -9,6 +9,19 @@
 * 🟢 You can import this file directly.
 */
 
+export const WeekDays = {
+  SATURDAY: 'SATURDAY',
+  SUNDAY: 'SUNDAY',
+  MONDAY: 'MONDAY',
+  TUESDAY: 'TUESDAY',
+  WEDNESDAY: 'WEDNESDAY',
+  THURSDAY: 'THURSDAY',
+  FRIDAY: 'FRIDAY'
+} as const
+
+export type WeekDays = (typeof WeekDays)[keyof typeof WeekDays]
+
+
 export const Role = {
   STUDENT: 'STUDENT',
   TEACHER: 'TEACHER',

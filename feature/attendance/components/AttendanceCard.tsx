@@ -28,7 +28,7 @@ import { Input } from '@/components/ui/input';
 type AttendanceCardProps = {
   student: User;
   status: AttendanceStatus;
-  lateMinutes: number | undefined;
+  lateMinutes: number | null;
   handleChange: (studentId: string, status: StudentStatus['status'], lateMinutes?: number) => void;
 };
 

@@ -35,6 +35,8 @@ const NOTIFICATIONS: NotificationProps[] = [
   },
 ];
 
+const todayDate = formatPersianDate(new Date());
+
 export default function Page() {
   const [date, setDate] = useState<Date | undefined>(new Date());
   return (
@@ -42,7 +44,7 @@ export default function Page() {
       <section className='space-y-4'>
         <h1 className='text-2xl'>تقویم</h1>
         <p className='text-muted-foreground '>
-          {formatPersianDate(new Date(), { month: 'long', day: 'numeric', year: 'numeric' })}
+          {todayDate.week}, {todayDate.day} {todayDate.month} {todayDate.year}
         </p>
         <div className={vazirmatn.className}>
           <Calendar

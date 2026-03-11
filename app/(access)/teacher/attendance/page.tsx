@@ -1,70 +1,84 @@
 import Link from 'next/link';
 
+import LessonCard from '@/feature/attendance/components/LessonCard';
 import { getCurrentUser } from '@/lib/auth/session';
-import { ClassRoom, Lesson } from '@/lib/generated/prisma/client';
+import { formatPersianDate, getWeekDay } from '@/lib/helpers';
 import { prisma } from '@/lib/prisma';
+import { MoreVertical } from 'lucide-react';
 
 import TopNavigator from '@/components/common/TopNavigator';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
-export default async function Page() {
-  const user = await getCurrentUser();
-  const lessons = await prisma.lessonClass.findMany({
-    where: { teacherId: user?.id },
-    include: { teacher: true, lesson: true, class: true },
-  });
-  return (
-    <div className='pt-12'>
-      <TopNavigator></TopNavigator>
-      {lessons.map((l) => (
-        <LessonCard key={l.id} lesson={l.lesson} classData={l.class} />
-      ))}
-    </div>
-  );
-}
-
-type LessonCardProps = {
-  lesson: Lesson;
-  classData: ClassRoom;
+type Props = {
+  searchParams: Promise<{ targetDate: string }>;
 };
 
-function LessonCard({ lesson, classData }: LessonCardProps) {
+export default async function Page({ searchParams }: Props) {
+  const { targetDate } = await searchParams;
+  const user = await getCurrentUser();
+  const date = targetDate ? new Date(targetDate) : new Date();
+  const today = getWeekDay(date.getDay());
+  const [year, month, day] = [date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()];
+  const dateUTC = new Date(Date.UTC(year, month, day, 0, 0, 0, 0));
+  const lessons = await prisma.lessonClass.findMany({
+    where: { teacherId: user?.id, weekDay: today },
+    include: {
+      lesson: { select: { id: true, name: true } },
+      class: { select: { name: true, grade: true } },
+    },
+  });
+  const attendance = await prisma.attendance.findMany({
+    select: { id: true, schoolPeriod: true },
+    where: {
+      date: dateUTC,
+    },
+  });
+
+  const todayDate = formatPersianDate(new Date());
+
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>
-          زنگ اول : {lesson.name} <sup>({classData.grade})</sup>
-        </CardTitle>
-        <CardDescription>
-          <Badge variant={'destructive'}>بدون حضور غیاب</Badge>
-        </CardDescription>
-      </CardHeader>
-      <CardContent>{classData.name}</CardContent>
-      <CardFooter>
-        <Link
-          href={{
-            pathname: './attendance/new/',
-            query: {
-              lessonClassId: lesson.id,
-              date: new Date().toLocaleDateString(),
-            },
-          }}
-          className='w-full'
-        >
-          <Button variant={'outline'} className='w-full bg-transparent py-5'>
-            ورود به دفتر
-          </Button>
-        </Link>
-      </CardFooter>
-    </Card>
+    <div className='pt-12'>
+      <TopNavigator>
+        <DropdownMenu>
+          <DropdownMenuTrigger>
+            <MoreVertical />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem>
+              <Link href={{ query: { targetDate: '2026-03-12' } }} replace>
+                انتخواب تاریخ
+              </Link>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+        <span>
+          {date.getDate() === new Date().getDate()
+            ? 'امروز'
+            : `${todayDate.week}, ${todayDate.day} ${todayDate.month}`}
+        </span>
+      </TopNavigator>
+      <div className='flex flex-col gap-4'>
+        {lessons.map((l) => (
+          <LessonCard
+            key={l.id}
+            isAttendance={attendance.find((a) => a.schoolPeriod === l.schoolPeriod) ? true : false}
+            lesson={l.lesson}
+            schoolPeriod={l.schoolPeriod}
+            classData={l.class}
+            targetDate={date}
+          />
+        ))}
+      </div>
+      {lessons.length < 1 && (
+        <div className='w-full flex justify-center item-center'>
+          <span className=''>امروز کلاسی ندارید</span>
+        </div>
+      )}
+    </div>
   );
 }

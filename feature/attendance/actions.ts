@@ -19,6 +19,9 @@ export async function saveAttendanceAction(
   try {
     const json = formData.get('attendances_json') as string | null;
     const lessonClassId = formData.get('lessonClassId');
+    const period = formData.get('period');
+    const stringDate = formData.get('date');
+    const date = new Date(stringDate as string);
     const user = await getCurrentUser();
 
     if (!json) return { success: false, message: 'داده‌ای ارسال نشده' };
@@ -26,6 +29,8 @@ export async function saveAttendanceAction(
     if (typeof lessonClassId !== 'string' || !lessonClassId) {
       return { success: false, message: 'شناسه درس معتبر نیست' };
     }
+
+    if (!period) return { success: false, message: 'شماره زنگ معتبر نیست' };
 
     const attendances = JSON.parse(json) as StudentStatus[];
 
@@ -44,9 +49,10 @@ export async function saveAttendanceAction(
     // create attendance
     const attendance = await prisma.attendance.create({
       data: {
-        date: new Date(),
+        date: date,
         classId: lessonClass.classId,
         lessonClassId: Number(lessonClassId),
+        schoolPeriod: Number(period),
       },
     });
 
@@ -54,7 +60,7 @@ export async function saveAttendanceAction(
     await prisma.attendanceStudent.createMany({
       data: attendances.map((item) => ({
         attendanceId: attendance.id,
-        studentId: item.studentId,
+        studentId: item.student.id,
         status: item.status,
         lateMinutes: item.lateMinutes ?? null,
       })),

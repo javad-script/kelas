@@ -1,8 +1,10 @@
-export function delay(ms: number) {
+import { WeekDays } from '@/lib/generated/prisma/enums';
+
+function delay(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-export function getRemainingTime(from: Date, to: Date) {
+function getRemainingTime(from: Date, to: Date) {
   const diffMs = Math.max(to.getTime() - from.getTime(), 0);
 
   const totalMinutes = Math.floor(diffMs / (1000 * 60));
@@ -14,17 +16,23 @@ export function getRemainingTime(from: Date, to: Date) {
   return { days, hours };
 }
 
-type PersianDate = {
-  day?: 'numeric';
-  month: 'numeric' | 'narrow' | 'long';
-  year: '2-digit' | 'numeric' | false;
-};
-
-export function formatPersianDate(date: Date, { day = 'numeric', month, year }: PersianDate) {
-  return new Intl.DateTimeFormat('fa-IR-u-nu-latn', {
-    weekday: 'long',
-    day,
-    month,
-    ...(year && { year }),
-  }).format(date);
+function formatPersianDate(date: Date) {
+  const week = new Intl.DateTimeFormat('fa-IR-u-nu-latn', { weekday: 'long' }).format(date);
+  const day = new Intl.DateTimeFormat('fa-IR-u-nu-latn', { day: '2-digit' }).format(date);
+  const year = new Intl.DateTimeFormat('fa-IR-u-nu-latn', { year: 'numeric' }).format(date);
+  const month = new Intl.DateTimeFormat('fa-IR-u-nu-latn', { month: 'long' }).format(date);
+  return { week, day, year, month };
 }
+
+const WEEKDAYS: WeekDays[] = [
+  'SUNDAY',
+  'MONDAY',
+  'TUESDAY',
+  'WEDNESDAY',
+  'THURSDAY',
+  'FRIDAY',
+  'SATURDAY',
+];
+const getWeekDay = (day: number) => WEEKDAYS[day];
+
+export { getWeekDay, formatPersianDate, delay, getRemainingTime };

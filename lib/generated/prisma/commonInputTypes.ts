@@ -257,6 +257,23 @@ export type EnumAttendanceStatusWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumAttendanceStatusFilter<$PrismaModel>
 }
 
+export type EnumWeekDaysFilter<$PrismaModel = never> = {
+  equals?: $Enums.WeekDays | Prisma.EnumWeekDaysFieldRefInput<$PrismaModel>
+  in?: $Enums.WeekDays[] | Prisma.ListEnumWeekDaysFieldRefInput<$PrismaModel>
+  notIn?: $Enums.WeekDays[] | Prisma.ListEnumWeekDaysFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumWeekDaysFilter<$PrismaModel> | $Enums.WeekDays
+}
+
+export type EnumWeekDaysWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.WeekDays | Prisma.EnumWeekDaysFieldRefInput<$PrismaModel>
+  in?: $Enums.WeekDays[] | Prisma.ListEnumWeekDaysFieldRefInput<$PrismaModel>
+  notIn?: $Enums.WeekDays[] | Prisma.ListEnumWeekDaysFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumWeekDaysWithAggregatesFilter<$PrismaModel> | $Enums.WeekDays
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumWeekDaysFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumWeekDaysFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -511,6 +528,23 @@ export type NestedEnumAttendanceStatusWithAggregatesFilter<$PrismaModel = never>
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumAttendanceStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumAttendanceStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumWeekDaysFilter<$PrismaModel = never> = {
+  equals?: $Enums.WeekDays | Prisma.EnumWeekDaysFieldRefInput<$PrismaModel>
+  in?: $Enums.WeekDays[] | Prisma.ListEnumWeekDaysFieldRefInput<$PrismaModel>
+  notIn?: $Enums.WeekDays[] | Prisma.ListEnumWeekDaysFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumWeekDaysFilter<$PrismaModel> | $Enums.WeekDays
+}
+
+export type NestedEnumWeekDaysWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.WeekDays | Prisma.EnumWeekDaysFieldRefInput<$PrismaModel>
+  in?: $Enums.WeekDays[] | Prisma.ListEnumWeekDaysFieldRefInput<$PrismaModel>
+  notIn?: $Enums.WeekDays[] | Prisma.ListEnumWeekDaysFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumWeekDaysWithAggregatesFilter<$PrismaModel> | $Enums.WeekDays
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumWeekDaysFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumWeekDaysFilter<$PrismaModel>
 }
 
 

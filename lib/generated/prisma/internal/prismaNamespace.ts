@@ -1206,6 +1206,7 @@ export const AttendanceScalarFieldEnum = {
   date: 'date',
   classId: 'classId',
   lessonClassId: 'lessonClassId',
+  schoolPeriod: 'schoolPeriod',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -1241,6 +1242,10 @@ export const LessonClassScalarFieldEnum = {
   lessonId: 'lessonId',
   teacherId: 'teacherId',
   classId: 'classId',
+  schoolPeriod: 'schoolPeriod',
+  weekDay: 'weekDay',
+  startTime: 'startTime',
+  endTime: 'endTime',
   updatedAt: 'updatedAt',
   createdAt: 'createdAt'
 } as const
@@ -1373,6 +1378,20 @@ export type EnumAttendanceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<
  * Reference to a field of type 'AttendanceStatus[]'
  */
 export type ListEnumAttendanceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AttendanceStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'WeekDays'
+ */
+export type EnumWeekDaysFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WeekDays'>
+    
+
+
+/**
+ * Reference to a field of type 'WeekDays[]'
+ */
+export type ListEnumWeekDaysFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WeekDays[]'>
     
 
 
