@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
-import { StudentStatus } from '@/feature/attendance/types';
-import { AttendanceStatus } from '@/lib/generated/prisma/enums';
+import { UserAttendanceStatus } from '@/lib/generated/prisma/enums';
 import { cn } from '@/lib/utils';
 import { User } from '@/types/user';
 import { Clock, EllipsisVertical } from 'lucide-react';
@@ -26,19 +25,19 @@ import { Input } from '@/components/ui/input';
 
 type AttendanceCardProps = {
   student: User;
-  status: AttendanceStatus;
+  userStatus: UserAttendanceStatus;
   lateMinutes: number | null;
-  handleChange: (studentId: string, status: StudentStatus['status'], lateMinutes?: number) => void;
+  handleChange: (studentId: string, status: UserAttendanceStatus, lateMinutes?: number) => void;
 };
 
 export default function AttendanceCard({
   student,
-  status,
+  userStatus,
   lateMinutes,
   handleChange,
 }: AttendanceCardProps) {
   const [isLateOpen, setLateOpen] = useState(false);
-  const statusSwitch = () => (status === 'PRESENT' ? 'ABSENT' : 'PRESENT');
+  const userStatusSwitch = () => (userStatus === 'PRESENT' ? 'ABSENT' : 'PRESENT');
 
   return (
     <div className='flex items-center justify-between p-4 bg-card rounded-2xl shadow-md w-full max-w-md mx-auto gap-4 flex-col'>
@@ -75,22 +74,22 @@ export default function AttendanceCard({
         <Button
           type='button'
           onClick={() => {
-            if (status === 'LATE') {
+            if (userStatus === 'LATE') {
               handleChange(student.id, 'PRESENT'); // lateMinutes رو هم پاک کن تو parent
             } else {
-              handleChange(student.id, statusSwitch());
+              handleChange(student.id, userStatusSwitch());
             }
           }}
           className={cn(
             'flex-1 h-10 font-medium',
-            status === 'PRESENT' && 'bg-green-600 hover:bg-green-700 text-white',
-            status === 'ABSENT' && 'bg-red-600/80 hover:bg-red-700 text-white',
-            status === 'LATE' && 'bg-yellow-500 hover:bg-yellow-600 text-white',
+            userStatus === 'PRESENT' && 'bg-green-600 hover:bg-green-700 text-white',
+            userStatus === 'ABSENT' && 'bg-red-600/80 hover:bg-red-700 text-white',
+            userStatus === 'LATE' && 'bg-yellow-500 hover:bg-yellow-600 text-white',
           )}
         >
-          {status === 'PRESENT'
+          {userStatus === 'PRESENT'
             ? 'حاضر'
-            : status === 'ABSENT'
+            : userStatus === 'ABSENT'
               ? 'غایب'
               : `تأخیر ${lateMinutes ?? '?'} دقیقه`}
         </Button>

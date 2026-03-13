@@ -168,6 +168,7 @@ export const AttendanceScalarFieldEnum = {
   classId: 'classId',
   lessonClassId: 'lessonClassId',
   schoolPeriod: 'schoolPeriod',
+  teacherId: 'teacherId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -179,6 +180,7 @@ export const AttendanceStudentScalarFieldEnum = {
   id: 'id',
   attendanceId: 'attendanceId',
   studentId: 'studentId',
+  userStatus: 'userStatus',
   status: 'status',
   lateMinutes: 'lateMinutes',
   note: 'note'

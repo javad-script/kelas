@@ -1207,6 +1207,7 @@ export const AttendanceScalarFieldEnum = {
   classId: 'classId',
   lessonClassId: 'lessonClassId',
   schoolPeriod: 'schoolPeriod',
+  teacherId: 'teacherId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -1218,6 +1219,7 @@ export const AttendanceStudentScalarFieldEnum = {
   id: 'id',
   attendanceId: 'attendanceId',
   studentId: 'studentId',
+  userStatus: 'userStatus',
   status: 'status',
   lateMinutes: 'lateMinutes',
   note: 'note'
@@ -1364,6 +1366,20 @@ export type EnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  * Reference to a field of type 'Role[]'
  */
 export type ListEnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role[]'>
+    
+
+
+/**
+ * Reference to a field of type 'UserAttendanceStatus'
+ */
+export type EnumUserAttendanceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserAttendanceStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'UserAttendanceStatus[]'
+ */
+export type ListEnumUserAttendanceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserAttendanceStatus[]'>
     
 
 

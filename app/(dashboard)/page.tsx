@@ -1,6 +1,6 @@
 import { FeatureCard, FeatureCardProps } from '@/app/(dashboard)/_components/FeatureCard';
 import { getCurrentUser } from '@/lib/auth/session';
-import { formatPersianDate } from '@/lib/helpers';
+import { formatDate } from '@/lib/utils';
 import {
   BarChart3,
   Bell,
@@ -25,56 +25,56 @@ const STUDENT_FEATURE_CARDS: FeatureCardProps[] = [
     icon: NotebookText,
     color: 'bg-sky-500',
     gradient: 'from-sky-900/15',
-    href: '/homeworks',
+    href: 'student/homeworks',
   },
   {
     label: 'موارد انضباطی',
     icon: ShieldAlert,
     color: 'bg-orange-500',
     gradient: 'from-orange-900/15',
-    href: '/discipline',
+    href: 'student/discipline',
   },
   {
     label: 'برنامه کلاسی',
     icon: CalendarClock,
     color: 'bg-pink-500',
     gradient: 'from-pink-900/15',
-    href: '/schedule',
+    href: 'student/schedule',
   },
   {
     label: 'نمرات',
     icon: BarChart3,
     color: 'bg-teal-500',
     gradient: 'from-teal-900/15',
-    href: '/scores',
+    href: 'student/scores',
   },
   {
     label: 'گزارش',
     icon: FileText,
     color: 'bg-red-500',
     gradient: 'from-red-900/15',
-    href: '/reports',
+    href: 'student/reports',
   },
   {
     label: 'پیام ها',
     icon: MessageSquare,
     color: 'bg-indigo-500',
     gradient: 'from-indigo-900/15',
-    href: '/messages',
+    href: 'student/messages',
   },
   {
     label: 'برنامه امتحانی',
     icon: CalendarCheck,
     color: 'bg-fuchsia-500',
     gradient: 'from-fuchsia-900/15',
-    href: '/exams',
+    href: 'student/exams',
   },
   {
     label: 'محتوای آموزشی',
     icon: BookOpenCheck,
     color: 'bg-lime-500',
     gradient: 'from-lime-900/15',
-    href: '/learning-content',
+    href: 'student/learning-content',
   },
 ];
 
@@ -155,7 +155,11 @@ const NOTIFICATIONS: NotificationProps[] = [
     color: 'teal',
   },
 ];
-const todayDate = formatPersianDate(new Date());
+const todayDate = formatDate(new Date(), 'fa-IR', {
+  monthType: 'long',
+  weekType: 'long',
+  yearType: 'numeric',
+});
 
 export default async function Page() {
   const user = await getCurrentUser();

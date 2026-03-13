@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import { Vazirmatn } from 'next/font/google';
 
-import { formatPersianDate } from '@/lib/helpers';
+import { formatDate } from '@/lib/utils';
 
 import { Notification, NotificationProps } from '@/components/common/Notification';
 import { Calendar } from '@/components/ui/calendar';
@@ -35,7 +35,11 @@ const NOTIFICATIONS: NotificationProps[] = [
   },
 ];
 
-const todayDate = formatPersianDate(new Date());
+const todayDate = formatDate(new Date(), 'fa-IR', {
+  monthType: 'long',
+  weekType: 'long',
+  yearType: 'numeric',
+});
 
 export default function Page() {
   const [date, setDate] = useState<Date | undefined>(new Date());

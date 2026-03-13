@@ -2,8 +2,8 @@ import Link from 'next/link';
 
 import LessonCard from '@/feature/attendance/components/LessonCard';
 import { getCurrentUser } from '@/lib/auth/session';
-import { formatPersianDate, getWeekDay } from '@/lib/helpers';
 import { prisma } from '@/lib/prisma';
+import { formatDate, getWeekDay } from '@/lib/utils';
 import { MoreVertical } from 'lucide-react';
 
 import TopNavigator from '@/components/common/TopNavigator';
@@ -39,7 +39,11 @@ export default async function Page({ searchParams }: Props) {
     },
   });
 
-  const todayDate = formatPersianDate(new Date());
+  const todayDate = formatDate(date, 'fa-IR', {
+    monthType: 'long',
+    weekType: 'long',
+    yearType: 'numeric',
+  });
 
   return (
     <div className='pt-12'>

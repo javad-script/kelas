@@ -7,6 +7,18 @@ const nextConfig: NextConfig = {
       bodySizeLimit: '10MB',
     },
   },
+  async headers() {
+    return [
+      {
+        source: '/:path*(.)(jpg|jpeg|png|gif|ico|svg|webp)', // Match image file extensions
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable', // Cache for 1 year, immutable
+          },
+        ],
+      },
+    ];
+  },
 };
-
 export default nextConfig;

@@ -4,7 +4,7 @@ import { revalidatePath } from 'next/cache';
 
 import { StudentStatus } from '@/feature/attendance/types';
 import { getCurrentUser } from '@/lib/auth/session';
-import { delay } from '@/lib/helpers';
+import { Attendance } from '@/lib/generated/prisma/client';
 import { prisma } from '@/lib/prisma';
 
 type ActionResponse = {
@@ -13,99 +13,121 @@ type ActionResponse = {
 };
 
 export async function saveAttendanceAction(
-  prevState: any,
+  _: unknown,
   formData: FormData,
 ): Promise<ActionResponse> {
   try {
-    const json = formData.get('attendances_json') as string | null;
-    const lessonClassId = formData.get('lessonClassId');
-    const period = formData.get('period');
-    const stringDate = formData.get('date');
-    const date = new Date(stringDate as string);
     const user = await getCurrentUser();
-
-    if (!json) return { success: false, message: 'داده‌ای ارسال نشده' };
-
-    if (typeof lessonClassId !== 'string' || !lessonClassId) {
-      return { success: false, message: 'شناسه درس معتبر نیست' };
-    }
-
-    if (!period) return { success: false, message: 'شماره زنگ معتبر نیست' };
-
-    const attendances = JSON.parse(json) as StudentStatus[];
-
-    if (attendances.length === 0) return { success: false, message: 'هیچ دانش‌آموزی نیست' };
-
     if (!user || user.role !== 'TEACHER') return { success: false, message: 'شما معلم نیستید' };
-    const teacherId = user.id;
+
+    const json = formData.get('attendances_json') as string | null;
+    const lessonClassId = formData.get('lessonClassId') as string | null;
+    const period = formData.get('period') as string | null;
+    const dateString = formData.get('date') as string | null;
+
+    if (!json) return fail('داده‌ای ارسال نشده');
+    if (!lessonClassId) return fail('شناسه درس معتبر نیست');
+    if (!period) return fail('شماره زنگ معتبر نیست');
+    if (!dateString) return fail('تاریخ معتبر نیست');
+
+    const date = new Date(dateString);
+    const attendances: StudentStatus[] = JSON.parse(json);
+    if (attendances.length === 0) return fail('هیچ دانش‌آموزی نیست');
+
     const lessonClass = await prisma.lessonClass.findUnique({
       where: { id: Number(lessonClassId) },
       include: { class: true, teacher: true },
     });
-    // is this user is teacher of this lesson
-    if (teacherId !== lessonClass?.teacherId)
-      return { success: false, message: 'شما معلم این درس نیستید' };
+
+    if (!lessonClass || lessonClass.teacherId !== user.id) return fail('شما معلم این درس نیستید');
 
     const attendance = await prisma.attendance.findFirst({
       where: {
-        date: date,
+        date,
         classId: lessonClass.classId,
         lessonClassId: Number(lessonClassId),
         schoolPeriod: Number(period),
       },
     });
-    if (!attendance?.id) {
-      // create attendance
-      const createdAttendance = await prisma.attendance.create({
-        data: {
-          date: date,
-          classId: lessonClass.classId,
-          lessonClassId: Number(lessonClassId),
-          schoolPeriod: Number(period),
-        },
+
+    if (!attendance) {
+      const newAttendance = await createAttendance({
+        date,
+        lessonClassId: Number(lessonClassId),
+        classId: lessonClass.classId,
+        teacherId: user.id,
+        schoolPeriod: Number(period),
       });
-      createStudentAttendance(attendances, createdAttendance.id);
-      // TODO : remove line blow
-      delay(1000);
-
+      await createStudentAttendances(attendances, newAttendance.id);
       revalidatePath('/teacher/attendance');
-      return { success: true, message: 'دفتر حضور و غیاب ثبت شد' };
-    } else {
-      // update attendance
-      const updatedAttendance = await prisma.attendance.update({
-        where: {
-          id: attendance.id,
-        },
-        data: {
-          date: date,
-          classId: lessonClass.classId,
-          lessonClassId: Number(lessonClassId),
-          schoolPeriod: Number(period),
-        },
-      });
-      await prisma.attendanceStudent.deleteMany({ where: { attendanceId: updatedAttendance.id } });
-      createStudentAttendance(attendances, updatedAttendance.id);
-      // TODO : remove line blow
-      delay(1000);
-
-      revalidatePath('/teacher/attendance');
-
-      return { success: true, message: 'دفتر حضور و غیاب به روز رسانی شد' };
+      return ok('دفتر حضور و غیاب ثبت شد');
     }
-  } catch (err) {
-    console.error(err);
-    return { success: false, message: 'خطا در انجام عملیات' };
+
+    await updateStudentAttendances(attendances, attendance);
+    revalidatePath('/teacher/attendance');
+    return ok('دفتر حضور و غیاب به روزرسانی شد');
+  } catch (error) {
+    console.error('[saveAttendanceAction]', error);
+    return fail('خطا در انجام عملیات');
   }
 }
 
-async function createStudentAttendance(attendances: StudentStatus[], attendanceId: string) {
-  // create attendance for each student
+// ── Helpers ──────────────────────────────────────────────
+function fail(message: string): ActionResponse {
+  return { success: false, message };
+}
+function ok(message: string): ActionResponse {
+  return { success: true, message };
+}
+
+// ── DB functions ─────────────────────────────────────────
+async function createStudentAttendances(attendances: StudentStatus[], attendanceId: string) {
   await prisma.attendanceStudent.createMany({
-    data: attendances.map((item) => ({
-      attendanceId: attendanceId,
-      studentId: item.student.id,
-      status: item.status,
-      lateMinutes: item.lateMinutes ?? null,
+    data: attendances.map(({ student, userStatus, lateMinutes }) => ({
+      attendanceId,
+      studentId: student.id,
+      status: 'QERMOVAJAH', // maybe derive dynamically later
+      userStatus,
+      lateMinutes: lateMinutes ?? null,
     })),
+  });
+}
+
+async function updateStudentAttendances(attendances: StudentStatus[], attendance: Attendance) {
+  const attendanceMap = Object.fromEntries(attendances.map((a) => [a.student.id, a.userStatus]));
+
+  const prevStatuses = await prisma.attendanceStudent.findMany({
+    where: { attendanceId: attendance.id },
+  });
+
+  const changed = prevStatuses.filter(
+    (s) => attendanceMap[s.studentId] && attendanceMap[s.studentId] !== s.userStatus,
+  );
+
+  await Promise.all(
+    changed.map((s) =>
+      prisma.attendanceStudent.update({
+        where: { attendanceId_studentId: { attendanceId: attendance.id, studentId: s.studentId } },
+        data: { userStatus: attendanceMap[s.studentId] },
+      }),
+    ),
+  );
+}
+
+async function createAttendance({
+  date,
+  lessonClassId,
+  teacherId,
+  schoolPeriod,
+  classId,
+}: {
+  date: Date;
+  lessonClassId: number;
+  teacherId: string;
+  schoolPeriod: number;
+  classId: string;
+}) {
+  return prisma.attendance.create({
+    data: { date, classId, teacherId, lessonClassId, schoolPeriod },
   });
 }

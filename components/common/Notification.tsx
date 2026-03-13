@@ -4,7 +4,7 @@ import { ComponentType, useEffect, useState } from 'react';
 
 import Link from 'next/link';
 
-import { getRemainingTime } from '@/lib/helpers';
+import { getRemainingTime } from '@/lib/utils';
 import { cva } from 'class-variance-authority';
 import { ChevronLeft, Clock, TestTube2 } from 'lucide-react';
 

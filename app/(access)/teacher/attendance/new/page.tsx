@@ -2,12 +2,18 @@ import { redirect } from 'next/navigation';
 
 import AttendanceClient from '@/feature/attendance/components/AttendanceClient';
 import { getCurrentUser } from '@/lib/auth/session';
-import { AttendanceStatus } from '@/lib/generated/prisma/enums';
+import { UserAttendanceStatus } from '@/lib/generated/prisma/enums';
 import { prisma } from '@/lib/prisma';
 import { User } from '@/types/user';
+import { Pick } from '@prisma/client/runtime/client';
 
 type Props = {
   searchParams: Promise<{ date: string; lessonClassId: string; schoolPeriod: string }>;
+};
+type AttendanceStatuses = {
+  student: Pick<User, 'firstName' | 'lastName' | 'profileImage' | 'id'>;
+  userStatus: UserAttendanceStatus;
+  lateMinutes: number | null;
 };
 
 export default async function Page({ searchParams }: Props) {
@@ -35,7 +41,13 @@ export default async function Page({ searchParams }: Props) {
       date: date,
       schoolPeriod: period,
     },
-    include: { students: { include: { student: { omit: { password: true } } } } },
+    include: {
+      students: {
+        include: {
+          student: { select: { firstName: true, lastName: true, profileImage: true, id: true } },
+        },
+      },
+    },
   });
 
   let attendanceStudentsStatuses: AttendanceStatuses[] | undefined = attendance?.students;
@@ -45,16 +57,15 @@ export default async function Page({ searchParams }: Props) {
       await prisma.studentClass.findMany({
         where: { classId: lesson.classId },
         include: {
-          student: { omit: { password: false } },
+          student: { select: { firstName: true, lastName: true, profileImage: true, id: true } },
         },
       })
     ).map((s) => s.student);
-
     attendanceStudentsStatuses = students.map((s) => {
       return {
         student: s,
         lateMinutes: null,
-        status: 'PRESENT',
+        userStatus: 'PRESENT',
       };
     });
   }
@@ -68,4 +79,3 @@ export default async function Page({ searchParams }: Props) {
     />
   );
 }
-type AttendanceStatuses = { student: User; status: AttendanceStatus; lateMinutes: number | null };

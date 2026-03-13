@@ -5,7 +5,7 @@ import { useActionState, useEffect } from 'react';
 import { redirect } from 'next/navigation';
 
 import { login } from '@/feature/auth/actions';
-import { delay } from '@/lib/helpers';
+import { delay } from '@/lib/utils';
 import { cn } from '@/lib/utils';
 import { useFormStatus } from 'react-dom';
 import { toast } from 'sonner';

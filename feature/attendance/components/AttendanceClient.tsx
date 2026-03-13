@@ -3,7 +3,7 @@ import { useActionState, useEffect, useRef, useState } from 'react';
 
 import { saveAttendanceAction } from '@/feature/attendance/actions';
 import AttendanceCard from '@/feature/attendance/components/AttendanceCard';
-import { AttendanceStatus, StudentStatus } from '@/feature/attendance/types';
+import { UserAttendanceStatus } from '@/lib/generated/prisma/enums';
 import { User } from '@/types/user';
 import { MoreVertical, Save } from 'lucide-react';
 import { useFormStatus } from 'react-dom';
@@ -19,7 +19,11 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 interface Props {
-  statuses: { student: User; status: AttendanceStatus; lateMinutes: number | null }[];
+  statuses: {
+    student: Pick<User, 'firstName' | 'lastName' | 'profileImage' | 'id'>;
+    userStatus: UserAttendanceStatus;
+    lateMinutes: number | null;
+  }[];
   lessonClassId: string;
   period: number;
   date: Date;
@@ -40,13 +44,13 @@ export default function AttendanceClient({
 
   const handleChange = (
     studentId: string,
-    status: StudentStatus['status'],
+    userStatus: UserAttendanceStatus,
     lateMinutes: number | null = null,
   ) => {
     setStatuses((prev) =>
       prev.map((s) =>
         s.student.id === studentId
-          ? { ...s, status, lateMinutes: status === 'LATE' ? lateMinutes : null }
+          ? { ...s, userStatus, lateMinutes: userStatus === 'LATE' ? lateMinutes : null }
           : s,
       ),
     );
@@ -74,7 +78,7 @@ export default function AttendanceClient({
             handleChange={handleChange}
             student={current}
             lateMinutes={s.lateMinutes}
-            status={s.status}
+            userStatus={s.userStatus}
           />
         );
       })}

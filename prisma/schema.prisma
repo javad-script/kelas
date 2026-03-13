@@ -25,11 +25,15 @@ enum Role {
   MANAGEMENT_STAFF
 }
 
-enum AttendanceStatus {
+enum UserAttendanceStatus {
   PRESENT
   ABSENT
   LATE
   EXCUSED
+}
+enum AttendanceStatus{
+  MOVAJAH
+  QERMOVAJAH
 }
 
 enum SchoolType {
@@ -91,6 +95,8 @@ model User {
   // کلاس‌هایی که دانش‌آموز در آن‌ها ثبت‌نام شده
   studentClasses StudentClass[] 
   teacherLessons LessonClass[]
+
+  attendances Attendance[]
 
   // Optional personal info
   birthDate      DateTime?
@@ -178,6 +184,8 @@ model Attendance {
 
   schoolPeriod  Int
 
+  teacherId String
+  teacher User @relation(fields: [teacherId],references: [id])
   createdAt      DateTime          @default(now())
   updatedAt      DateTime          @updatedAt
 
@@ -195,6 +203,7 @@ model AttendanceStudent {
   studentId      String
   student        User             @relation(fields: [studentId], references: [id], onDelete: Cascade)
 
+userStatus    UserAttendanceStatus
   status         AttendanceStatus
   lateMinutes    Int?             
   note           String?          @db.Text

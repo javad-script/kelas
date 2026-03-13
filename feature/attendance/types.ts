@@ -1,3 +1,4 @@
+import { UserAttendanceStatus } from '@/lib/generated/prisma/enums';
 import { User } from '@/types/user';
 
 // دانش‌آموز
@@ -8,12 +9,11 @@ export type Student = {
 };
 
 // وضعیت حضور غیاب یک دانش‌آموز
-export type AttendanceStatus = 'PRESENT' | 'ABSENT' | 'LATE' | 'EXCUSED';
 
 // وضعیت دانش‌آموز برای Attendance
 export type StudentStatus = {
   student: User;
-  status: AttendanceStatus;
+  userStatus: UserAttendanceStatus;
   lateMinutes?: number;
   note?: string;
 };
