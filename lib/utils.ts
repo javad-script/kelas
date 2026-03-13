@@ -42,14 +42,16 @@ type Response = {
   year: string;
   month: string | number;
   week: string | number;
-  day: number;
+  day: number | string;
 };
 function formatDate(
   date: Date,
   locals: string = 'en-US',
   { weekType = 'short', yearType = 'numeric', monthType = 'numeric' }: Options,
 ): Response {
-  const day = date.getDate();
+  const day = new Intl.DateTimeFormat(`${locals}-u-nu-latn`, {
+    day: 'numeric',
+  }).format(date);
 
   const year = new Intl.DateTimeFormat(`${locals}-u-nu-latn`, {
     year: yearType,

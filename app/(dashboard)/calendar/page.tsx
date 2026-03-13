@@ -2,14 +2,10 @@
 
 import { useState } from 'react';
 
-import { Vazirmatn } from 'next/font/google';
-
 import { formatDate } from '@/lib/utils';
 
 import { Notification, NotificationProps } from '@/components/common/Notification';
 import { Calendar } from '@/components/ui/calendar';
-
-const vazirmatn = Vazirmatn({ subsets: ['arabic'] });
 
 const NOTIFICATIONS: NotificationProps[] = [
   {
@@ -50,7 +46,7 @@ export default function Page() {
         <p className='text-muted-foreground '>
           {todayDate.week}, {todayDate.day} {todayDate.month} {todayDate.year}
         </p>
-        <div className={vazirmatn.className}>
+        <div>
           <Calendar
             mode='single'
             defaultMonth={date}
