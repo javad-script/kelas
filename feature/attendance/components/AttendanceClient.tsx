@@ -9,7 +9,12 @@ import { MoreVertical, Save } from 'lucide-react';
 import { useFormStatus } from 'react-dom';
 import { toast } from 'sonner';
 
-import TopNavigator from '@/components/common/Header';
+import {
+  Header,
+  HeaderBackButton,
+  HeaderLeftSection,
+  HeaderRightSection,
+} from '@/components/common/Header';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -82,18 +87,23 @@ export default function AttendanceClient({
           />
         );
       })}
-      <TopNavigator>
-        <DropdownMenu>
-          <DropdownMenuTrigger>
-            <MoreVertical />
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuItem>
-              <SubmitButton callback={() => form.current?.requestSubmit()} />
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </TopNavigator>
+      <Header>
+        <HeaderLeftSection>
+          <HeaderBackButton />
+        </HeaderLeftSection>
+        <HeaderRightSection>
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <MoreVertical />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem>
+                <SubmitButton callback={() => form.current?.requestSubmit()} />
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </HeaderRightSection>
+      </Header>
     </form>
   );
 }
