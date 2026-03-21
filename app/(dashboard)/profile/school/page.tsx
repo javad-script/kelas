@@ -1,7 +1,15 @@
 // import ChangeSchoolButton from '@/app/(dashboard)/profile/school/_components/ChangeSchoolButton';
 import { getUserSchools } from '@/feature/user/actions';
+import { MoreVertical } from 'lucide-react';
 
-import TopNavigator from '@/components/common/TopNavigator';
+import {
+  Header,
+  HeaderBackButton,
+  HeaderCenterSection,
+  HeaderLeftSection,
+  HeaderRightSection,
+  HeaderTitle,
+} from '@/components/common/Header';
 import UserAvatar from '@/components/common/UserAvatar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -15,6 +23,12 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
@@ -24,7 +38,24 @@ export default async function Page() {
   const school = schools[0].school;
   return (
     <div className='space-y-8 pt-8'>
-      <TopNavigator>{/* <ChangeSchoolButton /> */}</TopNavigator>
+      <Header>
+        <HeaderLeftSection>
+          <HeaderBackButton />
+        </HeaderLeftSection>
+        <HeaderCenterSection>
+          <HeaderTitle>اطلاعات مدرسه</HeaderTitle>
+        </HeaderCenterSection>
+        <HeaderRightSection>
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <MoreVertical />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem>تغییر مدرسه</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </HeaderRightSection>
+      </Header>
       <section className=''>
         <div className='flex flex-col items-center justify-center w-full pb-2'>
           <div className='relative bg-transparent rounded-full'>

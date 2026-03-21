@@ -6,3 +6,5 @@ export default async function Layout() {
   if (!user) return null;
   return <ClientPage user={user} />;
 }
+
+// TODO: this page use a client side Component as page . move form and client component to a server component

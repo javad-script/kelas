@@ -9,7 +9,7 @@ import { MoreVertical, Save } from 'lucide-react';
 import { useFormStatus } from 'react-dom';
 import { toast } from 'sonner';
 
-import TopNavigator from '@/components/common/TopNavigator';
+import TopNavigator from '@/components/common/Header';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,

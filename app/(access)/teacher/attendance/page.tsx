@@ -4,9 +4,15 @@ import LessonCard from '@/feature/attendance/components/LessonCard';
 import { getCurrentUser } from '@/lib/auth/session';
 import { prisma } from '@/lib/prisma';
 import { formatDate, getWeekDay } from '@/lib/utils';
-import { MoreVertical } from 'lucide-react';
+import { MoreVertical, Search } from 'lucide-react';
 
-import TopNavigator from '@/components/common/TopNavigator';
+import {
+  Header,
+  HeaderBackButton,
+  HeaderCenterSection,
+  HeaderLeftSection,
+  HeaderRightSection,
+} from '@/components/common/Header';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -47,25 +53,35 @@ export default async function Page({ searchParams }: Props) {
 
   return (
     <div className='pt-12'>
-      <TopNavigator>
-        <DropdownMenu>
-          <DropdownMenuTrigger>
-            <MoreVertical />
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuItem>
-              <Link href={{ query: { targetDate: '2026-03-12' } }} replace>
-                انتخواب تاریخ
-              </Link>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-        <span>
-          {date.getDate() === new Date().getDate()
-            ? 'امروز'
-            : `${todayDate.week}, ${todayDate.day} ${todayDate.month}`}
-        </span>
-      </TopNavigator>
+      <Header>
+        <HeaderLeftSection>
+          <HeaderBackButton href='../' />
+        </HeaderLeftSection>
+        <HeaderCenterSection>
+          <span className='inline-block w-full my-auto text-center'>
+            {date.getDate() === new Date().getDate()
+              ? 'امروز'
+              : `${todayDate.week}, ${todayDate.day} ${todayDate.month}`}
+          </span>
+        </HeaderCenterSection>
+        <HeaderRightSection>
+          <div className='inline-flex gap-4 w-full items-center'>
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <MoreVertical />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem>
+                  <Link href={{ query: { targetDate: '2026-03-12' } }} replace>
+                    انتخواب تاریخ
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+            <Search />
+          </div>
+        </HeaderRightSection>
+      </Header>
       <div className='flex flex-col gap-4'>
         {lessons.map((l) => (
           <LessonCard

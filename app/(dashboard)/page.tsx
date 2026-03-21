@@ -32,7 +32,7 @@ const STUDENT_FEATURE_CARDS: FeatureCardProps[] = [
     icon: ShieldAlert,
     color: 'bg-orange-500',
     gradient: 'from-orange-900/15',
-    href: '#',
+    href: 'student/reports',
   },
   {
     label: 'برنامه کلاسی',
@@ -53,7 +53,7 @@ const STUDENT_FEATURE_CARDS: FeatureCardProps[] = [
     icon: FileText,
     color: 'bg-red-500',
     gradient: 'from-red-900/15',
-    href: 'student/reports',
+    href: '#',
   },
   {
     label: 'پیام ها',
@@ -91,7 +91,7 @@ const TEACHER_FEATURE_CARDS: FeatureCardProps[] = [
     icon: ShieldAlert,
     color: 'bg-orange-500',
     gradient: 'from-orange-900/15',
-    href: '#',
+    href: 'teacher/report',
   },
   {
     label: 'برنامه کلاسی',

@@ -7,7 +7,14 @@ import { Camera, Check } from 'lucide-react';
 import { useFormStatus } from 'react-dom';
 import { toast } from 'sonner';
 
-import TopNavigator from '@/components/common/TopNavigator';
+import {
+  Header,
+  HeaderBackButton,
+  HeaderCenterSection,
+  HeaderLeftSection,
+  HeaderRightSection,
+  HeaderTitle,
+} from '@/components/common/Header';
 import UserAvatar from '@/components/common/UserAvatar';
 import {
   Accordion,
@@ -80,9 +87,17 @@ export default function ClientPage({ user }: { user: User }) {
         </div>
       </section>
       <form onSubmit={userSubmitHandler} className='space-y-8' method='post'>
-        <TopNavigator>
-          <SubmitButton />
-        </TopNavigator>
+        <Header>
+          <HeaderLeftSection>
+            <HeaderBackButton />
+          </HeaderLeftSection>
+          <HeaderCenterSection>
+            <HeaderTitle>حساب شما</HeaderTitle>
+          </HeaderCenterSection>
+          <HeaderRightSection>
+            <SubmitButton />
+          </HeaderRightSection>
+        </Header>
         <section className='space-y-8'>
           <CustomAccordion title={'اطلاعات فردی'} open>
             <Label htmlFor='firstName'>نام</Label>
