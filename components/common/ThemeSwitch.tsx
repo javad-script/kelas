@@ -19,7 +19,7 @@ export default function ThemeSwitchComponent() {
   return (
     <Switch
       dir='ltr'
-      checked={theme === 'dark'}
+      checked={theme === 'dark' || document.documentElement.classList.contains('dark')}
       onCheckedChange={(checked) => setTheme(checked ? 'dark' : 'light')}
     />
   );

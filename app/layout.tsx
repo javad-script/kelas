@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang='fa' dir='rtl' suppressHydrationWarning>
       <body className={` antialiased`}>
-        <ThemeProvider attribute='class' defaultTheme='light' enableSystem>
+        <ThemeProvider attribute='class' enableSystem>
           <DirectionProvider dir='rtl' direction='rtl'>
             <main className='px-4 pt-8 pb-20 space-y-8'>{children}</main>
             <Toaster duration={1500} position='top-center' />
