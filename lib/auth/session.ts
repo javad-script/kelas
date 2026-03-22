@@ -2,13 +2,12 @@ import { cache } from 'react';
 
 import { cookies } from 'next/headers';
 
+import environment from '@/lib/environment';
 import { prisma } from '@/lib/prisma';
 import { SignJWT, jwtVerify as VerifyJWT } from 'jose';
 import 'server-only';
 
-if (!process.env.SECRET) throw new Error('SECRET is not set in environment variables');
-
-const secretKey = new TextEncoder().encode(process.env.SECRET);
+const secretKey = new TextEncoder().encode(environment.SECRET_KEY);
 
 const ALGORITHM = 'HS256';
 const EXPIRATION = '10d';

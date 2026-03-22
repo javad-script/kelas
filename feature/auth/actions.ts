@@ -4,6 +4,7 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 import { deleteSession, encrypt } from '@/lib/auth/session';
+import environment from '@/lib/environment';
 import { prisma } from '@/lib/prisma';
 import { delay } from '@/lib/utils';
 import bcrypt from 'bcryptjs';
@@ -39,7 +40,7 @@ async function createSession(userId: string) {
   if (!token) return { success: false };
 
   (await cookies()).set('user_session', token, {
-    secure: process.env.NODE_ENV === 'production',
+    secure: environment.NODE_ENV === 'production',
     httpOnly: true,
     sameSite: 'lax',
     path: '/',
