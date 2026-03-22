@@ -1,10 +1,8 @@
 'use server';
 
-import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
-import { deleteSession, encrypt } from '@/lib/auth/session';
-import environment from '@/lib/environment';
+import { createSession, deleteSession } from '@/lib/auth/session';
 import { prisma } from '@/lib/prisma';
 import { delay } from '@/lib/utils';
 import bcrypt from 'bcryptjs';
@@ -31,23 +29,6 @@ interface LoginState {
     password?: string[];
     _form?: string[];
   };
-}
-
-async function createSession(userId: string) {
-  const expiresAt = new Date(Date.now() + 10 * 24 * 60 * 60 * 1000);
-  const token = await encrypt({ userId, expiresAt });
-
-  if (!token) return { success: false };
-
-  (await cookies()).set('user_session', token, {
-    secure: environment.NODE_ENV === 'production',
-    httpOnly: true,
-    sameSite: 'lax',
-    path: '/',
-    expires: expiresAt,
-  });
-
-  return { success: true };
 }
 
 export async function login(ـ: unknown, formData: FormData): Promise<LoginState | undefined> {

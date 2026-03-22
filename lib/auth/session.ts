@@ -10,7 +10,7 @@ import 'server-only';
 const secretKey = new TextEncoder().encode(environment.SECRET_KEY);
 
 const ALGORITHM = 'HS256';
-const EXPIRATION = '10d';
+const EXPIRATION = 10;
 
 export type SessionPayload = {
   userId: string;
@@ -21,7 +21,7 @@ export async function encrypt(payload: SessionPayload) {
   return new SignJWT(payload)
     .setProtectedHeader({ alg: ALGORITHM })
     .setIssuedAt()
-    .setExpirationTime(EXPIRATION)
+    .setExpirationTime(EXPIRATION + 'd')
     .sign(secretKey);
 }
 
@@ -36,6 +36,23 @@ export async function decrypt(token: string | undefined): Promise<SessionPayload
   } catch {
     return;
   }
+}
+
+export async function createSession(userId: string) {
+  const expiresAt = new Date(Date.now() + EXPIRATION * 24 * 60 * 60 * 1000);
+  const token = await encrypt({ userId, expiresAt });
+
+  if (!token) return { success: false };
+
+  (await cookies()).set('user_session', token, {
+    secure: environment.NODE_ENV === 'production',
+    httpOnly: true,
+    sameSite: 'lax',
+    path: '/',
+    expires: expiresAt,
+  });
+
+  return { success: true };
 }
 
 export async function deleteSession() {
