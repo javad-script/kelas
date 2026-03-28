@@ -46,6 +46,11 @@ enum Grade {
   HIGH
 }
 
+enum ReportCategory{
+  REWARD
+  DISCIPLINE
+}
+
 model School {
   id         String         @id @default(cuid())
   name       String
@@ -97,6 +102,10 @@ model User {
   teacherLessons LessonClass[]
 
   attendances Attendance[]
+
+  reports Report[]
+  studentReports  ReportStudent[]
+  
 
   // Optional personal info
   birthDate      DateTime?
@@ -214,6 +223,7 @@ userStatus    UserAttendanceStatus
 }
 
 
+
 model Lesson{
   id    Int   @id @default(autoincrement())
   name  String @unique
@@ -255,4 +265,36 @@ model LessonClass{
   @@unique([schoolPeriod,weekDay,classId])
   @@index([lessonId,teacherId,classId])
   @@map("lesson_class")
+}
+
+model Report{
+  id  Int @id @default(autoincrement())
+
+  teacherId String
+  teacher   User @relation(fields: [teacherId],references: [id])
+
+  category  ReportCategory
+  reason  String
+  
+  date  DateTime  @db.Date
+  note  String
+
+  reportedStudents  ReportStudent[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime @updatedAt
+  @@map("report")
+}
+model ReportStudent{
+  id  Int @id @default(autoincrement())
+
+  studentId String
+  student   User @relation(fields: [studentId],references: [id],onDelete: Cascade)
+
+  reportId  Int
+  report  Report  @relation(fields: [reportId],references: [id],onDelete: Cascade)
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime @updatedAt
+  @@map("report_student")
 }

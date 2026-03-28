@@ -62,3 +62,13 @@ export type Lesson = Prisma.LessonModel
  * 
  */
 export type LessonClass = Prisma.LessonClassModel
+/**
+ * Model Report
+ * 
+ */
+export type Report = Prisma.ReportModel
+/**
+ * Model ReportStudent
+ * 
+ */
+export type ReportStudent = Prisma.ReportStudentModel

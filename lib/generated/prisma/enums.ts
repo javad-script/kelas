@@ -66,3 +66,11 @@ export const Grade = {
 } as const
 
 export type Grade = (typeof Grade)[keyof typeof Grade]
+
+
+export const ReportCategory = {
+  REWARD: 'REWARD',
+  DISCIPLINE: 'DISCIPLINE'
+} as const
+
+export type ReportCategory = (typeof ReportCategory)[keyof typeof ReportCategory]
