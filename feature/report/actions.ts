@@ -1,5 +1,7 @@
 'use server';
 
+import { revalidatePath } from 'next/cache';
+
 import { getCurrentUser } from '@/lib/auth/session';
 import { prisma } from '@/lib/prisma';
 import z from 'zod';
@@ -34,6 +36,7 @@ export default async function saveReport(prevState: any, formData: FormData) {
         reason: validatedData.reason,
       },
     });
+    revalidatePath('/');
     return { ok: true, message: 'created successfully', data: createdReport };
   } catch {
     return { ok: false, message: 'false' };

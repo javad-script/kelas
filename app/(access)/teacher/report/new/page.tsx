@@ -5,6 +5,7 @@ import { useActionState, useEffect, useState } from 'react';
 import saveReport from '@/feature/report/actions';
 import { toast } from 'sonner';
 
+import { Header, HeaderBackButton, HeaderLeftSection } from '@/components/common/Header';
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
 
@@ -39,6 +40,11 @@ export default function Page() {
 
   return (
     <>
+      <Header>
+        <HeaderLeftSection>
+          <HeaderBackButton />
+        </HeaderLeftSection>
+      </Header>
       <form action={formAction}>
         <select
           name='category'

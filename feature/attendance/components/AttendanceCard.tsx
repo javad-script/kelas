@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
+import { User } from '@/lib/generated/prisma/client';
 import { UserAttendanceStatus } from '@/lib/generated/prisma/enums';
 import { cn } from '@/lib/utils';
-import { User } from '@/types/user';
 import { Clock, EllipsisVertical } from 'lucide-react';
 
 import UserAvatar from '@/components/common/UserAvatar';
@@ -24,7 +24,7 @@ import {
 import { Input } from '@/components/ui/input';
 
 type AttendanceCardProps = {
-  student: User;
+  student: Omit<User, 'password'>;
   userStatus: UserAttendanceStatus;
   lateMinutes: number | null;
   handleChange: (studentId: string, status: UserAttendanceStatus, lateMinutes?: number) => void;

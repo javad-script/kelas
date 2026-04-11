@@ -3,7 +3,7 @@ import { AttendanceStatus } from '@/lib/generated/prisma/enums';
 import { prisma } from '@/lib/prisma';
 import { formatDate } from '@/lib/utils';
 
-import TopNavigator from '@/components/common/TopNavigator';
+import { Header, HeaderBackButton, HeaderLeftSection } from '@/components/common/Header';
 import { Badge } from '@/components/ui/badge';
 
 export default async function Page() {
@@ -35,7 +35,11 @@ export default async function Page() {
   }));
   return (
     <>
-      <TopNavigator />
+      <Header>
+        <HeaderLeftSection>
+          <HeaderBackButton />
+        </HeaderLeftSection>
+      </Header>
       <div className='space-y-8 mt-8'>
         {mappedReports.length > 0 ? (
           mappedReports.map((r) => <ReportCard key={r.id} {...r} />)

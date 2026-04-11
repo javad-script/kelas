@@ -97,6 +97,8 @@ model User {
   parent        User?    @relation("ParentRelation", fields: [parentId], references: [id])
   children      User[]   @relation("ParentRelation")
 
+
+
   // کلاس‌هایی که دانش‌آموز در آن‌ها ثبت‌نام شده
   studentClasses StudentClass[] 
   teacherLessons LessonClass[]
