@@ -1,10 +1,11 @@
 'use client';
 import { useActionState, useEffect, useRef, useState } from 'react';
 
-import { saveAttendanceAction } from '@/feature/attendance/actions';
-import AttendanceCard from '@/feature/attendance/components/AttendanceCard';
+import { saveAttendanceAction } from '@/feature/teacher/attendance/actions';
+import AttendanceCard from '@/feature/teacher/attendance/components/AttendanceCard';
+import { User } from '@/lib/generated/prisma/client';
 import { UserAttendanceStatus } from '@/lib/generated/prisma/enums';
-import { User } from '@/types/user';
+import { formatDate } from '@/lib/utils';
 import { MoreVertical, Save } from 'lucide-react';
 import { useFormStatus } from 'react-dom';
 import { toast } from 'sonner';
@@ -12,8 +13,10 @@ import { toast } from 'sonner';
 import {
   Header,
   HeaderBackButton,
+  HeaderCenterSection,
   HeaderLeftSection,
   HeaderRightSection,
+  HeaderTitle,
 } from '@/components/common/Header';
 import { Button } from '@/components/ui/button';
 import {
@@ -69,8 +72,35 @@ export default function AttendanceClient({
     }
   }, [state.message, state.success]);
 
+  const formattedDate = formatDate(date, 'fa-IR', {
+    monthType: 'long',
+    weekType: 'long',
+    yearType: 'numeric',
+  });
   return (
     <form action={formAction} ref={form} className='space-y-4 pt-12'>
+      <Header>
+        <HeaderLeftSection>
+          <HeaderBackButton />
+        </HeaderLeftSection>
+        <HeaderCenterSection>
+          <HeaderTitle>
+            {`${formattedDate.week}, ${formattedDate.day} ${formattedDate.month}`}
+          </HeaderTitle>
+        </HeaderCenterSection>
+        <HeaderRightSection>
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <MoreVertical />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem>
+                <SubmitButton callback={() => form.current?.requestSubmit()} />
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </HeaderRightSection>
+      </Header>
       <input type='hidden' name='date' value={date.toLocaleString()} />
       <input type='hidden' name='period' value={period} />
       <input type='hidden' name='lessonClassId' value={lessonClassId} />
@@ -87,23 +117,6 @@ export default function AttendanceClient({
           />
         );
       })}
-      <Header>
-        <HeaderLeftSection>
-          <HeaderBackButton />
-        </HeaderLeftSection>
-        <HeaderRightSection>
-          <DropdownMenu>
-            <DropdownMenuTrigger>
-              <MoreVertical />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuItem>
-                <SubmitButton callback={() => form.current?.requestSubmit()} />
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </HeaderRightSection>
-      </Header>
     </form>
   );
 }

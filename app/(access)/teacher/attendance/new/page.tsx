@@ -1,10 +1,10 @@
 import { redirect } from 'next/navigation';
 
-import AttendanceClient from '@/feature/attendance/components/AttendanceClient';
+import AttendanceClient from '@/feature/teacher/attendance/components/AttendanceClient';
 import { getCurrentUser } from '@/lib/auth/session';
+import { User } from '@/lib/generated/prisma/client';
 import { UserAttendanceStatus } from '@/lib/generated/prisma/enums';
 import { prisma } from '@/lib/prisma';
-import { User } from '@/types/user';
 import { Pick } from '@prisma/client/runtime/client';
 
 type Props = {

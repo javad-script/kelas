@@ -2,7 +2,7 @@
 
 import { revalidatePath } from 'next/cache';
 
-import { StudentStatus } from '@/feature/attendance/types';
+import { StudentStatus } from '@/feature/teacher/attendance/types';
 import { getCurrentUser } from '@/lib/auth/session';
 import { Attendance } from '@/lib/generated/prisma/client';
 import { prisma } from '@/lib/prisma';

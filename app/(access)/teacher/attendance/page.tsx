@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import LessonCard from '@/feature/attendance/components/LessonCard';
+import LessonCard from '@/feature/teacher/attendance/components/LessonCard';
 import { getCurrentUser } from '@/lib/auth/session';
 import { prisma } from '@/lib/prisma';
 import { formatDate, getWeekDay } from '@/lib/utils';
