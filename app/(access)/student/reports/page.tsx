@@ -60,6 +60,6 @@ async function getReports() {
     lateMinutes: r.lateMinutes,
     date: r.attendance.date,
     schoolPeriod: r.attendance.schoolPeriod,
-    lessonName: r.attendance.lessonClass?.lesson.name ?? "نام درس نامشخص",
+    lessonName: "نام درس نامشخص",
   }));
 }
