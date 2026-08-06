@@ -40,7 +40,7 @@ const todayDate = formatDate(new Date(), 'fa-IR', {
 export default function Page() {
   const [date, setDate] = useState<Date | undefined>(new Date());
   return (
-    <div className='space-y-8'>
+    <div className='space-y-8 mt-4'>
       <section className='space-y-4'>
         <h1 className='text-2xl'>تقویم</h1>
         <p className='text-muted-foreground '>

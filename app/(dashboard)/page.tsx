@@ -165,7 +165,7 @@ export default async function Page() {
   const user = await getCurrentUser();
   return (
     <>
-      <section className='w-full mt-safe-top p-6 rounded-2xl bg-card c-gradient dark:backdrop-blur-lg border border-white/5 shadow-[0_4px_6px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,0.05)]'>
+      <section className='w-full mt-safe-top p-6 mt-4 rounded-2xl bg-card c-gradient dark:backdrop-blur-lg border border-white/5 shadow-[0_4px_6px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,0.05)]'>
         <div className='flex items-center justify-between'>
           <div className='flex items-center gap-4'>
             <UserAvatar

@@ -37,7 +37,7 @@ export default async function Page() {
   const schools = await getUserSchools();
   const school = schools[0].school;
   return (
-    <div className='space-y-8 pt-8'>
+    <div className='space-y-8'>
       <Header>
         <HeaderLeftSection>
           <HeaderBackButton />
@@ -56,24 +56,20 @@ export default async function Page() {
           </DropdownMenu>
         </HeaderRightSection>
       </Header>
-      <section className=''>
+      {/* profile section */}
+      <section className='mt-15'>
         <div className='flex flex-col items-center justify-center w-full pb-2'>
-          <div className='relative bg-transparent rounded-full'>
+          <div className='relative bg-transparent rounded-full mt-10'>
             <label htmlFor='profileInput'>
-              <div className='relative bg-transparent rounded-full'>
-                <UserAvatar src={school.logo || undefined} fallback={school.name[0]} />
+              <div className='relative ring-1 ring-offset-4 bg-transparent rounded-full ring-offset-background ring-rose-500/50'>
+                <UserAvatar src={school.logo ?? ''} fallback={school.name[0]} />
               </div>
             </label>
           </div>
 
           <p className='font-bold text-lg mt-4 mb-1'>{school.name}</p>
 
-          <p className='text-muted-foreground text-sm rtl flex items-center'>
-            <span>سال تاسیس :</span>
-            <span className='ltr inline-block align-text-bottom mx-1 mt-1'>
-              {school.establishedYear}
-            </span>
-          </p>
+          <span className='text-muted-foreground text-sm'>{school.establishedYear}</span>
         </div>
       </section>
       <section>

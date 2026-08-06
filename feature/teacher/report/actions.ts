@@ -16,6 +16,7 @@ const ReportSchema = z.object({
       return new Date(arg);
     }
   }, z.date()),
+  students: z.array(z.string()),
 });
 
 export default async function saveReport(prevState: any, formData: FormData) {
@@ -24,9 +25,12 @@ export default async function saveReport(prevState: any, formData: FormData) {
   const category = formData.get('category');
   const reason = formData.get('reason');
   const date = formData.get('date');
+  const students = JSON.parse((formData.get('students') as string) ?? []);
   try {
-    const validatedData = ReportSchema.parse({ note, category, reason, date });
-    console.log(validatedData);
+    const validatedData = ReportSchema.parse({ note, category, reason, date, students });
+    if (validatedData.students.length <= 1) {
+      return { ok: false, message: 'باید حداقل یک دانش آموز را انتخواب کنید' };
+    }
     const createdReport = await prisma.report.create({
       data: {
         teacherId: teacher?.id as string,
@@ -36,8 +40,13 @@ export default async function saveReport(prevState: any, formData: FormData) {
         reason: validatedData.reason,
       },
     });
+    validatedData.students.map(async (id) => {
+      await prisma.reportStudent.create({
+        data: { reportId: createdReport.id, studentId: id },
+      });
+    });
     revalidatePath('/');
-    return { ok: true, message: 'created successfully', data: createdReport };
+    return { ok: true, message: 'با موفقییت ثبت شد', data: createdReport };
   } catch {
     return { ok: false, message: 'false' };
   }

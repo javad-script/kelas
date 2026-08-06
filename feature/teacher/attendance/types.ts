@@ -1,5 +1,5 @@
+import { User } from '@/lib/generated/prisma/client';
 import { UserAttendanceStatus } from '@/lib/generated/prisma/enums';
-import { User } from '@/types/user';
 
 // دانش‌آموز
 export type Student = {

@@ -2,7 +2,7 @@
 import { FormEvent, ReactNode, useRef } from 'react';
 
 import { editUserData, uploadProfileImage } from '@/feature/user/actions';
-import { User } from '@/types/user';
+import { User } from '@/lib/generated/prisma/client';
 import { Camera, Check } from 'lucide-react';
 import { useFormStatus } from 'react-dom';
 import { toast } from 'sonner';
@@ -28,7 +28,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
 
-export default function ClientPage({ user }: { user: User }) {
+export default function ClientPage({ user }: { user: Omit<User, 'password'> }) {
   const profileForm = useRef<HTMLFormElement>(null);
   const userSubmitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -39,7 +39,7 @@ export default function ClientPage({ user }: { user: User }) {
       if (!result.ok) return toast.error(result.message);
       toast.success(result.message);
     } catch {
-      toast.error('fail');
+      toast.error('خطا');
     }
   };
 
@@ -55,8 +55,9 @@ export default function ClientPage({ user }: { user: User }) {
   };
 
   return (
-    <div className='space-y-8'>
-      <section>
+    <>
+      {/* profile section */}
+      <section className='mt-15'>
         <div className='flex flex-col items-center justify-center w-full pb-2'>
           <div className='relative bg-transparent rounded-full'>
             <form ref={profileForm} onSubmit={profileSubmitHandler} method='POST' className='mt-10'>
@@ -86,7 +87,8 @@ export default function ClientPage({ user }: { user: User }) {
           <span className='text-muted-foreground text-sm'>انلاین</span>
         </div>
       </section>
-      <form onSubmit={userSubmitHandler} className='space-y-8' method='post'>
+
+      <form onSubmit={userSubmitHandler} method='post'>
         <Header>
           <HeaderLeftSection>
             <HeaderBackButton />
@@ -98,7 +100,7 @@ export default function ClientPage({ user }: { user: User }) {
             <SubmitButton />
           </HeaderRightSection>
         </Header>
-        <section className='space-y-8'>
+        <section className='space-y-4'>
           <CustomAccordion title={'اطلاعات فردی'} open>
             <Label htmlFor='firstName'>نام</Label>
             <Input type='text' id='firstName' name='firstName' defaultValue={user?.firstName} />
@@ -223,7 +225,7 @@ export default function ClientPage({ user }: { user: User }) {
           </CustomAccordion>
         </section>
       </form>
-    </div>
+    </>
   );
 }
 

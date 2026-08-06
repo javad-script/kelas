@@ -25,6 +25,7 @@ function Header({ children }: { children: ReactNode }) {
 
   return (
     <div
+      id='header'
       className={cn(
         'w-full fixed px-4 py-3 z-20 top-0 left-0 grid grid-cols-3 grid-rows-1 justify-items-center transition-colors duration-150',
         scrollPos > 0 && 'bg-[#FFFFFF] border-b border-border dark:border-none dark:bg-[#242426]',
